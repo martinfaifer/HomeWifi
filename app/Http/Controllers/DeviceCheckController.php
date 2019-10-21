@@ -21,8 +21,7 @@ class DeviceCheckController extends Controller
      */
     public function deviceCheck()
     {
-        return $_SERVER["REMOTE_ADDR"];
-        $overeni = @fsockopen($_SERVER["REMOTE_ADDR"], $this->mktPort, $errorNo, $errorStr, 3);
+        return $overeni = @fsockopen($_SERVER["REMOTE_ADDR"], $this->mktPort, $errorNo, $errorStr, 3);
     }
 
 }
