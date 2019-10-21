@@ -25,7 +25,7 @@ Route::get('/api/device/extender/registrations', 'MikrotikController@searchForEx
 Route::post('/api/device/firewall/create', 'MikrotikController@createFirewall');
 
 // Test
-Route::get('/api/test2', 'DeviceCheckController@deviceCheck');
+Route::get('/api/test', 'DeviceCheckController@deviceCheck');
 
 // Posty
 Route::post('/api/device/wlan/getEditData', 'MikrotikController@getEditData');
