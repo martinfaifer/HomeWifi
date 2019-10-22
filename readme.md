@@ -1,3 +1,8 @@
+<p>
+po stažení příkazy composer install , npm install , vytvoření .env, vytvoření db, příkaz php artisan migrate , editace routerOS class (nahrazení $this->$port za $port)
+</p>
+<hr>
+
 <p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
 
 <p align="center">
