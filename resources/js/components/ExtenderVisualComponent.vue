@@ -3,7 +3,7 @@
         <div class="container is-fluid">
             <div class="">
                 <div id="a" class="center inline_block dropdown is-active">
-                    <div class="dropdown-trigger">        
+                    <div class="dropdown-trigger">
                         <i class="material-icons">router</i>
                     </div>
                     <div v-show="routerInfo" class="custom_menu dropdown-menu" role="menu">
@@ -14,6 +14,22 @@
                                         <p>SSID:<strong>{{routerWlan.ssid}}</strong></p>
                                         <p class="col-md-1"><strong> | </strong></p>
                                         <p> Heslo: <strong>{{routerWlan.password}}</strong></p>
+                                        <!-- form na edit ssid -->
+                                        <form @submit="EditWlantModal(wlanId = routerWlan.id, port = false)" class="inline_form">
+                                            <button type="submit"  class="btn btn-sm">
+                                                <span class="icon has-text-info">
+                                                    <i class="fas fa-edit"></i>
+                                                </span>
+                                            </button>
+                                        </form>
+                                        <!-- form na edit hesla k wlaně -->
+                                        <form @submit="EditWlanSecuritytModal(wlanId = routerWlan.id, port = false)" class="inline_form">
+                                            <button type="submit"  class="btn btn-sm">
+                                                <span class="icon has-text-danger">
+                                                    <i class="fas fa-lock"></i>
+                                                </span>
+                                            </button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -37,7 +53,7 @@
                                                 <td v-else>
                                                     Zařízení bez popisu
                                                 </td>
-                                                <td v-if="registration.vendor !== 'false'"> 
+                                                <td v-if="registration.vendor !== 'false'">
                                                     {{registration.vendor}}
                                                 </td>
                                                 <td v-else>
@@ -57,8 +73,8 @@
                 <div v-for="extender in extenderWireless.pocet" v-bind:key="extender.id" >
                     <div id="b" class="right inline_block dropdown is-active">
                         <div v-if="extender === '10810'" class="">
-                            <div class="dropdown-trigger">  
-                                <div v-for="popis in popisy" v-bind:key="popis.id" v-if="popis.port === '10810'">
+                            <div class="dropdown-trigger">
+                                <div v-for="popis in popisy.result" v-bind:key="popis.id" v-if="popis.port === '10810'">
                                     <p>{{popis.comment}}</p>
                                 </div>
                                 <i class="material-icons">
@@ -72,6 +88,22 @@
                                                 <p>SSID:<strong>{{extender.ssid}}</strong></p>
                                                 <p class="col-md-1"><strong> | </strong></p>
                                                 <p> Heslo: <strong>{{extender.password}}</strong></p>
+                                                <!-- form na edit ssid -->
+                                                <form @submit="EditWlantModal(wlanId = extender.id, port = extender.extenderPort)" class="inline_form">
+                                                    <button type="submit" class="btn btn-sm">
+                                                        <span class="icon has-text-info">
+                                                            <i class="fas fa-edit"></i>
+                                                        </span>
+                                                    </button>
+                                                </form>
+                                                <!-- form na edit hesla k wlaně -->
+                                                <form @submit="EditWlanSecuritytModal(wlanId = extender.id, port = extender.extenderPort)" class="inline_form">
+                                                    <button type="submit" class="btn btn-sm">
+                                                        <span class="icon has-text-danger">
+                                                            <i class="fas fa-lock"></i>
+                                                        </span>
+                                                    </button>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
@@ -95,7 +127,7 @@
                                                 <td v-else>
                                                     Zařízení bez popisu
                                                 </td>
-                                                <td v-if="extenderRegistration1.vendor !== 'false'"> 
+                                                <td v-if="extenderRegistration1.vendor !== 'false'">
                                                     {{extenderRegistration1.vendor}}
                                                 </td>
                                                 <td v-else>
@@ -115,8 +147,8 @@
                     <!-- DRUHÝ EXTENDER -->
                     <div class="middle inline_block dropdown is-active">
                         <div v-if="extender === '10809'" class="">
-                            <div class="dropdown-trigger">  
-                                <div v-for="popis in popisy" v-bind:key="popis.id" v-if="popis.port === '10809'">
+                            <div class="dropdown-trigger">
+                                <div v-for="popis in popisy.result" v-bind:key="popis.id" v-if="popis.port === '10809'">
                                     <p>{{popis.comment}}</p>
                                 </div>
                                 <i class="material-icons">
@@ -130,6 +162,22 @@
                                                 <p>SSID:<strong>{{extender2.ssid}}</strong></p>
                                                 <p class="col-md-1"><strong> | </strong></p>
                                                 <p> Heslo: <strong>{{extender2.password}}</strong></p>
+                                                <!-- form na edit ssid -->
+                                                <form @submit="EditWlantModal(wlanId = extender.id, port = extender.extenderPort)" class="inline_form">
+                                                    <button type="submit"  class="btn btn-sm">
+                                                        <span class="icon has-text-info">
+                                                            <i class="fas fa-edit"></i>
+                                                        </span>
+                                                    </button>
+                                                </form>
+                                                <!-- form na edit hesla k wlaně -->
+                                                <form @submit="EditWlanSecuritytModal(wlanId = extender.id, port = extender.extenderPort)" class="inline_form">
+                                                    <button type="submit"  class="btn btn-sm">
+                                                        <span class="icon has-text-danger">
+                                                            <i class="fas fa-lock"></i>
+                                                        </span>
+                                                    </button>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
@@ -153,7 +201,7 @@
                                                 <td v-else>
                                                     Zařízení bez popisu
                                                 </td>
-                                                <td v-if="extenderRegistration2.vendor !== 'false'"> 
+                                                <td v-if="extenderRegistration2.vendor !== 'false'">
                                                     {{extenderRegistration2.vendor}}
                                                 </td>
                                                 <td v-else>
@@ -171,6 +219,45 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Modals -->
+            <div v-show="EditModal">
+                <div class="modal is-active">
+                    <div class="modal-background" @click="EditModal=false"></div>
+                        <div id="modal_grey_m">
+                            <div id="modal_grey_m" class="container rounded" v-for="wlanEdit in edit" v-bind:key="wlanEdit.id">
+                                <br>
+                                <form @submit="EditWlan()">
+                                    <div class="form-group">
+                                        <label class="textColor_default">SSID</label>
+                                        <input type="text" class="form-control" v-model="ssid = wlanEdit.ssid">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary" @click="EditModal=false">Změnit</button>
+                                </form>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div v-show="EditSecurityModal">
+                <div class="modal is-active">
+                    <div class="modal-background" @click="EditSecurityModal=false"></div>
+                        <div id="modal_grey_m">
+                            <div id="modal_grey_m" class="container rounded" v-for="securityEdit in editSecurity" v-bind:key="securityEdit.id">
+                                <br>
+                                <form @submit="EditSecurityWlan()">
+                                    <div class="form-group">
+                                        <label class="textColor_default">Heslo</label>
+                                        <input type="text" class="form-control" v-model="security = securityEdit['wpa2-pre-shared-key']">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary" @click="EditSecurityModal=false">Změnit</button>
+                                </form>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Modals -->
         </div>
     </div>
 </template>
@@ -178,6 +265,9 @@
 export default {
     data() {
         return {
+            EditSecurityModal: false,
+            EditModal: false,
+            extenderPort: false,
             wireless: false,
             registrations: false,
             extenderWireless: false,
@@ -187,7 +277,14 @@ export default {
             extenderInfo2: true,
             loading: true,
             content: false,
-            popisy: false
+            popisy: false,
+            ssid: '',
+            security: '',
+            port: false,
+            wlanId: '',
+            edit: '',
+            editSecurity: '',
+
         }
     },
     created(){
@@ -260,6 +357,59 @@ export default {
                     currentObj.popisy = '';
                     currentObj.interval = false;
                 });
+        },
+        EditWlantModal() {
+            let currentObj = this;
+            axios.post('/api/device/wlan/getEditData', {
+                    wlanId: this.wlanId,
+                    port: this.port
+                })
+                .then(function (response) {
+                    currentObj.edit = response.data;
+                    currentObj.EditModal = true;
+                })
+                .catch(function (error) {
+                    currentObj.wlanId = '';
+                    currentObj.EditModal = false;
+                });
+        },
+        EditWlanSecuritytModal() {
+            let currentObj = this;
+            axios.post('/api/device/wlan/getEditSecurityData', {
+                    wlanId: this.wlanId,
+                    port: this.port
+                })
+                .then(function (response) {
+                    currentObj.editSecurity = response.data;
+                    currentObj.EditSecurityModal = true;
+                })
+                .catch(function (error) {
+                    currentObj.wlanId = '';
+                    currentObj.EditSecurityModal = false;
+                });
+        },
+        EditWlan() {
+            let currentObj = this;
+            axios.post('/api/device/wlan/edit', {
+                    wlanId: this.wlanId,
+                    editSsid: this.ssid,
+                    port: this.port
+                    // editFreq: this.frequency,
+                })
+                .then(function (response) {
+                    currentObj.editResponse = response.data;
+                    currentObj.wlanId = '',
+                    currentObj.port = '',
+                    axios.get('api/device/wireless')
+                        .then( response => currentObj.wireless = response.data);
+                })
+                .catch(function (error) {
+                    currentObj.wlanId = '';
+                    currentObj.editSsid = '',
+                    currentObj.port = '',
+                    currentObj.EditModal = false;
+                });
+
         },
     },
     beforeDestroy: function(){
