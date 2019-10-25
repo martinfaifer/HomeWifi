@@ -14,6 +14,7 @@ class MikrotikController extends Controller
 
     // Definice promněnných
     var $port = 8728;
+    var $address = "172.28.12.25";
 
     /**
      * funkce na načtení ROUTEROS API
@@ -32,9 +33,15 @@ class MikrotikController extends Controller
      *
      * @return void
      */
-    public static function deviceLogin($api, $port)
+    public static function deviceLogin($api, $address, $port)
     {
-        if ($api->connect("172.28.12.25", "admin", "mktgrape", $port)) { //nutno zmenit na dynamiku
+        $logins = DeviceLoginController::getLogin();
+            foreach($logins as $login) {
+                $user = $login["user"];
+                $password = $login["password"];
+            }
+
+        if ($api->connect($address, $user, $password, $port)) { //nutno zmenit na dynamiku
             return $api;
         } else {
             return false;
@@ -42,14 +49,19 @@ class MikrotikController extends Controller
     }
 
     /**
-     *
+     * pripojeni do Extenderu od Mikrotiku
      *
      * @return void
      */
-    public static function ExtenderLogin($api, $port)
+    public static function ExtenderLogin($api,$address, $port)
     {
-        // 172.28.12.25
-        if ($api->connect("172.28.12.25", "admin", "mktgrape", $port)) { //nutno zmenit na dynamiku
+        $logins = DeviceLoginController::getLogin();
+            foreach($logins as $login) {
+                $user = $login["user"];
+                $password = $login["password"];
+            }
+
+        if ($api->connect($address, $user, $password, $port)) { //nutno zmenit na dynamiku
             return $api;
         } else {
             return false;
@@ -317,6 +329,32 @@ class MikrotikController extends Controller
      * -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
 
+
+     /**
+      * funckce na vytvoreni dmz
+      *
+      * @param [type] $api
+      * @param [type] $toAddress
+      * @param [type] $srcAddress
+      * @return void
+      */
+     public static function dmz($api, $toAddress, $srcAddress)
+     {
+        $api->write('/ip/firewall/nat/add', false);
+        $api->write('=chain='."dstnat", false);
+        $api->write('=to-address='.$toAddress, false);
+        $api->write('=protocol='."tcp", false);
+        $api->write('=action='."dstnat", false);
+        $api->write('=src-list='."!Grape", false);
+        $api->write('=comment='."DMZ",false);
+        $api->write('=dst-address='.$srcAddress,true);
+        $READ = $api->read(false);
+        $data = $api->parseResponse($READ);
+
+        return $data;
+     }
+
+
      /**
       * funkce na vytvoreni fw pravidla do natu, pro pripojeni se na extendery za routrem
       *
@@ -354,6 +392,13 @@ class MikrotikController extends Controller
     }
 
 
+    /**
+     * overeni zda existuji jiz pravidla do Firewallu , popripade vytvori pravidla
+     *
+     * @param [type] $api
+     * @param [type] $uplink
+     * @return void
+     */
     public static function checkIfisSafeIpv6($api, $uplink)
     {
         $isp = "Grape";
@@ -521,8 +566,11 @@ class MikrotikController extends Controller
     }
 
     /**
-     * ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     * -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     *  FUNKCE PRO VÝPIS INTERFACU
+     * -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
+
     /**
      * Funkce na vypis vsech interfacu na mkt
      *
@@ -531,7 +579,18 @@ class MikrotikController extends Controller
      */
     public static function getInterfaceList($api)
     {
-        $api->write('/interface/print');
+        $api->write('/interface/ethernet/print');
+        $READ = $api->read(false);
+        $data = $api->parseResponse($READ);
+
+        return $data;
+    }
+
+
+    public static function getPortsFromBridge($api, $bridge)
+    {
+        $api->write('/interface/bridge/port/print', false);
+        $api->write('?=bridge='. $bridge, true);
         $READ = $api->read(false);
         $data = $api->parseResponse($READ);
 
@@ -595,7 +654,7 @@ class MikrotikController extends Controller
         $uplinkInterface = "false"; //promnenna pro informaci o interfacu
 
         $api = $this->api();
-        $login = $this->deviceLogin($api, $this->port);
+        $login = $this->deviceLogin($api, $this->address, $this->port);
         if($login !== "false") {
             if(ValidationController::checkIfIsEmpty($this->getUplink($login))){
                 $uplink = $this->getUplink($login);
@@ -613,7 +672,7 @@ class MikrotikController extends Controller
         $sysInfo = "fasle"; //promnenna nesouci informace o systemu
 
         $api = $this->api();
-        $login = $this->deviceLogin($api, $this->port);
+        $login = $this->deviceLogin($api, $this->address , $this->port);
         if($login !== "false") {
            $sysInfo = $this->getSysInfo($login); //získává informce o systemu
 
@@ -636,7 +695,7 @@ class MikrotikController extends Controller
         $dhcpNetwork = "false"; //promnenna nesouci informaci o dhcp networkach
 
         $api = $this->api();
-        $login = $this->deviceLogin($api, $this->port);
+        $login = $this->deviceLogin($api,$this->address, $this->port);
         if($login !== "false") {
             if(ValidationController::checkIfIsEmpty($this->getUplink($login))){
                 $uplink = $this->getUplink($login);
@@ -677,7 +736,7 @@ class MikrotikController extends Controller
         $err = array();
 
         $api = $this->api();
-        $login = $this->deviceLogin($api, $this->port);
+        $login = $this->deviceLogin($api,$this->address, $this->port);
         if($login !== "false") {
             if(ValidationController::checkIfIsEmpty($this->getUplink($login))){
                 $uplink = $this->getUplink($login);
@@ -686,7 +745,7 @@ class MikrotikController extends Controller
                 if(ValidationController::checkIfIsEmpty($overeniZdaJizExistuje)){
                     foreach($overeniZdaJizExistuje as $dataExtender) {
                         if($dataExtender["extenderVendor"] == "Mikrotik") { //prozatím staticka volba
-                            $loginToExtender = $this->ExtenderLogin($api, $dataExtender["port"]);
+                            $loginToExtender = $this->ExtenderLogin($api, $this->address, $dataExtender["port"]);
                             if($loginToExtender !== false) {
                                  // ZÍSKÁNÍ INFORMACÍ O REGISTRACÍCH NA JEDNOTLIVÝCH EXTENDERECH
 
@@ -698,7 +757,7 @@ class MikrotikController extends Controller
                     }
                 }
                 // přihlášení do Main CPE, pro získání poctu zarizeni na wlan
-                if($login = $this->deviceLogin($api, $this->port)){
+                if($login = $this->deviceLogin($api,$this->address, $this->port)){
                     if(ValidationController::checkIfIsEmpty($this->getWireless($login)))
                     {
                         $registrationsCount = count($this->getWirellesRegistrations($login));
@@ -724,7 +783,7 @@ class MikrotikController extends Controller
         $firewall = false; //firewall
 
         $api = $this->api();
-        $login = $this->deviceLogin($api, $this->port);
+        $login = $this->deviceLogin($api,$this->address, $this->port);
         if($login !== "false") {
             if(ValidationController::checkIfIsEmpty($this->getUplink($login))){
                 $uplink = $this->getUplink($login);
@@ -753,7 +812,7 @@ class MikrotikController extends Controller
         $firewall = false; //firewall
 
         $api = $this->api();
-        $login = $this->deviceLogin($api, $this->port);
+        $login = $this->deviceLogin($api,$this->address, $this->port);
         if($login !== "false") {
             if(ValidationController::checkIfIsEmpty($this->getUplink($login))){
                 $uplink = $this->getUplink($login);
@@ -782,7 +841,7 @@ class MikrotikController extends Controller
         $wirelessPassword = array();
 
         $api = $this->api();
-        $login = $this->deviceLogin($api, $this->port);
+        $login = $this->deviceLogin($api,$this->address, $this->port);
         if($login !== false) {
             if(ValidationController::checkIfIsEmpty($this->getUplink($login))){
                 if(ValidationController::checkIfIsEmpty($this->getWireless($login))){
@@ -836,7 +895,7 @@ class MikrotikController extends Controller
         $registrationsTable = array();
 
         $api = $this->api();
-        $login = $this->deviceLogin($api, $this->port);
+        $login = $this->deviceLogin($api,$this->address, $this->port);
         if($login !== false) {
             if(ValidationController::checkIfIsEmpty($this->getUplink($login))){
                 if(ValidationController::checkIfIsEmpty($this->getWireless($login))){
@@ -890,7 +949,7 @@ class MikrotikController extends Controller
         $interface = array(); //seznam vsech interfacu
 
         $api = $this->api();
-        $login = $this->deviceLogin($api, $this->port);
+        $login = $this->deviceLogin($api,$this->address, $this->port);
         if($login !== false) {
             $interfaces = $this->getInterfaceList($login);
             foreach($interfaces as $interfaceData)
@@ -919,7 +978,7 @@ class MikrotikController extends Controller
     {
         $comment = "";
         $api = $this->api();
-        $login = $this->deviceLogin($api, $this->port);
+        $login = $this->deviceLogin($api, $this->address ,$this->port);
         if($login !== false) {
             if(ValidationController::checkIfIsEmpty($this->getAllDhcpLease($login))){
                 foreach($this->getAllDhcpLease($login) as $lease)  {
@@ -956,7 +1015,7 @@ class MikrotikController extends Controller
     public function getNetwork()
     {
         $api = $this->api();
-        $login = $this->deviceLogin($api, $this->port);
+        $login = $this->deviceLogin($api,$this->address, $this->port);
         if($login !== false) {
             return $this->getDhcpNetwork($login);
         }
@@ -965,10 +1024,27 @@ class MikrotikController extends Controller
     public function getDhcp()
     {
         $api = $this->api();
-        $login = $this->deviceLogin($api, $this->port);
+        $login = $this->deviceLogin($api,$this->address, $this->port);
         if($login !== false) {
             return $this->getDhcpData($login);
         }
+    }
+
+    public function getDhcpPorts()
+    {
+        $interfaces = array();
+
+        $api = $this->api();
+        $login = $this->deviceLogin($api,$this->address, $this->port);
+        if($login !== false) {
+            $dhcp = $this->getDhcp($login);
+            $dhcpServerInterface = $dhcp[0]["interface"];
+            $ports = $this->getPortsFromBridge($login, $dhcpServerInterface);
+            foreach($ports as $port) {
+                $interfaces[] = $port["interface"];
+            }
+        }
+        return $interfaces;
     }
 
     /**
@@ -988,7 +1064,7 @@ class MikrotikController extends Controller
         $soupisExtenderIp = '';
         $hledaniExtenderu = '';
         $api = $this->api();
-        $login = $this->deviceLogin($api, $this->port);
+        $login = $this->deviceLogin($api,$this->address, $this->port);
         if($login !== false) {
             $uplink = $this->getUplink($login);
             $overeniZdaJizExistuje = CustomerWithExtender::where('address', substr($uplink[0]["address"],0, -3))->get();
@@ -999,7 +1075,7 @@ class MikrotikController extends Controller
                 // KOMUNIKACE S EXTENDEREM
                 foreach($overeniZdaJizExistuje as $dataExtender) {
                     if($dataExtender["extenderVendor"] == "Mikrotik") { //prozatím staticka volba
-                        $loginToExtender = $this->ExtenderLogin($api, $dataExtender["port"]);
+                        $loginToExtender = $this->ExtenderLogin($api,$this->address, $dataExtender["port"]);
                         if($loginToExtender !== false) {
 
                             // ZÍSKÁNÍ INFORMACÍ O NASTAVENÍ WIRELESS
@@ -1092,7 +1168,7 @@ class MikrotikController extends Controller
         $api = $this->api();
         $err = array();
 
-        $login = $this->deviceLogin($api, $this->port);
+        $login = $this->deviceLogin($api,$this->address, $this->port);
         if($login !== false) {
             $uplink = $this->getUplink($login);
             $overeniZdaJizExistuje = CustomerWithExtender::where('address', substr($uplink[0]["address"],0, -3))->get();
@@ -1102,14 +1178,14 @@ class MikrotikController extends Controller
                 // KOMUNIKACE S EXTENDEREM
                 foreach($overeniZdaJizExistuje as $dataExtender) {
                     if($dataExtender["extenderVendor"] == "Mikrotik") { //prozatím staticka volba
-                        $loginToExtender = $this->ExtenderLogin($api, $dataExtender["port"]);
+                        $loginToExtender = $this->ExtenderLogin($api,$this->address, $dataExtender["port"]);
                         if($loginToExtender !== false) {
                             $extenderUplink = $this->getUplink($loginToExtender);
                             $uplinkInterface = $extenderUplink[0]["interface"];
                             $interfaceInfo = $this->getMacBridge($loginToExtender, $uplinkInterface);
                             $mac = $interfaceInfo[0]["mac-address"];
 
-                            if($login = $this->deviceLogin($api, $this->port)){
+                            if($login = $this->deviceLogin($api,$this->address, $this->port)){
                                 if(ValidationController::checkIfIsEmpty($this->getWireless($login)))
                                 {
                                     $dhcp = $this->getSingleLeaseInfo($login, $mac);
@@ -1155,7 +1231,7 @@ class MikrotikController extends Controller
         $soupisExtenderIp = '';
         $hledaniExtenderu = '';
         $api = $this->api();
-        $login = $this->deviceLogin($api, $this->port);
+        $login = $this->deviceLogin($api,$this->address, $this->port);
         if($login !== false) {
             $uplink = $this->getUplink($login);
             $overeniZdaJizExistuje = CustomerWithExtender::where('address', substr($uplink[0]["address"],0, -3))->get();
@@ -1165,7 +1241,7 @@ class MikrotikController extends Controller
                 // KOMUNIKACE S EXTENDEREM
                 foreach($overeniZdaJizExistuje as $dataExtender) {
                     if($dataExtender["extenderVendor"] == "Mikrotik") { //prozatím staticka volba
-                        $loginToExtender = $this->ExtenderLogin($api, $dataExtender["port"]);
+                        $loginToExtender = $this->ExtenderLogin($api,$this->address, $dataExtender["port"]);
                         if($loginToExtender !== false) {
 
                             // ZÍSKÁNÍ INFORMACÍ O REGISTRACÍCH NA JEDNOTLIVÝCH EXTENDERECH
@@ -1181,7 +1257,7 @@ class MikrotikController extends Controller
                                     $vendor = MacVendorController::findVendor(substr($registration['mac-address'], 0, 8));
 
                                     // připojení do main routeru
-                                    $login = $this->deviceLogin($api, $this->port);
+                                    $login = $this->deviceLogin($api,$this->address, $this->port);
                                     if($login !== false) {
                                         if(ValidationController::checkIfIsEmpty($this->getSingleLeaseInfo($login, $registration['mac-address']))){
                                             foreach($this->getSingleLeaseInfo($login, $registration['mac-address']) as $singleLease){
@@ -1251,6 +1327,82 @@ class MikrotikController extends Controller
 
 
 
+    public function getSysData()
+    {
+        $api = "false"; // mikrotik API
+        $login = "false"; //promnenna, ktera nese informaci zda se podařilo připojit do mkt
+        $err = array();
+        $extenderData = array();
+        $cpeData = array();
+        $uptime = "";
+        $platform = "";
+        $boardName = "";
+        $uptimeCpe = "";
+        $platformCpe = "";
+        $boardNameCpe = "";
+
+
+        $api = $this->api();
+        $login = $this->deviceLogin($api,$this->address, $this->port);
+        if($login !== "false") {
+            if(ValidationController::checkIfIsEmpty($this->getUplink($login))){
+                $uplink = $this->getUplink($login);
+                $overeniZdaJizExistuje = CustomerWithExtender::where('address', substr($uplink[0]["address"],0, -3))->get();
+
+                if(ValidationController::checkIfIsEmpty($overeniZdaJizExistuje)){
+                    foreach($overeniZdaJizExistuje as $dataExtender) {
+                        if($dataExtender["extenderVendor"] == "Mikrotik") { //prozatím staticka volba
+                            $loginToExtender = $this->ExtenderLogin($api, $this->address, $dataExtender["port"]);
+                            if($loginToExtender !== false) {
+                                 // ZÍSKÁNÍ INFORMACÍ O SYSTEMOVYCH DATECH
+
+                            if(ValidationController::checkIfIsEmpty($this->getSysInfo($loginToExtender))){
+
+                                foreach($this->getSysInfo($loginToExtender) as $extender) {
+                                    $uptime = $extender["uptime"];
+                                    $platform = $extender["platform"];
+                                    $boardName = $extender["board-name"];
+                                }
+                                $extenderData[] = array(
+                                    "uptime" => $uptime,
+                                    "platform" => $platform,
+                                    "board-name" => $boardName,
+                                    "port" => $dataExtender["port"]
+                                    );
+                                }
+                            }
+                        }
+                    }
+                }
+                // přihlášení do Main CPE, pro získání poctu zarizeni na wlan
+                if($login = $this->deviceLogin($api,$this->address, $this->port)){
+                    if(ValidationController::checkIfIsEmpty($this->getSysInfo($login)))
+                    {
+                        foreach($this->getSysInfo($login) as $cpe) {
+                            $uptimeCpe = $cpe["uptime"];
+                            $platformCpe = $cpe["platform"];
+                            $boardNameCpe = $cpe["board-name"];
+                        }
+
+                        $cpeData[] = array(
+                            "uptime" => $uptimeCpe,
+                            "platform" => $platformCpe,
+                            "board-name" => $boardNameCpe,
+                            "port" => $this->port
+                        );
+                    }
+                }
+            }
+        }
+        return array(
+            'cpe' => $cpeData,
+            'extender' => $extenderData
+        );
+    }
+
+
+
+
    /**
      * -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      *  POSTY PRO OVLÁDÁNÍ MIKROTIKU
@@ -1271,7 +1423,7 @@ class MikrotikController extends Controller
             $port = $request->port;
         }
         $api = $this->api();
-        $login = $this->deviceLogin($api, $port);
+        $login = $this->deviceLogin($api,$this->address, $port);
         if($login !== false) {
             return $this->getSingleWlan($login, $request->wlanId);
         }
@@ -1292,7 +1444,7 @@ class MikrotikController extends Controller
         $securityProfile = "";
 
         $api = $this->api();
-        $login = $this->deviceLogin($api, $port);
+        $login = $this->deviceLogin($api,$this->address, $port);
         if($login !== false) {
             $wlan = $this->getSingleWlan($login, $request->wlanId); //security-profile
             foreach($wlan as $singleWlan) {
@@ -1318,7 +1470,7 @@ class MikrotikController extends Controller
         }
 
         $api = $this->api();
-        $login = $this->deviceLogin($api, $port);
+        $login = $this->deviceLogin($api,$this->address, $port);
         if($login !== false) {
             return $this->getSingleWlanUpdate($login, $request->wlanId, $request->editSsid, $request->editFreq);
         }
@@ -1339,7 +1491,7 @@ class MikrotikController extends Controller
         }
 
         $api = $this->api();
-        $login = $this->deviceLogin($api, $port);
+        $login = $this->deviceLogin($api,$this->address, $port);
         if($login !== false) {
             $wlan = $this->getSingleWlan($login, $request->wlanId);
             foreach($wlan as $singleWlan)
@@ -1360,7 +1512,7 @@ class MikrotikController extends Controller
     {
         $port = $this->port;
         $api = $this->api();
-        $login = $this->deviceLogin($api, $port);
+        $login = $this->deviceLogin($api,$this->address, $port);
         if($login !== false) {
             return $this->getSingleLeaseInfoByAddress($login, $request->leaseId);
         }
@@ -1377,7 +1529,7 @@ class MikrotikController extends Controller
     {
         $port = $this->port;
         $api = $this->api();
-        $login = $this->deviceLogin($api, $port);
+        $login = $this->deviceLogin($api, $this->address,$port);
         if($login !== false) {
             $lease = $this->getSingleLeaseInfoByAddress($login, $request->leaseId);
             foreach($lease as $singleLease)
@@ -1400,7 +1552,7 @@ class MikrotikController extends Controller
     {
         $port = $this->port;
         $api = $this->api();
-        $login = $this->deviceLogin($api, $port);
+        $login = $this->deviceLogin($api,$this->address, $port);
         if($login !== false) {
             $lease = $this->getSingleLeaseInfoByAddress($login, $request->leaseId);
             foreach($lease as $singleLease)
@@ -1408,6 +1560,115 @@ class MikrotikController extends Controller
                 $id = $singleLease[".id"];
             }
             return $this->remoteLease($login, $id, $request->commnet);
+        }
+    }
+
+
+    /**
+     * funkce na blokovaní webovych stránek
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function blokaceWwwAdd(Request $request)
+    {
+
+        $blokovanaUrl = str_replace("www.", "", $request->url); //nahrazeni znaku, pri spatnem zalozeni
+        $blokovanaUrl = str_replace("*", "", $request->url); //nahrazeni znaku, pri spatnem zalozeni
+
+        $port = $this->port;
+        $api = $this->api();
+        $login = $this->deviceLogin($api,$this->address, $port);
+        if($login !== false) {
+            $uplink = $this->getUplink($login);
+            $uplinkInterface = $uplink[0]["interface"]; //privodni interface
+
+            $dhcpServer = $this->getDhcpData($login);
+            $dhcpServerInterface = $dhcpServer[0]["interface"]; //lanovy interface
+
+            $login->write('/ip/firewall/filter/add', false);
+            $login->write('=chain='."forward", false);
+            $login->write('=protocol='."tcp", false);
+            $login->write('=dst-port='."80,443", false);
+            $login->write('=action='."drop", false);
+            $login->write('=out-interface='.$uplinkInterface, false);
+            $login->write('=in-interface='.$dhcpServerInterface, false);
+            $login->write('=comment='."BlokovanaWWW", false);
+            $login->write('=tls-host='.$blokovanaUrl, true);
+            $READ = $login->read(false);
+            $data = $login->parseResponse($READ);
+
+            return $data;
+        }
+    }
+
+    /**
+     * zobrazení vsech blokovanych adress
+     *
+     * @return void
+     */
+    public function getBlokovaneWww()
+    {
+        $result = array();
+        $port = $this->port;
+        $api = $this->api();
+        $login = $this->deviceLogin($api,$this->address, $port);
+        if($login !== false) {
+            $uplink = $this->getUplink($login);
+
+            $login->write('/ip/firewall/filter/getall', false);
+            $login->write('?=comment='."BlokovanaWWW", true);
+            $READ = $login->read(false);
+            $data = $login->parseResponse($READ);
+
+            foreach($data as $filteredData) {
+                $result[] = array(
+                    'tls-host' => $filteredData["tls-host"],
+                    'id' => $filteredData[".id"]
+                );
+            }
+            return $result;
+        }
+    }
+
+    /**
+     * odstraneni blokovane url
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function removeBlokovane(Request $request)
+    {
+        $port = $this->port;
+        $api = $this->api();
+        $login = $this->deviceLogin($api,$this->address, $port);
+        if($login !== false) {
+            $login->write('/ip/firewall/filter/remove', false);
+            $login->write('=.id='.$request->urlId, true);
+            $READ = $login->read(false);
+            $data = $login->parseResponse($READ);
+
+            return $data;
+        }
+    }
+
+
+    /**
+     * funkce na restart cpe / extenderu
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function reboot(Request $request)
+    {
+        $api = $this->api();
+        $login = $this->deviceLogin($api,$this->address, $request->port);
+        if($login !== false) {
+            $login->write('/system/reboot');
+            $READ = $login->read(false);
+            $data = $login->parseResponse($READ);
+
+            return $data;
         }
     }
 }

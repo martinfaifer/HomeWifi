@@ -5,23 +5,23 @@
              <table class="table table-sm table-hover">
                 <thead>
                     <tr>
-                        <th scope="col">IP</th>
-                        <th scope="col">MAC</th>
-                        <th scope="col">Výrobce</th>
-                        <th scope="col">Popis</th>
-                        <th scope="col">Naposledy viděn</th>
-                        <th scope="col">status</th>
-                        <th scope="col">Akce</th>
+                        <th class="mobileFont" scope="col">IP</th>
+                        <th class="hide_isMobile" scope="col">MAC</th>
+                        <th class="mobileFont" scope="col">Výrobce</th>
+                        <th class="mobileFont" scope="col">Popis</th>
+                        <th class="hide_isMobile" scope="col">Naposledy viděn</th>
+                        <th class="mobileFont" scope="col">status</th>
+                        <th class="mobileFont" scope="col">Akce</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="lease in leases" v-bind:key="lease.id">
-                        <td>{{lease.address}}</td>
-                        <td>{{lease["mac-address"]}}</td>
-                        <td>{{lease.vendor}}</td>
-                        <td>{{lease.comment}}</td>
-                        <td>{{lease["last-seen"]}}</td>
-                        <td>{{lease.status}}</td>
+                        <td class="mobileFont">{{lease.address}}</td>
+                        <td class="hide_isMobile">{{lease["mac-address"]}}</td>
+                        <td class="mobileFont">{{lease.vendor}}</td>
+                        <td class="mobileFont">{{lease.comment}}</td>
+                        <td class="hide_isMobile">{{lease["last-seen"]}}</td>
+                        <td class="mobileFont">{{lease.status}}</td>
                         <td>
                             <form @submit="EditCommentModal(leaseId = lease.address)" class="inline_block">
                                 <button @click="EditModal = true" type="submit"  class="btn btn-sm">

@@ -1,8 +1,8 @@
 <template>
     <div>
         <div class="container is-fluid">
-            <div class="">
-                <div id="a" class="center inline_block dropdown is-active">
+            <div class="data">
+                <div class="center inline_block dropdown is-active">
                     <div class="dropdown-trigger">
                         <i class="material-icons">router</i>
                     </div>
@@ -11,13 +11,14 @@
                             <div v-for="routerWlan in wireless.wireless" v-bind:key="routerWlan.id" class="dropdown-item">
                                 <div class="container">
                                     <div class="row">
-                                        <p>SSID:<strong>{{routerWlan.ssid}}</strong></p>
-                                        <p class="col-md-1"><strong> | </strong></p>
-                                        <p> Heslo: <strong>{{routerWlan.password}}</strong></p>
+                                        <p class="mobileFont">SSID:<strong>{{routerWlan.ssid}}</strong> | Heslo: <strong>{{routerWlan.password}}</strong></p>
+                                        <!-- <p class="hide_isMobile">SSID:<strong>{{routerWlan.ssid}}</strong></p>
+                                        <p class="hide_isMobile col-md-1"><strong> | </strong></p>
+                                        <p class="hide_isMobile"> Heslo: <strong>{{routerWlan.password}}</strong></p> -->
                                         <!-- form na edit ssid -->
                                         <form @submit="EditWlantModal(wlanId = routerWlan.id, port = false)" class="inline_form">
                                             <button type="submit"  class="btn btn-sm">
-                                                <span class="icon has-text-info">
+                                                <span class="icon has-text-info mobileFont">
                                                     <i class="fas fa-edit"></i>
                                                 </span>
                                             </button>
@@ -25,7 +26,7 @@
                                         <!-- form na edit hesla k wlaně -->
                                         <form @submit="EditWlanSecuritytModal(wlanId = routerWlan.id, port = false)" class="inline_form">
                                             <button type="submit"  class="btn btn-sm">
-                                                <span class="icon has-text-danger">
+                                                <span class="icon has-text-danger mobileFont">
                                                     <i class="fas fa-lock"></i>
                                                 </span>
                                             </button>
@@ -34,19 +35,19 @@
                                 </div>
                             </div>
                             <div class="dropdown-item">
-                                <table class="lightBuleColor table table-sm table-hover">
+                                <table class="mobile_table lightBuleColor table table-sm table-hover">
                                     <thead>
                                         <tr>
-                                            <th scope="col">Popis</th>
-                                            <th scope="col">Výrobce</th>
-                                            <th scope="col">síla signálu</th>
+                                            <th class="mobileFont" scope="col">Popis</th>
+                                            <th class="mobileFont" scope="col">Výrobce</th>
+                                            <th class="hide_isMobile" scope="col">síla signálu</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <div v-if="!registrations.registrations.length">
-                                            <p><strong class="has-text-danger">Nic neni připojeno na bezdrátové síti</strong></p>
+                                            <p class="mobileFont"><strong class="has-text-danger">Nic neni připojeno na bezdrátové síti</strong></p>
                                         </div>
-                                            <tr v-else v-for="registration in registrations.registrations" v-bind:key="registration.id">
+                                            <tr class="mobileFont" v-else v-for="registration in registrations.registrations" v-bind:key="registration.id">
                                                 <td v-if="registration.comment !== 'false'">
                                                     {{registration.comment}}
                                                 </td>
@@ -59,7 +60,7 @@
                                                 <td v-else>
                                                     Neznámí výrobce
                                                 </td>
-                                                <td>
+                                                <td class="hide_isMobile">
                                                     {{registration.signal}}
                                                 </td>
                                             </tr>
@@ -70,8 +71,8 @@
                     </div>
                 </div>
                 <!--  -->
-                <div v-for="extender in extenderWireless.pocet" v-bind:key="extender.id" >
-                    <div id="b" class="right inline_block dropdown is-active">
+                <div class="extenders" v-for="extender in extenderWireless.pocet" v-bind:key="extender.id" >
+                    <div class="right inline_block dropdown is-active">
                         <div v-if="extender === '10810'" class="">
                             <div class="dropdown-trigger">
                                 <div v-for="popis in popisy.result" v-bind:key="popis.id" v-if="popis.port === '10810'">
@@ -85,13 +86,14 @@
                                     <div v-for="extender in extenderWireless.wifi" v-bind:key="extender.id" v-if="extender.extenderPort === '10810'" class="dropdown-item">
                                         <div class="container">
                                             <div class="row">
-                                                <p>SSID:<strong>{{extender.ssid}}</strong></p>
-                                                <p class="col-md-1"><strong> | </strong></p>
-                                                <p> Heslo: <strong>{{extender.password}}</strong></p>
+                                                <p class="mobileFont">SSID:<strong>{{extender.ssid}}</strong> | Heslo: <strong>{{extender.password}}</strong></p>
+                                                <!-- <p class="hide_isMobile">SSID:<strong>{{extender.ssid}}</strong></p>
+                                                <p class="hide_isMobile col-md-1"><strong> | </strong></p>
+                                                <p class="hide_isMobile"> Heslo: <strong>{{extender.password}}</strong></p> -->
                                                 <!-- form na edit ssid -->
                                                 <form @submit="EditWlantModal(wlanId = extender.id, port = extender.extenderPort)" class="inline_form">
                                                     <button type="submit" class="btn btn-sm">
-                                                        <span class="icon has-text-info">
+                                                        <span class="icon has-text-info mobileFont">
                                                             <i class="fas fa-edit"></i>
                                                         </span>
                                                     </button>
@@ -99,7 +101,7 @@
                                                 <!-- form na edit hesla k wlaně -->
                                                 <form @submit="EditWlanSecuritytModal(wlanId = extender.id, port = extender.extenderPort)" class="inline_form">
                                                     <button type="submit" class="btn btn-sm">
-                                                        <span class="icon has-text-danger">
+                                                        <span class="icon has-text-danger mobileFont">
                                                             <i class="fas fa-lock"></i>
                                                         </span>
                                                     </button>
@@ -111,16 +113,16 @@
                                 <table class="lightBuleColor table table-sm table-hover">
                                     <thead>
                                         <tr>
-                                            <th scope="col">Popis</th>
-                                            <th scope="col">Výrobce</th>
-                                            <th scope="col">síla signálu</th>
+                                            <th class="mobileFont" scope="col">Popis</th>
+                                            <th class="mobileFont" scope="col">Výrobce</th>
+                                            <th class="hide_isMobile" scope="col">síla signálu</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <div v-if="!extenderRegistrations.registrations && extenderRegistrations.registration.extenderPort === '10810'">
                                             <p class="has-text-danger">Nic neni připojeno na bezdrátové síti</p>
                                         </div>
-                                            <tr v-for="extenderRegistration1 in extenderRegistrations.registrations" v-bind:key="extenderRegistration1.id" v-if="extenderRegistration1.extenderPort === '10810'">
+                                            <tr class="mobileFont" v-for="extenderRegistration1 in extenderRegistrations.registrations" v-bind:key="extenderRegistration1.id" v-if="extenderRegistration1.extenderPort === '10810'">
                                                 <td v-if="extenderRegistration1.comment !== 'false'">
                                                     {{extenderRegistration1.comment}}
                                                 </td>
@@ -133,7 +135,7 @@
                                                 <td v-else>
                                                    Neznámí výrobce
                                                 </td>
-                                                <td>
+                                                <td class="hide_isMobile">
                                                     {{extenderRegistration1.signal}}
                                                 </td>
                                             </tr>
@@ -159,21 +161,22 @@
                                     <div v-for="extender2 in extenderWireless.wifi" v-bind:key="extender2.id" v-if="extender2.extenderPort === '10809'" class="dropdown-item">
                                         <div class="container">
                                             <div class="row">
-                                                <p>SSID:<strong>{{extender2.ssid}}</strong></p>
-                                                <p class="col-md-1"><strong> | </strong></p>
-                                                <p> Heslo: <strong>{{extender2.password}}</strong></p>
+                                                <p class="mobileFont">SSID:<strong>{{extender2.ssid}}</strong> | Heslo: <strong>{{extender2.password}}</strong></p>
+                                                <!-- <p class="hide_isMobile">SSID:<strong>{{extender2.ssid}}</strong></p>
+                                                <p class="hide_isMobile col-md-1"><strong> | </strong></p>
+                                                <p class="hide_isMobile"> Heslo: <strong>{{extender2.password}}</strong></p> -->
                                                 <!-- form na edit ssid -->
-                                                <form @submit="EditWlantModal(wlanId = extender.id, port = extender.extenderPort)" class="inline_form">
+                                                <form @submit="EditWlantModal(wlanId = extender2.id, port = extender2.extenderPort)" class="inline_form">
                                                     <button type="submit"  class="btn btn-sm">
-                                                        <span class="icon has-text-info">
+                                                        <span class="icon has-text-info mobileFont">
                                                             <i class="fas fa-edit"></i>
                                                         </span>
                                                     </button>
                                                 </form>
                                                 <!-- form na edit hesla k wlaně -->
-                                                <form @submit="EditWlanSecuritytModal(wlanId = extender.id, port = extender.extenderPort)" class="inline_form">
+                                                <form @submit="EditWlanSecuritytModal(wlanId = extender2.id, port = extender2.extenderPort)" class="inline_form">
                                                     <button type="submit"  class="btn btn-sm">
-                                                        <span class="icon has-text-danger">
+                                                        <span class="icon has-text-danger mobileFont">
                                                             <i class="fas fa-lock"></i>
                                                         </span>
                                                     </button>
@@ -182,19 +185,19 @@
                                         </div>
                                     </div>
                                     <div class="dropdown-item">
-                                <table class="lightBuleColor table table-sm table-hover">
+                                <table class="mobile_table lightBuleColor table table-sm table-hover">
                                     <thead>
                                         <tr>
-                                            <th scope="col">Popis</th>
-                                            <th scope="col">Výrobce</th>
-                                            <th scope="col">síla signálu</th>
+                                            <th class="mobileFont" scope="col">Popis</th>
+                                            <th class="mobileFont" scope="col">Výrobce</th>
+                                            <th class="hide_isMobile" scope="col">síla signálu</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <div v-if="!extenderRegistrations.registrations && extenderRegistrations.registration.extenderPort === '10809'">
                                             <p class="has-text-danger">Nic neni připojeno na bezdrátové síti</p>
                                         </div>
-                                            <tr v-for="extenderRegistration2 in extenderRegistrations.registrations" v-bind:key="extenderRegistration2.id" v-if="extenderRegistration2.extenderPort === '10809'">
+                                            <tr class="mobileFont" v-for="extenderRegistration2 in extenderRegistrations.registrations" v-bind:key="extenderRegistration2.id" v-if="extenderRegistration2.extenderPort === '10809'">
                                                 <td v-if="extenderRegistration2.comment !== 'false'">
                                                     {{extenderRegistration2.comment}}
                                                 </td>
@@ -207,7 +210,7 @@
                                                 <td v-else>
                                                     Neznámí výrobce
                                                 </td>
-                                                <td>
+                                                <td class="hide_isMobile">
                                                     {{extenderRegistration2.signal}}
                                                 </td>
                                             </tr>
@@ -402,10 +405,33 @@ export default {
                     currentObj.port = '',
                     axios.get('api/device/wireless')
                         .then( response => currentObj.wireless = response.data);
+                    axios.get('/api/device/extender/wlans')
+                        .then( response => currentObj.extenderWireless = response.data);
                 })
                 .catch(function (error) {
                     currentObj.wlanId = '';
                     currentObj.editSsid = '',
+                    currentObj.port = '',
+                    currentObj.EditModal = false;
+                });
+        },
+        EditSecurityWlan() {
+            let currentObj = this;
+            axios.post('/api/device/wlan/security/edit', {
+                    wlanId: this.wlanId,
+                    security: this.security,
+                    port: this.port
+                })
+                .then(function (response) {
+                    currentObj.editSecurityResponse = response.data;
+                    axios.get('api/device/wireless')
+                        .then( response => currentObj.wireless = response.data);
+                    axios.get('/api/device/extender/wlans')
+                        .then( response => currentObj.extenderWireless = response.data);
+                })
+                .catch(function (error) {
+                    currentObj.wlanId = '';
+                    currentObj.security = '',
                     currentObj.port = '',
                     currentObj.EditModal = false;
                 });

@@ -3,9 +3,9 @@
          <div class="container is-fluid">
             <router-view></router-view>
             <!-- Lan + DHCP -->
-            <div class="container is-fluid">
+            <div class="container is-fluid data">
                 <div class="columns is-desktop">
-                    <div class="column column_default is-5">
+                    <div class="column column_default is-4">
                         <table class="table table-sm table-hover">
                             <thead>
                                 <tr>
@@ -28,7 +28,7 @@
                         </table>
                     </div>
                     <!-- Zobrazení IP adresess -->
-                    <div class="column column_default is-3">
+                    <div class="column column_default is-4 column_right">
                         <br>
                         <table id="table_dhcp" class="table">
                             <tbody>
@@ -65,18 +65,18 @@
                                 <tr>
                                     <th>
                                         <b>
-                                            Interface:
+                                            Porty:
                                         </b>
                                     </th>
                                     <td>
-                                        {{dhcp[0]["interface"]}}
+                                        <p class="inline" v-for="port in ports" v-bind:key="port.id">{{port}} , </p>
                                     </td>
                                 </tr>
                             </tbody>
-                        </table>    
+                        </table>
                     </div>
                 </div>
-            </div>     
+            </div>
          </div>
     </div>
 </template>
@@ -88,16 +88,19 @@ export default {
             network: '',
             dhcp:'',
             interfaces: '',
+            ports:'',
             interval: false,
         }
     },
     created(){
-        axios.get('api/device/interfaceList')
+        axios.get('/api/device/interfaceList')
                 .then( response => this.interfaces = response.data);
-        axios.get('api/device/network')
+        axios.get('/api/device/network')
                 .then( response => this.network = response.data);
-        axios.get('api/device/dhcp')
+        axios.get('/api/device/dhcp')
                 .then( response => this.dhcp = response.data);
+        axios.get('/api/device/dhcp/ports')
+                .then( response => this.ports = response.data);
     },
     mounted(){
 

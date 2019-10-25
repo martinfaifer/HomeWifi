@@ -1,0 +1,329 @@
+/* Extra small devices (phones, 480px and down) */
+@media only screen and (max-width: 480px) {
+    .mobileFont {
+        font-size: 12px;
+    }
+
+    .logo {
+        display: none;
+    }
+
+    .mobileMenu {
+        width: 53vh;
+        height: 40vh;
+        background-color: hsl(0, 0%, 21%);
+        color: whitesmoke;
+        z-index: 1;
+    }
+
+    .mobile_table {
+        width: 30vh;
+    }
+
+    .dropdown-menu {
+        width: 40vh;
+    }
+
+    .data {
+        position: relative;
+        top: 20%;
+        display: table;
+    }
+
+    .right {
+       top: 400px;
+    }
+
+    #table_dhcp {
+        margin-left: 0%;
+    }
+
+    .middle {
+        top: 750px;
+    }
+
+    .middle-menu {
+        top: 20%;
+    }
+
+    .material-icons {
+        font-size: 60px;
+    }
+
+    .hide_isMobile {
+        display: none;
+    }
+
+    /* modal */
+    #modal_grey_m {
+        background-color:grey;
+        width: 20rem;
+        max-height: 50rem;
+        overflow-y: auto;
+    }
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    .mobileFont {
+        font-size: 12px;
+    }
+
+    .logo {
+        display: none;
+    }
+
+    .mobileMenu {
+        width: 53vh;
+        height: 40vh;
+        background-color: hsl(0, 0%, 21%);
+        color: whitesmoke;
+        z-index: 1;
+    }
+
+    .mobile_table {
+        width: 30vh;
+    }
+
+    .dropdown-menu {
+        width: 40vh;
+    }
+
+    .data {
+        position: relative;
+        display: table;
+        top: 20%;
+    }
+
+    .right {
+       top: 400px;
+    }
+
+    #table_dhcp {
+        margin-left: 0%;
+    }
+
+    .middle {
+        top: 750px;
+    }
+
+    .middle-menu {
+        top: 20%;
+    }
+
+    .material-icons {
+        font-size: 60px;
+    }
+
+    .hide_isMobile {
+        display: none;
+    }
+
+    /* modal */
+    #modal_grey_m {
+        background-color:grey;
+        width: 20rem;
+        max-height: 50rem;
+        overflow-y: auto;
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (max-width: 768px) {
+    .mobileFont {
+        font-size: 12px;
+    }
+
+    .logo {
+        display: none;
+    }
+
+    .mobileMenu {
+        width: 53vh;
+        height: 40vh;
+        background-color: hsl(0, 0%, 21%);
+        color: whitesmoke;
+        z-index: 1;
+    }
+
+    .mobile_table {
+        width: 30vh;
+    }
+
+    .dropdown-menu {
+        width: 40vh;
+    }
+
+    .data {
+        position: relative;
+        display: table;
+        top: 20%;
+    }
+
+    .right {
+       top: 400px;
+    }
+
+    #table_dhcp {
+        margin-left: 0%;
+    }
+
+    .middle {
+        top: 750px;
+    }
+
+    .middle-menu {
+        top: 20%;
+    }
+
+    .navbar-item {
+        color: whitesmoke;
+    }
+
+    .material-icons {
+        font-size: 60px;
+    }
+
+    .hide_isMobile {
+        display: none;
+    }
+
+    /* modal */
+    #modal_grey_m {
+        background-color:grey;
+        width: 20rem;
+        max-height: 50rem;
+        overflow-y: auto;
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (max-width: 992px) {
+    .mobileFont {
+        font-size: 12px;
+    }
+
+    .logo {
+        display: none;
+    }
+
+    .mobileMenu {
+        width: 53vh;
+        height: 40vh;
+        background-color: hsl(0, 0%, 21%);
+        color: whitesmoke;
+        z-index: 1;
+    }
+
+    .mobile_table {
+        width: 30vh;
+    }
+
+    .dropdown-menu {
+        width: 40vh;
+    }
+
+    .data {
+        position: relative;
+        display: table;
+        top: 20%;
+    }
+
+    .right {
+       top: 400px;
+    }
+
+    #table_dhcp {
+        margin-left: 0%;
+    }
+
+    .middle {
+        top: 750px;
+    }
+
+    .middle-menu {
+        top: 20%;
+    }
+
+    .material-icons {
+        font-size: 60px;
+    }
+
+    .hide_isMobile {
+        display: none;
+    }
+
+    /* modal */
+    #modal_grey_m {
+        background-color:grey;
+        width: 20rem;
+        max-height: 50rem;
+        overflow-y: auto;
+    }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (max-width: 1200px) {
+    .mobileFont {
+        font-size: 12px;
+    }
+
+    .logo {
+        display: none;
+    }
+
+    .mobileMenu {
+        width: 53vh;
+        height: 40vh;
+        background-color: hsl(0, 0%, 21%);
+        color: whitesmoke;
+        z-index: 1;
+    }
+
+    .mobile_table {
+        width: 30vh;
+    }
+
+    .dropdown-menu {
+        width: 40vh;
+    }
+
+    .data {
+        position: relative;
+        display: table;
+        top: 20%;
+    }
+
+    .right {
+       top: 400px;
+    }
+
+    #table_dhcp {
+        margin-left: 0%;
+    }
+
+    .middle {
+        top: 750px;
+    }
+
+    .middle-menu {
+        top: 20%;
+    }
+
+    .material-icons {
+        font-size: 60px;
+    }
+
+    .hide_isMobile {
+        display: none;
+    }
+
+
+    /* modal */
+    #modal_grey_m {
+        background-color:grey;
+        width: 20rem;
+        max-height: 50rem;
+        overflow-y: auto;
+    }
+}

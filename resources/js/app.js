@@ -6,50 +6,51 @@ window.Vue = require('vue');
 window.axios = require('axios');
 
 // Import componentu
-import NavBarComponent from  './components/NavBarComponent.vue';
+import VueRouter from 'vue-router';
 
-import PrehledComponent from './components/PrehledComponent.vue'; //Prehled
-import WifiComponent from './components/WifiComponent.vue'; //WiFi component
+import BlokaceWWWComponent from './components/BlokaceWWWComponent.vue';
+import DhcpComponent from './components/DhcpComponent.vue';
+import DmzComponent from './components/DmzComponent.vue';
+import ExtenderVisualComponent from './components/ExtenderVisualComponent.vue';
+import KidControlComponent from './components/KidControlComponent.vue';
 import LanComponent from './components/LanComponent.vue';
 import LanNavBarComponent from './components/LanNavBarComponent.vue';
 import LeaseComponent from './components/LeaseComponent.vue';
-import DhcpComponent from './components/DhcpComponent.vue';
-import ExtenderComponent from './components/ExtenderComponent.vue';
-import ExtenderVisualComponent from './components/ExtenderVisualComponent.vue';
-import KidControlComponent from './components/KidControlComponent.vue';
-
-// PgaeNotFound component
+import NavBarComponent from  './components/NavBarComponent.vue';
 import PageNotFound from  './components/PageNotFound.vue';
+import PrehledComponent from './components/PrehledComponent.vue'; //Prehled
+import WifiComponent from './components/WifiComponent.vue';
+import SettingsComponent from './components/SettingsComponent.vue';
 
 
-// Nastavení Routeru
-import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 // Definice rout pro vue
 let routes = [
-    { 
-        path: '/', 
+    {
+        path: '/',
         component: NavBarComponent,
         children: [
             {
-                path: '', 
-                component: PrehledComponent, 
+                path: '',
+                component: PrehledComponent,
             },
             {
                 path: 'wifi',
                 component:WifiComponent,
             },
             {
-                path: 'extender',
-                component: ExtenderComponent
-            },
-            {
                 path: 'extenderVisual',
                 component: ExtenderVisualComponent
             },
             {
-                path: 'kidConttrol',
-                component: KidControlComponent
+                path: 'kidConttrol/www',
+                component: KidControlComponent,
+                children: [
+                    {
+                    path: '',
+                    component:BlokaceWWWComponent
+                    },
+                ]
             },
             {
                 path: 'lan',
@@ -69,22 +70,29 @@ let routes = [
                     }
                 ]
             },
+            {
+                path: 'nat_dmz',
+                component: DmzComponent
+            },
+            {
+                path: '/settings',
+                component: SettingsComponent,
+            },
         ]
       },
-      
-      { 
-        path: '*', 
-        component: PageNotFound 
+
+      {
+        path: '*',
+        component: PageNotFound
       },
   ]
 
 const router = new VueRouter({
     routes
   })
-  
+
 //   export
   const app = new Vue({
       el: '#app',
       router,
   });
-  

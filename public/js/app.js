@@ -1829,6 +1829,121 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/BlokaceWWWComponent.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/BlokaceWWWComponent.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      blokovane: '',
+      url: '',
+      urlId: '',
+      AddResponse: '',
+      DeleteResponse: '',
+      RemoveModal: false,
+      AddModal: false
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    axios.get('/api/device/kidControll/www').then(function (response) {
+      return _this.blokovane = response.data;
+    });
+  },
+  methods: {
+    RemoveUrl: function RemoveUrl() {
+      var currentObj = this;
+      axios.post('/api/device/kidControll/www/remove', {
+        urlId: this.urlId
+      }).then(function (response) {
+        currentObj.DeleteResponse = response.data;
+        currentObj.urlId = '', axios.get('/api/device/kidControll/www').then(function (response) {
+          return currentObj.blokovane = response.data;
+        });
+      })["catch"](function (error) {
+        currentObj.urlId = '';
+        currentObj.AddModal = false;
+      });
+    },
+    AddBlocked: function AddBlocked() {
+      var currentObj = this;
+      axios.post('/api/device/kidControll/www', {
+        url: this.url
+      }).then(function (response) {
+        currentObj.AddResponse = response.data;
+        currentObj.url = '', axios.get('/api/device/kidControll/www').then(function (response) {
+          return currentObj.blokovane = response.data;
+        });
+      })["catch"](function (error) {
+        currentObj.url = '';
+        currentObj.AddModal = false;
+      });
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DhcpComponent.vue?vue&type=script&lang=js&":
 /*!************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/DhcpComponent.vue?vue&type=script&lang=js& ***!
@@ -1932,10 +2047,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ExtenderComponent.vue?vue&type=script&lang=js&":
-/*!****************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ExtenderComponent.vue?vue&type=script&lang=js& ***!
-  \****************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DmzComponent.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/DmzComponent.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1976,86 +2091,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      wireless: '',
-      registrations: ''
+      dmztky: '',
+      AddResponse: '',
+      DeleteResponse: '',
+      RemoveModal: false,
+      AddModal: false
     };
   },
-  created: function created() {
-    var _this = this;
-
-    axios.get('/api/device/extender/wlans').then(function (response) {
-      return _this.wireless = response.data;
-    });
-    axios.get('/api/device/extender/registrations').then(function (response) {
-      return _this.registrations = response.data;
-    });
-  },
-  mounted: function mounted() {
-    this.loadDataWireless();
-    this.interval = setInterval(function () {
-      this.loadDataWireless();
-    }.bind(this), 5000);
-  },
-  methods: {
-    loadDataWireless: function loadDataWireless() {
-      var currentObj = this;
-      axios.get('/api/device/extender/registrations').then(function (response) {
-        currentObj.registrations = response.data;
-      })["catch"](function (error) {
-        currentObj.globalError = error;
-        currentObj.registrations = '';
-        currentObj.interval = false;
-      });
-    }
-  },
-  beforeDestroy: function beforeDestroy() {
-    clearInterval(this.interval);
-  }
+  created: function created() {},
+  methods: {}
 });
 
 /***/ }),
@@ -2245,9 +2292,102 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      EditSecurityModal: false,
+      EditModal: false,
+      extenderPort: false,
       wireless: false,
       registrations: false,
       extenderWireless: false,
@@ -2257,7 +2397,13 @@ __webpack_require__.r(__webpack_exports__);
       extenderInfo2: true,
       loading: true,
       content: false,
-      popisy: false
+      popisy: false,
+      ssid: '',
+      security: '',
+      port: false,
+      wlanId: '',
+      edit: '',
+      editSecurity: ''
     };
   },
   created: function created() {
@@ -2326,50 +2472,77 @@ __webpack_require__.r(__webpack_exports__);
         currentObj.popisy = '';
         currentObj.interval = false;
       });
+    },
+    EditWlantModal: function EditWlantModal() {
+      var currentObj = this;
+      axios.post('/api/device/wlan/getEditData', {
+        wlanId: this.wlanId,
+        port: this.port
+      }).then(function (response) {
+        currentObj.edit = response.data;
+        currentObj.EditModal = true;
+      })["catch"](function (error) {
+        currentObj.wlanId = '';
+        currentObj.EditModal = false;
+      });
+    },
+    EditWlanSecuritytModal: function EditWlanSecuritytModal() {
+      var currentObj = this;
+      axios.post('/api/device/wlan/getEditSecurityData', {
+        wlanId: this.wlanId,
+        port: this.port
+      }).then(function (response) {
+        currentObj.editSecurity = response.data;
+        currentObj.EditSecurityModal = true;
+      })["catch"](function (error) {
+        currentObj.wlanId = '';
+        currentObj.EditSecurityModal = false;
+      });
+    },
+    EditWlan: function EditWlan() {
+      var currentObj = this;
+      axios.post('/api/device/wlan/edit', {
+        wlanId: this.wlanId,
+        editSsid: this.ssid,
+        port: this.port // editFreq: this.frequency,
+
+      }).then(function (response) {
+        currentObj.editResponse = response.data;
+        currentObj.wlanId = '', currentObj.port = '', axios.get('api/device/wireless').then(function (response) {
+          return currentObj.wireless = response.data;
+        });
+        axios.get('/api/device/extender/wlans').then(function (response) {
+          return currentObj.extenderWireless = response.data;
+        });
+      })["catch"](function (error) {
+        currentObj.wlanId = '';
+        currentObj.editSsid = '', currentObj.port = '', currentObj.EditModal = false;
+      });
+    },
+    EditSecurityWlan: function EditSecurityWlan() {
+      var currentObj = this;
+      axios.post('/api/device/wlan/security/edit', {
+        wlanId: this.wlanId,
+        security: this.security,
+        port: this.port
+      }).then(function (response) {
+        currentObj.editSecurityResponse = response.data;
+        axios.get('api/device/wireless').then(function (response) {
+          return currentObj.wireless = response.data;
+        });
+        axios.get('/api/device/extender/wlans').then(function (response) {
+          return currentObj.extenderWireless = response.data;
+        });
+      })["catch"](function (error) {
+        currentObj.wlanId = '';
+        currentObj.security = '', currentObj.port = '', currentObj.EditModal = false;
+      });
     }
   },
   beforeDestroy: function beforeDestroy() {
     clearInterval(this.interval);
   }
 });
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/KidControlComponent.vue?vue&type=script&lang=js&":
-/*!******************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/KidControlComponent.vue?vue&type=script&lang=js& ***!
-  \******************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-/* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
 
@@ -2470,20 +2643,24 @@ __webpack_require__.r(__webpack_exports__);
       network: '',
       dhcp: '',
       interfaces: '',
+      ports: '',
       interval: false
     };
   },
   created: function created() {
     var _this = this;
 
-    axios.get('api/device/interfaceList').then(function (response) {
+    axios.get('/api/device/interfaceList').then(function (response) {
       return _this.interfaces = response.data;
     });
-    axios.get('api/device/network').then(function (response) {
+    axios.get('/api/device/network').then(function (response) {
       return _this.network = response.data;
     });
-    axios.get('api/device/dhcp').then(function (response) {
+    axios.get('/api/device/dhcp').then(function (response) {
       return _this.dhcp = response.data;
+    });
+    axios.get('/api/device/dhcp/ports').then(function (response) {
+      return _this.ports = response.data;
     });
   },
   mounted: function mounted() {
@@ -2721,16 +2898,48 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      extenders: ''
+      hamburgerMenu: false
     };
-  } // created() {
-  //     axios.get('/api/device/searchForExtenders')
-  //         .then( response => this.extenders = response.data);
-  // }
-
+  },
+  beforeDestroy: function beforeDestroy() {
+    clearInterval(this.interval);
+  }
 });
 
 /***/ }),
@@ -2912,6 +3121,115 @@ __webpack_require__.r(__webpack_exports__);
   },
   beforeDestroy: function beforeDestroy() {
     clearInterval(this.interval);
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SettingsComponent.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/SettingsComponent.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      devices: '',
+      port: '',
+      dataResponse: '',
+      interval: false
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    axios.get('/api/devices/info').then(function (response) {
+      return _this.devices = response.data;
+    });
+  },
+  mounted: function mounted() {
+    this.loadSysData();
+    this.interval = setInterval(function () {
+      this.loadSysData();
+    }.bind(this), 2000);
+  },
+  methods: {
+    loadSysData: function loadSysData() {
+      var currentObj = this;
+      axios.get('/api/devices/info').then(function (response) {
+        currentObj.devices = response.data;
+      })["catch"](function (error) {
+        currentObj.devices = '';
+        currentObj.interval = false;
+      });
+    },
+    RebootDevice: function RebootDevice() {
+      var currentObj = this;
+      axios.post('/api/device/reboot', {
+        port: this.port
+      }).then(function (response) {
+        currentObj.dataResponse = response.data;
+      })["catch"](function (error) {
+        currentObj.port = '';
+      });
+    }
   }
 });
 
@@ -20992,6 +21310,208 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/BlokaceWWWComponent.vue?vue&type=template&id=139d7148&":
+/*!**********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/BlokaceWWWComponent.vue?vue&type=template&id=139d7148& ***!
+  \**********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", { staticClass: "container is-fluid" }, [
+      _c("table", { staticClass: "table table-sm table-hover" }, [
+        _c("thead", [
+          _c("tr", [
+            _c("th", { staticClass: "mobileFont", attrs: { scope: "col" } }, [
+              _vm._v("URL")
+            ]),
+            _vm._v(" "),
+            _c("th", { staticClass: "mobileFont", attrs: { scope: "col" } }, [
+              _vm._v("Akce\n                        "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-sm",
+                  on: {
+                    click: function($event) {
+                      _vm.AddModal = true
+                    }
+                  }
+                },
+                [_vm._m(0)]
+              )
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c(
+          "tbody",
+          _vm._l(_vm.blokovane, function(url) {
+            return _c("tr", { key: url.id }, [
+              _c("td", { staticClass: "mobileFont" }, [
+                _vm._v(_vm._s(url["tls-host"]))
+              ]),
+              _vm._v(" "),
+              _c("td", { staticClass: "mobileFont" }, [
+                _c(
+                  "form",
+                  {
+                    staticClass: "inline_block",
+                    on: {
+                      submit: function($event) {
+                        return _vm.RemoveUrl((_vm.urlId = url.id))
+                      }
+                    }
+                  },
+                  [_vm._m(1, true)]
+                )
+              ])
+            ])
+          }),
+          0
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.AddModal,
+            expression: "AddModal"
+          }
+        ]
+      },
+      [
+        _c("div", { staticClass: "modal is-active" }, [
+          _c("div", {
+            staticClass: "modal-background",
+            on: {
+              click: function($event) {
+                _vm.AddModal = false
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c("div", { attrs: { id: "modal_grey_m" } }, [
+            _c(
+              "div",
+              {
+                staticClass: "container rounded",
+                attrs: { id: "modal_grey_m" }
+              },
+              [
+                _c("br"),
+                _vm._v(" "),
+                _c(
+                  "form",
+                  {
+                    on: {
+                      submit: function($event) {
+                        return _vm.AddBlocked()
+                      }
+                    }
+                  },
+                  [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", { staticClass: "textColor_default" }, [
+                        _vm._v("WWW adresa, kterou chcete blokovat")
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.url,
+                            expression: "url"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          type: "text",
+                          placeholder: "www.seznam.cz",
+                          pattern: "[www]{3}[.][a-zA-Z]{1,64}[.][a-z]{1,6}",
+                          required: ""
+                        },
+                        domProps: { value: _vm.url },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.url = $event.target.value
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        attrs: { type: "submit" },
+                        on: {
+                          click: function($event) {
+                            _vm.AddModal = false
+                          }
+                        }
+                      },
+                      [_vm._v("Přidat")]
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c("br")
+              ]
+            )
+          ])
+        ])
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "icon has-text-info mobileFont" }, [
+      _c("i", { staticClass: "fas fa-plus" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      { staticClass: "btn btn-sm", attrs: { type: "submit" } },
+      [
+        _c("span", { staticClass: "icon has-text-danger mobileFont" }, [
+          _c("i", { staticClass: "fas fa-trash" })
+        ])
+      ]
+    )
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DhcpComponent.vue?vue&type=template&id=3c7ec9b1&":
 /*!****************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/DhcpComponent.vue?vue&type=template&id=3c7ec9b1& ***!
@@ -21134,10 +21654,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ExtenderComponent.vue?vue&type=template&id=dbc21cca&":
-/*!********************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ExtenderComponent.vue?vue&type=template&id=dbc21cca& ***!
-  \********************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DmzComponent.vue?vue&type=template&id=0339f8d7&":
+/*!***************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/DmzComponent.vue?vue&type=template&id=0339f8d7& ***!
+  \***************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -21151,130 +21671,30 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("div", { staticClass: "container is-fluid" }, [
-      _c("br"),
-      _vm._v(" "),
       _c("table", { staticClass: "table table-sm table-hover" }, [
-        _vm._m(0),
-        _vm._v(" "),
-        _c(
-          "tbody",
-          _vm._l(_vm.wireless.wifi, function(wirelessData) {
-            return _c("tr", { key: wirelessData.id }, [
-              wirelessData.extenderPort === "10810"
-                ? _c("td", [_vm._v("Extender 1")])
-                : _vm._e(),
-              _vm._v(" "),
-              wirelessData.extenderPort === "10809"
-                ? _c("td", [_vm._v("Extender 2")])
-                : _vm._e(),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(wirelessData.ssid))]),
-              _vm._v(" "),
-              _c("td", [
-                _vm._v(
-                  "\n                        " +
-                    _vm._s(wirelessData.password) +
-                    "\n                    "
-                )
-              ]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(wirelessData.band.substring(0, 4)))])
+        _c("thead", [
+          _c("tr", [
+            _c("th", { attrs: { scope: "col" } }, [_vm._v("IP")]),
+            _vm._v(" "),
+            _c("th", { attrs: { scope: "col" } }, [
+              _vm._v("Akce\n                        "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-sm",
+                  on: {
+                    click: function($event) {
+                      _vm.AddModal = true
+                    }
+                  }
+                },
+                [_vm._m(0)]
+              )
             ])
-          }),
-          0
-        )
-      ]),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c("table", { staticClass: "table table-sm table-hover" }, [
-        _vm._m(1),
+          ])
+        ]),
         _vm._v(" "),
-        _c(
-          "tbody",
-          [
-            !_vm.registrations.registrations.length
-              ? _c("div", [
-                  _c("h3", { staticClass: "has-text-danger" }, [
-                    _vm._v("Nic neni připojeno na bezdrátové síti")
-                  ])
-                ])
-              : _vm._l(_vm.registrations.registrations, function(registration) {
-                  return _c("tr", { key: registration.id }, [
-                    registration.extenderPort === "10810"
-                      ? _c("td", [_vm._v("Extender 1")])
-                      : _vm._e(),
-                    _vm._v(" "),
-                    registration.extenderPort === "10809"
-                      ? _c("td", [_vm._v("Extender 2")])
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _c("td", [
-                      _vm._v(
-                        "\n                            " +
-                          _vm._s(registration.interface) +
-                          "\n                        "
-                      )
-                    ]),
-                    _vm._v(" "),
-                    registration.comment !== "false"
-                      ? _c("td", [
-                          _vm._v(
-                            "\n                            " +
-                              _vm._s(registration.comment) +
-                              "\n                        "
-                          )
-                        ])
-                      : _c("td", [
-                          _vm._v(
-                            "\n                            Zařízení bez popisu\n                        "
-                          )
-                        ]),
-                    _vm._v(" "),
-                    registration.vendor !== "false"
-                      ? _c("td", [
-                          _vm._v(
-                            " \n                            " +
-                              _vm._s(registration.vendor) +
-                              "\n                        "
-                          )
-                        ])
-                      : _c("td", [
-                          _vm._v(
-                            "\n                            Neznámí výrobce\n                        "
-                          )
-                        ]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _vm._v(
-                        "\n                            " +
-                          _vm._s(registration.txRxRate) +
-                          "\n                        "
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _vm._v(
-                        "\n                            " +
-                          _vm._s(registration.uptime) +
-                          "\n                            "
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _vm._v(
-                        "\n                            " +
-                          _vm._s(registration.signal) +
-                          "\n                        "
-                      )
-                    ])
-                  ])
-                })
-          ],
-          2
-        )
+        _vm._m(1)
       ])
     ])
   ])
@@ -21284,37 +21704,31 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Extender")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("SSID")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Heslo")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Pásmo")])
-      ])
+    return _c("span", { staticClass: "icon has-text-info" }, [
+      _c("i", { staticClass: "fas fa-plus" })
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", [
+    return _c("tbody", [
       _c("tr", [
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Extender")]),
+        _c("td"),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Síťová karta")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Popis")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Výrobce")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("rx-rate / tx-rate")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("doba připojení")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("síla signálu")])
+        _c("td", [
+          _c("form", { staticClass: "inline_block" }, [
+            _c(
+              "button",
+              { staticClass: "btn btn-sm", attrs: { type: "submit" } },
+              [
+                _c("span", { staticClass: "icon has-text-danger" }, [
+                  _c("i", { staticClass: "fas fa-trash" })
+                ])
+              ]
+            )
+          ])
+        ])
       ])
     ])
   }
@@ -21344,150 +21758,172 @@ var render = function() {
     _c("div", { staticClass: "container is-fluid" }, [
       _c(
         "div",
-        {},
+        { staticClass: "data" },
         [
-          _c(
-            "div",
-            {
-              staticClass: "center inline_block dropdown is-active",
-              attrs: { id: "a" }
-            },
-            [
-              _vm._m(0),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  directives: [
-                    {
-                      name: "show",
-                      rawName: "v-show",
-                      value: _vm.routerInfo,
-                      expression: "routerInfo"
-                    }
-                  ],
-                  staticClass: "custom_menu dropdown-menu",
-                  attrs: { role: "menu" }
-                },
-                [
-                  _c(
-                    "div",
-                    [
-                      _vm._l(_vm.wireless.wireless, function(routerWlan) {
-                        return _c(
-                          "div",
-                          { key: routerWlan.id, staticClass: "dropdown-item" },
-                          [
-                            _c("div", { staticClass: "container" }, [
-                              _c("div", { staticClass: "row" }, [
-                                _c("p", [
-                                  _vm._v("SSID:"),
-                                  _c("strong", [
-                                    _vm._v(_vm._s(routerWlan.ssid))
-                                  ])
-                                ]),
-                                _vm._v(" "),
-                                _vm._m(1, true),
-                                _vm._v(" "),
-                                _c("p", [
-                                  _vm._v(" Heslo: "),
-                                  _c("strong", [
-                                    _vm._v(_vm._s(routerWlan.password))
-                                  ])
+          _c("div", { staticClass: "center inline_block dropdown is-active" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.routerInfo,
+                    expression: "routerInfo"
+                  }
+                ],
+                staticClass: "custom_menu dropdown-menu",
+                attrs: { role: "menu" }
+              },
+              [
+                _c(
+                  "div",
+                  [
+                    _vm._l(_vm.wireless.wireless, function(routerWlan) {
+                      return _c(
+                        "div",
+                        { key: routerWlan.id, staticClass: "dropdown-item" },
+                        [
+                          _c("div", { staticClass: "container" }, [
+                            _c("div", { staticClass: "row" }, [
+                              _c("p", { staticClass: "mobileFont" }, [
+                                _vm._v("SSID:"),
+                                _c("strong", [_vm._v(_vm._s(routerWlan.ssid))]),
+                                _vm._v(" | Heslo: "),
+                                _c("strong", [
+                                  _vm._v(_vm._s(routerWlan.password))
                                 ])
-                              ])
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "form",
+                                {
+                                  staticClass: "inline_form",
+                                  on: {
+                                    submit: function($event) {
+                                      return _vm.EditWlantModal(
+                                        (_vm.wlanId = routerWlan.id),
+                                        (_vm.port = false)
+                                      )
+                                    }
+                                  }
+                                },
+                                [_vm._m(1, true)]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "form",
+                                {
+                                  staticClass: "inline_form",
+                                  on: {
+                                    submit: function($event) {
+                                      return _vm.EditWlanSecuritytModal(
+                                        (_vm.wlanId = routerWlan.id),
+                                        (_vm.port = false)
+                                      )
+                                    }
+                                  }
+                                },
+                                [_vm._m(2, true)]
+                              )
                             ])
-                          ]
-                        )
-                      }),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "dropdown-item" }, [
-                        _c(
-                          "table",
-                          {
-                            staticClass:
-                              "lightBuleColor table table-sm table-hover"
-                          },
-                          [
-                            _vm._m(2),
-                            _vm._v(" "),
-                            _c(
-                              "tbody",
-                              [
-                                !_vm.registrations.registrations.length
-                                  ? _c("div", [_vm._m(3)])
-                                  : _vm._l(
-                                      _vm.registrations.registrations,
-                                      function(registration) {
-                                        return _c(
-                                          "tr",
-                                          { key: registration.id },
-                                          [
-                                            registration.comment !== "false"
-                                              ? _c("td", [
-                                                  _vm._v(
-                                                    "\n                                                " +
-                                                      _vm._s(
-                                                        registration.comment
-                                                      ) +
-                                                      "\n                                            "
-                                                  )
-                                                ])
-                                              : _c("td", [
-                                                  _vm._v(
-                                                    "\n                                                Zařízení bez popisu\n                                            "
-                                                  )
-                                                ]),
-                                            _vm._v(" "),
-                                            registration.vendor !== "false"
-                                              ? _c("td", [
-                                                  _vm._v(
-                                                    " \n                                                " +
-                                                      _vm._s(
-                                                        registration.vendor
-                                                      ) +
-                                                      "\n                                            "
-                                                  )
-                                                ])
-                                              : _c("td", [
-                                                  _vm._v(
-                                                    "\n                                                Neznámí výrobce\n                                            "
-                                                  )
-                                                ]),
-                                            _vm._v(" "),
-                                            _c("td", [
+                          ])
+                        ]
+                      )
+                    }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "dropdown-item" }, [
+                      _c(
+                        "table",
+                        {
+                          staticClass:
+                            "mobile_table lightBuleColor table table-sm table-hover"
+                        },
+                        [
+                          _vm._m(3),
+                          _vm._v(" "),
+                          _c(
+                            "tbody",
+                            [
+                              !_vm.registrations.registrations.length
+                                ? _c("div", [_vm._m(4)])
+                                : _vm._l(
+                                    _vm.registrations.registrations,
+                                    function(registration) {
+                                      return _c(
+                                        "tr",
+                                        {
+                                          key: registration.id,
+                                          staticClass: "mobileFont"
+                                        },
+                                        [
+                                          registration.comment !== "false"
+                                            ? _c("td", [
+                                                _vm._v(
+                                                  "\n                                                " +
+                                                    _vm._s(
+                                                      registration.comment
+                                                    ) +
+                                                    "\n                                            "
+                                                )
+                                              ])
+                                            : _c("td", [
+                                                _vm._v(
+                                                  "\n                                                Zařízení bez popisu\n                                            "
+                                                )
+                                              ]),
+                                          _vm._v(" "),
+                                          registration.vendor !== "false"
+                                            ? _c("td", [
+                                                _vm._v(
+                                                  "\n                                                " +
+                                                    _vm._s(
+                                                      registration.vendor
+                                                    ) +
+                                                    "\n                                            "
+                                                )
+                                              ])
+                                            : _c("td", [
+                                                _vm._v(
+                                                  "\n                                                Neznámí výrobce\n                                            "
+                                                )
+                                              ]),
+                                          _vm._v(" "),
+                                          _c(
+                                            "td",
+                                            { staticClass: "hide_isMobile" },
+                                            [
                                               _vm._v(
                                                 "\n                                                " +
                                                   _vm._s(registration.signal) +
                                                   "\n                                            "
                                               )
-                                            ])
-                                          ]
-                                        )
-                                      }
-                                    )
-                              ],
-                              2
-                            )
-                          ]
-                        )
-                      ])
-                    ],
-                    2
-                  )
-                ]
-              )
-            ]
-          ),
+                                            ]
+                                          )
+                                        ]
+                                      )
+                                    }
+                                  )
+                            ],
+                            2
+                          )
+                        ]
+                      )
+                    ])
+                  ],
+                  2
+                )
+              ]
+            )
+          ]),
           _vm._v(" "),
           _vm._l(_vm.extenderWireless.pocet, function(extender) {
-            return _c("div", { key: extender.id }, [
+            return _c("div", { key: extender.id, staticClass: "extenders" }, [
               _c(
                 "div",
-                {
-                  staticClass: "right inline_block dropdown is-active",
-                  attrs: { id: "b" }
-                },
+                { staticClass: "right inline_block dropdown is-active" },
                 [
                   extender === "10810"
                     ? _c("div", {}, [
@@ -21495,7 +21931,7 @@ var render = function() {
                           "div",
                           { staticClass: "dropdown-trigger" },
                           [
-                            _vm._l(_vm.popisy, function(popis) {
+                            _vm._l(_vm.popisy.result, function(popis) {
                               return popis.port === "10810"
                                 ? _c("div", { key: popis.id }, [
                                     _c("p", [_vm._v(_vm._s(popis.comment))])
@@ -21539,27 +21975,70 @@ var render = function() {
                                                 "div",
                                                 { staticClass: "row" },
                                                 [
-                                                  _c("p", [
-                                                    _vm._v("SSID:"),
-                                                    _c("strong", [
-                                                      _vm._v(
-                                                        _vm._s(extender.ssid)
-                                                      )
-                                                    ])
-                                                  ]),
-                                                  _vm._v(" "),
-                                                  _vm._m(4, true),
-                                                  _vm._v(" "),
-                                                  _c("p", [
-                                                    _vm._v(" Heslo: "),
-                                                    _c("strong", [
-                                                      _vm._v(
-                                                        _vm._s(
-                                                          extender.password
+                                                  _c(
+                                                    "p",
+                                                    {
+                                                      staticClass: "mobileFont"
+                                                    },
+                                                    [
+                                                      _vm._v("SSID:"),
+                                                      _c("strong", [
+                                                        _vm._v(
+                                                          _vm._s(extender.ssid)
                                                         )
-                                                      )
-                                                    ])
-                                                  ])
+                                                      ]),
+                                                      _vm._v(" | Heslo: "),
+                                                      _c("strong", [
+                                                        _vm._v(
+                                                          _vm._s(
+                                                            extender.password
+                                                          )
+                                                        )
+                                                      ])
+                                                    ]
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "form",
+                                                    {
+                                                      staticClass:
+                                                        "inline_form",
+                                                      on: {
+                                                        submit: function(
+                                                          $event
+                                                        ) {
+                                                          return _vm.EditWlantModal(
+                                                            (_vm.wlanId =
+                                                              extender.id),
+                                                            (_vm.port =
+                                                              extender.extenderPort)
+                                                          )
+                                                        }
+                                                      }
+                                                    },
+                                                    [_vm._m(5, true)]
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "form",
+                                                    {
+                                                      staticClass:
+                                                        "inline_form",
+                                                      on: {
+                                                        submit: function(
+                                                          $event
+                                                        ) {
+                                                          return _vm.EditWlanSecuritytModal(
+                                                            (_vm.wlanId =
+                                                              extender.id),
+                                                            (_vm.port =
+                                                              extender.extenderPort)
+                                                          )
+                                                        }
+                                                      }
+                                                    },
+                                                    [_vm._m(6, true)]
+                                                  )
                                                 ]
                                               )
                                             ]
@@ -21577,7 +22056,7 @@ var render = function() {
                                         "lightBuleColor table table-sm table-hover"
                                     },
                                     [
-                                      _vm._m(5, true),
+                                      _vm._m(7, true),
                                       _vm._v(" "),
                                       _c(
                                         "tbody",
@@ -21612,7 +22091,8 @@ var render = function() {
                                                     "tr",
                                                     {
                                                       key:
-                                                        extenderRegistration1.id
+                                                        extenderRegistration1.id,
+                                                      staticClass: "mobileFont"
                                                     },
                                                     [
                                                       extenderRegistration1.comment !==
@@ -21636,7 +22116,7 @@ var render = function() {
                                                       "false"
                                                         ? _c("td", [
                                                             _vm._v(
-                                                              " \n                                                " +
+                                                              "\n                                                " +
                                                                 _vm._s(
                                                                   extenderRegistration1.vendor
                                                                 ) +
@@ -21649,15 +22129,22 @@ var render = function() {
                                                             )
                                                           ]),
                                                       _vm._v(" "),
-                                                      _c("td", [
-                                                        _vm._v(
-                                                          "\n                                                " +
-                                                            _vm._s(
-                                                              extenderRegistration1.signal
-                                                            ) +
-                                                            "\n                                            "
-                                                        )
-                                                      ])
+                                                      _c(
+                                                        "td",
+                                                        {
+                                                          staticClass:
+                                                            "hide_isMobile"
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            "\n                                                " +
+                                                              _vm._s(
+                                                                extenderRegistration1.signal
+                                                              ) +
+                                                              "\n                                            "
+                                                          )
+                                                        ]
+                                                      )
                                                     ]
                                                   )
                                                 : _vm._e()
@@ -21688,7 +22175,7 @@ var render = function() {
                           "div",
                           { staticClass: "dropdown-trigger" },
                           [
-                            _vm._l(_vm.popisy, function(popis) {
+                            _vm._l(_vm.popisy.result, function(popis) {
                               return popis.port === "10809"
                                 ? _c("div", { key: popis.id }, [
                                     _c("p", [_vm._v(_vm._s(popis.comment))])
@@ -21732,27 +22219,70 @@ var render = function() {
                                                 "div",
                                                 { staticClass: "row" },
                                                 [
-                                                  _c("p", [
-                                                    _vm._v("SSID:"),
-                                                    _c("strong", [
-                                                      _vm._v(
-                                                        _vm._s(extender2.ssid)
-                                                      )
-                                                    ])
-                                                  ]),
-                                                  _vm._v(" "),
-                                                  _vm._m(6, true),
-                                                  _vm._v(" "),
-                                                  _c("p", [
-                                                    _vm._v(" Heslo: "),
-                                                    _c("strong", [
-                                                      _vm._v(
-                                                        _vm._s(
-                                                          extender2.password
+                                                  _c(
+                                                    "p",
+                                                    {
+                                                      staticClass: "mobileFont"
+                                                    },
+                                                    [
+                                                      _vm._v("SSID:"),
+                                                      _c("strong", [
+                                                        _vm._v(
+                                                          _vm._s(extender2.ssid)
                                                         )
-                                                      )
-                                                    ])
-                                                  ])
+                                                      ]),
+                                                      _vm._v(" | Heslo: "),
+                                                      _c("strong", [
+                                                        _vm._v(
+                                                          _vm._s(
+                                                            extender2.password
+                                                          )
+                                                        )
+                                                      ])
+                                                    ]
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "form",
+                                                    {
+                                                      staticClass:
+                                                        "inline_form",
+                                                      on: {
+                                                        submit: function(
+                                                          $event
+                                                        ) {
+                                                          return _vm.EditWlantModal(
+                                                            (_vm.wlanId =
+                                                              extender2.id),
+                                                            (_vm.port =
+                                                              extender2.extenderPort)
+                                                          )
+                                                        }
+                                                      }
+                                                    },
+                                                    [_vm._m(8, true)]
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "form",
+                                                    {
+                                                      staticClass:
+                                                        "inline_form",
+                                                      on: {
+                                                        submit: function(
+                                                          $event
+                                                        ) {
+                                                          return _vm.EditWlanSecuritytModal(
+                                                            (_vm.wlanId =
+                                                              extender2.id),
+                                                            (_vm.port =
+                                                              extender2.extenderPort)
+                                                          )
+                                                        }
+                                                      }
+                                                    },
+                                                    [_vm._m(9, true)]
+                                                  )
                                                 ]
                                               )
                                             ]
@@ -21767,10 +22297,10 @@ var render = function() {
                                     "table",
                                     {
                                       staticClass:
-                                        "lightBuleColor table table-sm table-hover"
+                                        "mobile_table lightBuleColor table table-sm table-hover"
                                     },
                                     [
-                                      _vm._m(7, true),
+                                      _vm._m(10, true),
                                       _vm._v(" "),
                                       _c(
                                         "tbody",
@@ -21805,7 +22335,8 @@ var render = function() {
                                                     "tr",
                                                     {
                                                       key:
-                                                        extenderRegistration2.id
+                                                        extenderRegistration2.id,
+                                                      staticClass: "mobileFont"
                                                     },
                                                     [
                                                       extenderRegistration2.comment !==
@@ -21829,7 +22360,7 @@ var render = function() {
                                                       "false"
                                                         ? _c("td", [
                                                             _vm._v(
-                                                              " \n                                                " +
+                                                              "\n                                                " +
                                                                 _vm._s(
                                                                   extenderRegistration2.vendor
                                                                 ) +
@@ -21842,15 +22373,22 @@ var render = function() {
                                                             )
                                                           ]),
                                                       _vm._v(" "),
-                                                      _c("td", [
-                                                        _vm._v(
-                                                          "\n                                                " +
-                                                            _vm._s(
-                                                              extenderRegistration2.signal
-                                                            ) +
-                                                            "\n                                            "
-                                                        )
-                                                      ])
+                                                      _c(
+                                                        "td",
+                                                        {
+                                                          staticClass:
+                                                            "hide_isMobile"
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            "\n                                                " +
+                                                              _vm._s(
+                                                                extenderRegistration2.signal
+                                                              ) +
+                                                              "\n                                            "
+                                                          )
+                                                        ]
+                                                      )
                                                     ]
                                                   )
                                                 : _vm._e()
@@ -21874,6 +22412,221 @@ var render = function() {
           })
         ],
         2
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.EditModal,
+              expression: "EditModal"
+            }
+          ]
+        },
+        [
+          _c("div", { staticClass: "modal is-active" }, [
+            _c("div", {
+              staticClass: "modal-background",
+              on: {
+                click: function($event) {
+                  _vm.EditModal = false
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "div",
+              { attrs: { id: "modal_grey_m" } },
+              _vm._l(_vm.edit, function(wlanEdit) {
+                return _c(
+                  "div",
+                  {
+                    key: wlanEdit.id,
+                    staticClass: "container rounded",
+                    attrs: { id: "modal_grey_m" }
+                  },
+                  [
+                    _c("br"),
+                    _vm._v(" "),
+                    _c(
+                      "form",
+                      {
+                        on: {
+                          submit: function($event) {
+                            return _vm.EditWlan()
+                          }
+                        }
+                      },
+                      [
+                        _c("div", { staticClass: "form-group" }, [
+                          _c("label", { staticClass: "textColor_default" }, [
+                            _vm._v("SSID")
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: (_vm.ssid = wlanEdit.ssid),
+                                expression: "ssid = wlanEdit.ssid"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: { type: "text" },
+                            domProps: { value: (_vm.ssid = wlanEdit.ssid) },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  (_vm.ssid = wlanEdit),
+                                  "ssid",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-primary",
+                            attrs: { type: "submit" },
+                            on: {
+                              click: function($event) {
+                                _vm.EditModal = false
+                              }
+                            }
+                          },
+                          [_vm._v("Změnit")]
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("br")
+                  ]
+                )
+              }),
+              0
+            )
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.EditSecurityModal,
+              expression: "EditSecurityModal"
+            }
+          ]
+        },
+        [
+          _c("div", { staticClass: "modal is-active" }, [
+            _c("div", {
+              staticClass: "modal-background",
+              on: {
+                click: function($event) {
+                  _vm.EditSecurityModal = false
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "div",
+              { attrs: { id: "modal_grey_m" } },
+              _vm._l(_vm.editSecurity, function(securityEdit) {
+                return _c(
+                  "div",
+                  {
+                    key: securityEdit.id,
+                    staticClass: "container rounded",
+                    attrs: { id: "modal_grey_m" }
+                  },
+                  [
+                    _c("br"),
+                    _vm._v(" "),
+                    _c(
+                      "form",
+                      {
+                        on: {
+                          submit: function($event) {
+                            return _vm.EditSecurityWlan()
+                          }
+                        }
+                      },
+                      [
+                        _c("div", { staticClass: "form-group" }, [
+                          _c("label", { staticClass: "textColor_default" }, [
+                            _vm._v("Heslo")
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: (_vm.security =
+                                  securityEdit["wpa2-pre-shared-key"]),
+                                expression:
+                                  "security = securityEdit['wpa2-pre-shared-key']"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: { type: "text" },
+                            domProps: {
+                              value: (_vm.security =
+                                securityEdit["wpa2-pre-shared-key"])
+                            },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  (_vm.security = securityEdit),
+                                  "wpa2-pre-shared-key",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-primary",
+                            attrs: { type: "submit" },
+                            on: {
+                              click: function($event) {
+                                _vm.EditSecurityModal = false
+                              }
+                            }
+                          },
+                          [_vm._v("Změnit")]
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("br")
+                  ]
+                )
+              }),
+              0
+            )
+          ])
+        ]
       )
     ])
   ])
@@ -21891,7 +22644,29 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("p", { staticClass: "col-md-1" }, [_c("strong", [_vm._v(" | ")])])
+    return _c(
+      "button",
+      { staticClass: "btn btn-sm", attrs: { type: "submit" } },
+      [
+        _c("span", { staticClass: "icon has-text-info mobileFont" }, [
+          _c("i", { staticClass: "fas fa-edit" })
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      { staticClass: "btn btn-sm", attrs: { type: "submit" } },
+      [
+        _c("span", { staticClass: "icon has-text-danger mobileFont" }, [
+          _c("i", { staticClass: "fas fa-lock" })
+        ])
+      ]
+    )
   },
   function() {
     var _vm = this
@@ -21899,11 +22674,17 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Popis")]),
+        _c("th", { staticClass: "mobileFont", attrs: { scope: "col" } }, [
+          _vm._v("Popis")
+        ]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Výrobce")]),
+        _c("th", { staticClass: "mobileFont", attrs: { scope: "col" } }, [
+          _vm._v("Výrobce")
+        ]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("síla signálu")])
+        _c("th", { staticClass: "hide_isMobile", attrs: { scope: "col" } }, [
+          _vm._v("síla signálu")
+        ])
       ])
     ])
   },
@@ -21911,7 +22692,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("p", [
+    return _c("p", { staticClass: "mobileFont" }, [
       _c("strong", { staticClass: "has-text-danger" }, [
         _vm._v("Nic neni připojeno na bezdrátové síti")
       ])
@@ -21921,7 +22702,29 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("p", { staticClass: "col-md-1" }, [_c("strong", [_vm._v(" | ")])])
+    return _c(
+      "button",
+      { staticClass: "btn btn-sm", attrs: { type: "submit" } },
+      [
+        _c("span", { staticClass: "icon has-text-info mobileFont" }, [
+          _c("i", { staticClass: "fas fa-edit" })
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      { staticClass: "btn btn-sm", attrs: { type: "submit" } },
+      [
+        _c("span", { staticClass: "icon has-text-danger mobileFont" }, [
+          _c("i", { staticClass: "fas fa-lock" })
+        ])
+      ]
+    )
   },
   function() {
     var _vm = this
@@ -21929,11 +22732,17 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Popis")]),
+        _c("th", { staticClass: "mobileFont", attrs: { scope: "col" } }, [
+          _vm._v("Popis")
+        ]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Výrobce")]),
+        _c("th", { staticClass: "mobileFont", attrs: { scope: "col" } }, [
+          _vm._v("Výrobce")
+        ]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("síla signálu")])
+        _c("th", { staticClass: "hide_isMobile", attrs: { scope: "col" } }, [
+          _vm._v("síla signálu")
+        ])
       ])
     ])
   },
@@ -21941,7 +22750,29 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("p", { staticClass: "col-md-1" }, [_c("strong", [_vm._v(" | ")])])
+    return _c(
+      "button",
+      { staticClass: "btn btn-sm", attrs: { type: "submit" } },
+      [
+        _c("span", { staticClass: "icon has-text-info mobileFont" }, [
+          _c("i", { staticClass: "fas fa-edit" })
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      { staticClass: "btn btn-sm", attrs: { type: "submit" } },
+      [
+        _c("span", { staticClass: "icon has-text-danger mobileFont" }, [
+          _c("i", { staticClass: "fas fa-lock" })
+        ])
+      ]
+    )
   },
   function() {
     var _vm = this
@@ -21949,11 +22780,17 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Popis")]),
+        _c("th", { staticClass: "mobileFont", attrs: { scope: "col" } }, [
+          _vm._v("Popis")
+        ]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Výrobce")]),
+        _c("th", { staticClass: "mobileFont", attrs: { scope: "col" } }, [
+          _vm._v("Výrobce")
+        ]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("síla signálu")])
+        _c("th", { staticClass: "hide_isMobile", attrs: { scope: "col" } }, [
+          _vm._v("síla signálu")
+        ])
       ])
     ])
   }
@@ -21979,40 +22816,36 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("div", { staticClass: "container is-fluid" }, [
+  return _c("div", [
+    _c(
+      "div",
+      { staticClass: "container is-fluid" },
+      [
         _c("br"),
         _vm._v(" "),
-        _c("h2", [_vm._v("Blokace webových stránek")]),
-        _vm._v(" "),
-        _c("hr"),
-        _vm._v(" "),
-        _c("table", { staticClass: "table table-sm table-hover" }, [
-          _c("thead", [
-            _c("tr", [
-              _c("th", { attrs: { scope: "col" } }, [_vm._v("Adresa")]),
-              _vm._v(" "),
-              _c("th", { attrs: { scope: "col" } }, [_vm._v("Status")]),
-              _vm._v(" "),
-              _c("th", { attrs: { scope: "col" } }, [_vm._v("Akce")])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("tbody", [
-            _c("tr", [_c("td"), _vm._v(" "), _c("td"), _vm._v(" "), _c("td")])
+        _c("div", { staticClass: "tabs is-centered" }, [
+          _c("ul", [
+            _c(
+              "li",
+              [
+                _c(
+                  "router-link",
+                  { attrs: { id: "lanNav", to: "/kidConttrol/www" } },
+                  [_vm._v("Blokace webových stránek")]
+                )
+              ],
+              1
+            )
           ])
-        ])
-      ])
-    ])
-  }
-]
+        ]),
+        _vm._v(" "),
+        _c("router-view")
+      ],
+      1
+    )
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -22041,9 +22874,9 @@ var render = function() {
       [
         _c("router-view"),
         _vm._v(" "),
-        _c("div", { staticClass: "container is-fluid" }, [
+        _c("div", { staticClass: "container is-fluid data" }, [
           _c("div", { staticClass: "columns is-desktop" }, [
-            _c("div", { staticClass: "column column_default is-5" }, [
+            _c("div", { staticClass: "column column_default is-4" }, [
               _c("table", { staticClass: "table table-sm table-hover" }, [
                 _vm._m(0),
                 _vm._v(" "),
@@ -22077,65 +22910,73 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "column column_default is-3" }, [
-              _c("br"),
-              _vm._v(" "),
-              _c(
-                "table",
-                { staticClass: "table", attrs: { id: "table_dhcp" } },
-                [
-                  _c("tbody", [
-                    _c("tr", [
-                      _vm._m(1),
+            _c(
+              "div",
+              { staticClass: "column column_default is-4 column_right" },
+              [
+                _c("br"),
+                _vm._v(" "),
+                _c(
+                  "table",
+                  { staticClass: "table", attrs: { id: "table_dhcp" } },
+                  [
+                    _c("tbody", [
+                      _c("tr", [
+                        _vm._m(1),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(
+                            "\n                                    " +
+                              _vm._s(_vm.network[0].gateway) +
+                              "\n                                "
+                          )
+                        ])
+                      ]),
                       _vm._v(" "),
-                      _c("td", [
-                        _vm._v(
-                          "\n                                    " +
-                            _vm._s(_vm.network[0].gateway) +
-                            "\n                                "
-                        )
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("tr", [
-                      _vm._m(2),
+                      _c("tr", [
+                        _vm._m(2),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(
+                            "\n                                    " +
+                              _vm._s(_vm.network[0].address) +
+                              "\n                                "
+                          )
+                        ])
+                      ]),
                       _vm._v(" "),
-                      _c("td", [
-                        _vm._v(
-                          "\n                                    " +
-                            _vm._s(_vm.network[0].address) +
-                            "\n                                "
-                        )
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("tr", [
-                      _vm._m(3),
+                      _c("tr", [
+                        _vm._m(3),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(
+                            "\n                                    " +
+                              _vm._s(_vm.network[0]["dns-server"]) +
+                              "\n                                "
+                          )
+                        ])
+                      ]),
                       _vm._v(" "),
-                      _c("td", [
-                        _vm._v(
-                          "\n                                    " +
-                            _vm._s(_vm.network[0]["dns-server"]) +
-                            "\n                                "
-                        )
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("tr", [
-                      _vm._m(4),
-                      _vm._v(" "),
-                      _c("td", [
-                        _vm._v(
-                          "\n                                    " +
-                            _vm._s(_vm.dhcp[0]["interface"]) +
-                            "\n                                "
+                      _c("tr", [
+                        _vm._m(4),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          _vm._l(_vm.ports, function(port) {
+                            return _c(
+                              "p",
+                              { key: port.id, staticClass: "inline" },
+                              [_vm._v(_vm._s(port) + " , ")]
+                            )
+                          }),
+                          0
                         )
                       ])
                     ])
-                  ])
-                ]
-              )
-            ])
+                  ]
+                )
+              ]
+            )
           ])
         ])
       ],
@@ -22201,7 +23042,7 @@ var staticRenderFns = [
     return _c("th", [
       _c("b", [
         _vm._v(
-          "\n                                        Interface:\n                                    "
+          "\n                                        Porty:\n                                    "
         )
       ])
     ])
@@ -22301,17 +23142,29 @@ var render = function() {
             "tbody",
             _vm._l(_vm.leases, function(lease) {
               return _c("tr", { key: lease.id }, [
-                _c("td", [_vm._v(_vm._s(lease.address))]),
+                _c("td", { staticClass: "mobileFont" }, [
+                  _vm._v(_vm._s(lease.address))
+                ]),
                 _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(lease["mac-address"]))]),
+                _c("td", { staticClass: "hide_isMobile" }, [
+                  _vm._v(_vm._s(lease["mac-address"]))
+                ]),
                 _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(lease.vendor))]),
+                _c("td", { staticClass: "mobileFont" }, [
+                  _vm._v(_vm._s(lease.vendor))
+                ]),
                 _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(lease.comment))]),
+                _c("td", { staticClass: "mobileFont" }, [
+                  _vm._v(_vm._s(lease.comment))
+                ]),
                 _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(lease["last-seen"]))]),
+                _c("td", { staticClass: "hide_isMobile" }, [
+                  _vm._v(_vm._s(lease["last-seen"]))
+                ]),
                 _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(lease.status))]),
+                _c("td", { staticClass: "mobileFont" }, [
+                  _vm._v(_vm._s(lease.status))
+                ]),
                 _vm._v(" "),
                 _c("td", [
                   _c(
@@ -22490,19 +23343,33 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("IP")]),
+        _c("th", { staticClass: "mobileFont", attrs: { scope: "col" } }, [
+          _vm._v("IP")
+        ]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("MAC")]),
+        _c("th", { staticClass: "hide_isMobile", attrs: { scope: "col" } }, [
+          _vm._v("MAC")
+        ]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Výrobce")]),
+        _c("th", { staticClass: "mobileFont", attrs: { scope: "col" } }, [
+          _vm._v("Výrobce")
+        ]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Popis")]),
+        _c("th", { staticClass: "mobileFont", attrs: { scope: "col" } }, [
+          _vm._v("Popis")
+        ]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Naposledy viděn")]),
+        _c("th", { staticClass: "hide_isMobile", attrs: { scope: "col" } }, [
+          _vm._v("Naposledy viděn")
+        ]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("status")]),
+        _c("th", { staticClass: "mobileFont", attrs: { scope: "col" } }, [
+          _vm._v("status")
+        ]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Akce")])
+        _c("th", { staticClass: "mobileFont", attrs: { scope: "col" } }, [
+          _vm._v("Akce")
+        ])
       ])
     ])
   },
@@ -22562,72 +23429,215 @@ var render = function() {
             attrs: { role: "navigation", "aria-label": "main navigation" }
           },
           [
-            _vm._m(0),
-            _vm._v(" "),
-            _c("div", { staticClass: "navbar-menu", attrs: { id: "NavBar" } }, [
+            _c("div", { staticClass: "navbar-brand" }, [
+              _vm._m(0),
+              _vm._v(" "),
               _c(
-                "div",
-                { staticClass: "navbar-start" },
+                "span",
+                {
+                  staticClass: "navbar-burger burger",
+                  attrs: {
+                    "aria-label": "menu",
+                    "aria-expanded": "false",
+                    "data-target": "navMenu"
+                  },
+                  on: {
+                    click: function($event) {
+                      _vm.hamburgerMenu = !_vm.hamburgerMenu
+                    }
+                  }
+                },
                 [
-                  _c(
-                    "router-link",
-                    { staticClass: "navbar-item", attrs: { to: "/" } },
-                    [
-                      _vm._v(
-                        "\n                        Přehled\n                    "
-                      )
-                    ]
-                  ),
+                  _c("span", { attrs: { "aria-hidden": "true" } }),
+                  _vm._v(" "),
+                  _c("span", { attrs: { "aria-hidden": "true" } }),
+                  _vm._v(" "),
+                  _c("span", { attrs: { "aria-hidden": "true" } }),
                   _vm._v(" "),
                   _c(
-                    "router-link",
+                    "div",
                     {
-                      staticClass: "navbar-item",
-                      attrs: { to: "/extenderVisual" }
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.hamburgerMenu === true,
+                          expression: "hamburgerMenu === true"
+                        }
+                      ],
+                      staticClass: "mobileMenu"
                     },
                     [
-                      _vm._v(
-                        "\n                        Wi-Fi\n                    "
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "router-link",
-                    { staticClass: "navbar-item", attrs: { to: "/lan" } },
-                    [
-                      _vm._v(
-                        "\n                        LAN\n                    "
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "router-link",
-                    {
-                      staticClass: "navbar-item",
-                      attrs: { to: "kidConttrol" }
-                    },
-                    [
-                      _vm._v(
-                        "\n                        Rodičovská kontrola\n                    "
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "router-link",
-                    { staticClass: "navbar-item", attrs: { to: "nat_dmz" } },
-                    [
-                      _vm._v(
-                        "\n                        NAT - DMZ\n                    "
+                      _c("br"),
+                      _c("br"),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        [
+                          _c(
+                            "router-link",
+                            { staticClass: "navbar-item", attrs: { to: "/" } },
+                            [
+                              _vm._v(
+                                "\n                                Přehled\n                            "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "router-link",
+                            {
+                              staticClass: "navbar-item",
+                              attrs: { to: "/extenderVisual" }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                Wi-Fi\n                            "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "router-link",
+                            {
+                              staticClass: "navbar-item",
+                              attrs: { to: "/lan" }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                LAN\n                            "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "router-link",
+                            {
+                              staticClass: "navbar-item",
+                              attrs: { to: "/kidConttrol/www" }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                Rodičovská kontrola\n                            "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "router-link",
+                            {
+                              staticClass: "navbar-item",
+                              attrs: { to: "/nat_dmz" }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                NAT - DMZ\n                            "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "router-link",
+                            {
+                              staticClass: "navbar-item",
+                              attrs: { to: "/settings" }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                Nastavení\n                            "
+                              )
+                            ]
+                          )
+                        ],
+                        1
                       )
                     ]
                   )
-                ],
-                1
+                ]
               )
-            ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "navbar-menu", attrs: { id: "navMenu" } },
+              [
+                _c(
+                  "div",
+                  { staticClass: "navbar-start" },
+                  [
+                    _c(
+                      "router-link",
+                      { staticClass: "navbar-item", attrs: { to: "/" } },
+                      [
+                        _vm._v(
+                          "\n                        Přehled\n                    "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "router-link",
+                      {
+                        staticClass: "navbar-item",
+                        attrs: { to: "/extenderVisual" }
+                      },
+                      [
+                        _vm._v(
+                          "\n                        Wi-Fi\n                    "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "router-link",
+                      { staticClass: "navbar-item", attrs: { to: "/lan" } },
+                      [
+                        _vm._v(
+                          "\n                        LAN\n                    "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "router-link",
+                      {
+                        staticClass: "navbar-item",
+                        attrs: { to: "/kidConttrol/www" }
+                      },
+                      [
+                        _vm._v(
+                          "\n                        Rodičovská kontrola\n                    "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "router-link",
+                      { staticClass: "navbar-item", attrs: { to: "/nat_dmz" } },
+                      [
+                        _vm._v(
+                          "\n                        NAT - DMZ\n                    "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "router-link",
+                      {
+                        staticClass: "navbar-item",
+                        attrs: { to: "/settings" }
+                      },
+                      [
+                        _vm._v(
+                          "\n                        Nastavení\n                    "
+                        )
+                      ]
+                    )
+                  ],
+                  1
+                )
+              ]
+            )
           ]
         )
       ]),
@@ -22642,31 +23652,11 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "navbar-brand" }, [
-      _c("a", { staticClass: "navbar-item" }, [
-        _c("img", {
-          attrs: { src: "img/GrapeLogo.png", width: "112", height: "28" }
-        })
-      ]),
-      _vm._v(" "),
-      _c(
-        "a",
-        {
-          staticClass: "navbar-burger burger",
-          attrs: {
-            "aria-label": "menu",
-            "aria-expanded": "false",
-            "data-target": "NavBar"
-          }
-        },
-        [
-          _c("span", { attrs: { "aria-hidden": "true" } }),
-          _vm._v(" "),
-          _c("span", { attrs: { "aria-hidden": "true" } }),
-          _vm._v(" "),
-          _c("span", { attrs: { "aria-hidden": "true" } })
-        ]
-      )
+    return _c("a", { staticClass: "navbar-item" }, [
+      _c("img", {
+        staticClass: "logo",
+        attrs: { src: "img/GrapeLogo.png", width: "112", height: "28" }
+      })
     ])
   }
 ]
@@ -23073,6 +24063,186 @@ var staticRenderFns = [
         )
       ])
     ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SettingsComponent.vue?vue&type=template&id=67fba83f&":
+/*!********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/SettingsComponent.vue?vue&type=template&id=67fba83f& ***!
+  \********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", { staticClass: "container is-fluid" }, [
+      _c("div", { staticClass: "container is-fluid data" }, [
+        _c("div", { staticClass: "columns is-desktop" }, [
+          _c("div", { staticClass: "column column_default is-6" }, [
+            _c("br"),
+            _c("br"),
+            _vm._v(" "),
+            _c("table", { staticClass: "table table-sm table-hover" }, [
+              _vm._m(0),
+              _vm._v(" "),
+              _c(
+                "tbody",
+                [
+                  _vm._l(_vm.devices.cpe, function(device) {
+                    return _c("tr", { key: device.id }, [
+                      _c("td", { staticClass: "mobileFont" }, [
+                        _vm._v("Router")
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "mobileFont" }, [
+                        _vm._v(_vm._s(device.platform))
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "mobileFont" }, [
+                        _vm._v(_vm._s(device["board-name"]))
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "mobileFont" }, [
+                        _vm._v(_vm._s(device.uptime))
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "mobileFont" }, [
+                        _c(
+                          "form",
+                          {
+                            staticClass: "inline_block",
+                            on: {
+                              submit: function($event) {
+                                return _vm.RebootDevice(
+                                  (_vm.port = device.port)
+                                )
+                              }
+                            }
+                          },
+                          [_vm._m(1, true)]
+                        )
+                      ])
+                    ])
+                  }),
+                  _vm._v(" "),
+                  _vm._l(_vm.devices.extender, function(extenderDevice) {
+                    return _c("tr", { key: extenderDevice.id }, [
+                      _c("td", { staticClass: "mobileFont" }, [
+                        _vm._v("Extender")
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "mobileFont" }, [
+                        _vm._v(_vm._s(extenderDevice.platform))
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "mobileFont" }, [
+                        _vm._v(_vm._s(extenderDevice["board-name"]))
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "mobileFont" }, [
+                        _vm._v(_vm._s(extenderDevice.uptime))
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "mobileFont" }, [
+                        _c(
+                          "form",
+                          {
+                            staticClass: "inline_block",
+                            on: {
+                              submit: function($event) {
+                                return _vm.RebootDevice(
+                                  (_vm.port = extenderDevice.port)
+                                )
+                              }
+                            }
+                          },
+                          [_vm._m(2, true)]
+                        )
+                      ])
+                    ])
+                  })
+                ],
+                2
+              )
+            ])
+          ])
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { staticClass: "mobileFont", attrs: { scope: "col" } }, [
+          _vm._v("Zařízení")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "mobileFont", attrs: { scope: "col" } }, [
+          _vm._v("Výrobce")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "mobileFont", attrs: { scope: "col" } }, [
+          _vm._v("Typ")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "mobileFont", attrs: { scope: "col" } }, [
+          _vm._v("Čas od posledního restartu")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "mobileFont", attrs: { scope: "col" } }, [
+          _vm._v("Akce")
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      { staticClass: "btn btn-sm", attrs: { type: "submit" } },
+      [
+        _c(
+          "button",
+          { staticClass: "button is-small is-success is-outlined" },
+          [_vm._v("Restart")]
+        )
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      { staticClass: "btn btn-sm", attrs: { type: "submit" } },
+      [
+        _c(
+          "button",
+          { staticClass: "button is-small is-success is-outlined" },
+          [_vm._v("Restart")]
+        )
+      ]
+    )
   }
 ]
 render._withStripped = true
@@ -38811,18 +39981,20 @@ module.exports = function(module) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _components_NavBarComponent_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/NavBarComponent.vue */ "./resources/js/components/NavBarComponent.vue");
-/* harmony import */ var _components_PrehledComponent_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/PrehledComponent.vue */ "./resources/js/components/PrehledComponent.vue");
-/* harmony import */ var _components_WifiComponent_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/WifiComponent.vue */ "./resources/js/components/WifiComponent.vue");
-/* harmony import */ var _components_LanComponent_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/LanComponent.vue */ "./resources/js/components/LanComponent.vue");
-/* harmony import */ var _components_LanNavBarComponent_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/LanNavBarComponent.vue */ "./resources/js/components/LanNavBarComponent.vue");
-/* harmony import */ var _components_LeaseComponent_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/LeaseComponent.vue */ "./resources/js/components/LeaseComponent.vue");
-/* harmony import */ var _components_DhcpComponent_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/DhcpComponent.vue */ "./resources/js/components/DhcpComponent.vue");
-/* harmony import */ var _components_ExtenderComponent_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/ExtenderComponent.vue */ "./resources/js/components/ExtenderComponent.vue");
-/* harmony import */ var _components_ExtenderVisualComponent_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/ExtenderVisualComponent.vue */ "./resources/js/components/ExtenderVisualComponent.vue");
-/* harmony import */ var _components_KidControlComponent_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/KidControlComponent.vue */ "./resources/js/components/KidControlComponent.vue");
+/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
+/* harmony import */ var _components_BlokaceWWWComponent_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/BlokaceWWWComponent.vue */ "./resources/js/components/BlokaceWWWComponent.vue");
+/* harmony import */ var _components_DhcpComponent_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/DhcpComponent.vue */ "./resources/js/components/DhcpComponent.vue");
+/* harmony import */ var _components_DmzComponent_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/DmzComponent.vue */ "./resources/js/components/DmzComponent.vue");
+/* harmony import */ var _components_ExtenderVisualComponent_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/ExtenderVisualComponent.vue */ "./resources/js/components/ExtenderVisualComponent.vue");
+/* harmony import */ var _components_KidControlComponent_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/KidControlComponent.vue */ "./resources/js/components/KidControlComponent.vue");
+/* harmony import */ var _components_LanComponent_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/LanComponent.vue */ "./resources/js/components/LanComponent.vue");
+/* harmony import */ var _components_LanNavBarComponent_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/LanNavBarComponent.vue */ "./resources/js/components/LanNavBarComponent.vue");
+/* harmony import */ var _components_LeaseComponent_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/LeaseComponent.vue */ "./resources/js/components/LeaseComponent.vue");
+/* harmony import */ var _components_NavBarComponent_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/NavBarComponent.vue */ "./resources/js/components/NavBarComponent.vue");
 /* harmony import */ var _components_PageNotFound_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/PageNotFound.vue */ "./resources/js/components/PageNotFound.vue");
-/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
+/* harmony import */ var _components_PrehledComponent_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/PrehledComponent.vue */ "./resources/js/components/PrehledComponent.vue");
+/* harmony import */ var _components_WifiComponent_vue__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/WifiComponent.vue */ "./resources/js/components/WifiComponent.vue");
+/* harmony import */ var _components_SettingsComponent_vue__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/SettingsComponent.vue */ "./resources/js/components/SettingsComponent.vue");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js"); // axios => nahrada jquery, lepsi knihovna pro vue
@@ -38830,60 +40002,66 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js"); // Import componentu
 
 
+
+
+
+
+
+
+
+
+
+
  //Prehled
 
- //WiFi component
 
 
-
-
-
-
-
- // PgaeNotFound component
-
- // Nastavení Routeru
-
-
-Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_11__["default"]); // Definice rout pro vue
+Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]); // Definice rout pro vue
 
 var routes = [{
   path: '/',
-  component: _components_NavBarComponent_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+  component: _components_NavBarComponent_vue__WEBPACK_IMPORTED_MODULE_9__["default"],
   children: [{
     path: '',
-    component: _components_PrehledComponent_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+    component: _components_PrehledComponent_vue__WEBPACK_IMPORTED_MODULE_11__["default"]
   }, {
     path: 'wifi',
-    component: _components_WifiComponent_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
-  }, {
-    path: 'extender',
-    component: _components_ExtenderComponent_vue__WEBPACK_IMPORTED_MODULE_7__["default"]
+    component: _components_WifiComponent_vue__WEBPACK_IMPORTED_MODULE_12__["default"]
   }, {
     path: 'extenderVisual',
-    component: _components_ExtenderVisualComponent_vue__WEBPACK_IMPORTED_MODULE_8__["default"]
+    component: _components_ExtenderVisualComponent_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
   }, {
-    path: 'kidConttrol',
-    component: _components_KidControlComponent_vue__WEBPACK_IMPORTED_MODULE_9__["default"]
-  }, {
-    path: 'lan',
-    component: _components_LanNavBarComponent_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+    path: 'kidConttrol/www',
+    component: _components_KidControlComponent_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
     children: [{
       path: '',
-      component: _components_LanComponent_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
+      component: _components_BlokaceWWWComponent_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+    }]
+  }, {
+    path: 'lan',
+    component: _components_LanNavBarComponent_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
+    children: [{
+      path: '',
+      component: _components_LanComponent_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
     }, {
       path: '/lease',
-      component: _components_LeaseComponent_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
+      component: _components_LeaseComponent_vue__WEBPACK_IMPORTED_MODULE_8__["default"]
     }, {
       path: '/dhcp',
-      component: _components_DhcpComponent_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
+      component: _components_DhcpComponent_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
     }]
+  }, {
+    path: 'nat_dmz',
+    component: _components_DmzComponent_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
+  }, {
+    path: '/settings',
+    component: _components_SettingsComponent_vue__WEBPACK_IMPORTED_MODULE_13__["default"]
   }]
 }, {
   path: '*',
   component: _components_PageNotFound_vue__WEBPACK_IMPORTED_MODULE_10__["default"]
 }];
-var router = new vue_router__WEBPACK_IMPORTED_MODULE_11__["default"]({
+var router = new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
   routes: routes
 }); //   export
 
@@ -38923,6 +40101,75 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/components/BlokaceWWWComponent.vue":
+/*!*********************************************************!*\
+  !*** ./resources/js/components/BlokaceWWWComponent.vue ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _BlokaceWWWComponent_vue_vue_type_template_id_139d7148___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BlokaceWWWComponent.vue?vue&type=template&id=139d7148& */ "./resources/js/components/BlokaceWWWComponent.vue?vue&type=template&id=139d7148&");
+/* harmony import */ var _BlokaceWWWComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./BlokaceWWWComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/BlokaceWWWComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _BlokaceWWWComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _BlokaceWWWComponent_vue_vue_type_template_id_139d7148___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _BlokaceWWWComponent_vue_vue_type_template_id_139d7148___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/BlokaceWWWComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/BlokaceWWWComponent.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/components/BlokaceWWWComponent.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BlokaceWWWComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./BlokaceWWWComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/BlokaceWWWComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BlokaceWWWComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/BlokaceWWWComponent.vue?vue&type=template&id=139d7148&":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/components/BlokaceWWWComponent.vue?vue&type=template&id=139d7148& ***!
+  \****************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BlokaceWWWComponent_vue_vue_type_template_id_139d7148___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./BlokaceWWWComponent.vue?vue&type=template&id=139d7148& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/BlokaceWWWComponent.vue?vue&type=template&id=139d7148&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BlokaceWWWComponent_vue_vue_type_template_id_139d7148___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BlokaceWWWComponent_vue_vue_type_template_id_139d7148___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
 
 /***/ }),
 
@@ -38995,17 +40242,17 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/ExtenderComponent.vue":
-/*!*******************************************************!*\
-  !*** ./resources/js/components/ExtenderComponent.vue ***!
-  \*******************************************************/
+/***/ "./resources/js/components/DmzComponent.vue":
+/*!**************************************************!*\
+  !*** ./resources/js/components/DmzComponent.vue ***!
+  \**************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _ExtenderComponent_vue_vue_type_template_id_dbc21cca___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ExtenderComponent.vue?vue&type=template&id=dbc21cca& */ "./resources/js/components/ExtenderComponent.vue?vue&type=template&id=dbc21cca&");
-/* harmony import */ var _ExtenderComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ExtenderComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/ExtenderComponent.vue?vue&type=script&lang=js&");
+/* harmony import */ var _DmzComponent_vue_vue_type_template_id_0339f8d7___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DmzComponent.vue?vue&type=template&id=0339f8d7& */ "./resources/js/components/DmzComponent.vue?vue&type=template&id=0339f8d7&");
+/* harmony import */ var _DmzComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DmzComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/DmzComponent.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -39015,9 +40262,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _ExtenderComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _ExtenderComponent_vue_vue_type_template_id_dbc21cca___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _ExtenderComponent_vue_vue_type_template_id_dbc21cca___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _DmzComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _DmzComponent_vue_vue_type_template_id_0339f8d7___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _DmzComponent_vue_vue_type_template_id_0339f8d7___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -39027,38 +40274,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/ExtenderComponent.vue"
+component.options.__file = "resources/js/components/DmzComponent.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/ExtenderComponent.vue?vue&type=script&lang=js&":
-/*!********************************************************************************!*\
-  !*** ./resources/js/components/ExtenderComponent.vue?vue&type=script&lang=js& ***!
-  \********************************************************************************/
+/***/ "./resources/js/components/DmzComponent.vue?vue&type=script&lang=js&":
+/*!***************************************************************************!*\
+  !*** ./resources/js/components/DmzComponent.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ExtenderComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./ExtenderComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ExtenderComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ExtenderComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DmzComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./DmzComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DmzComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DmzComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/ExtenderComponent.vue?vue&type=template&id=dbc21cca&":
-/*!**************************************************************************************!*\
-  !*** ./resources/js/components/ExtenderComponent.vue?vue&type=template&id=dbc21cca& ***!
-  \**************************************************************************************/
+/***/ "./resources/js/components/DmzComponent.vue?vue&type=template&id=0339f8d7&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/DmzComponent.vue?vue&type=template&id=0339f8d7& ***!
+  \*********************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ExtenderComponent_vue_vue_type_template_id_dbc21cca___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./ExtenderComponent.vue?vue&type=template&id=dbc21cca& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ExtenderComponent.vue?vue&type=template&id=dbc21cca&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ExtenderComponent_vue_vue_type_template_id_dbc21cca___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DmzComponent_vue_vue_type_template_id_0339f8d7___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./DmzComponent.vue?vue&type=template&id=0339f8d7& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DmzComponent.vue?vue&type=template&id=0339f8d7&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DmzComponent_vue_vue_type_template_id_0339f8d7___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ExtenderComponent_vue_vue_type_template_id_dbc21cca___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DmzComponent_vue_vue_type_template_id_0339f8d7___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -39143,17 +40390,15 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _KidControlComponent_vue_vue_type_template_id_ecc2dc2a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./KidControlComponent.vue?vue&type=template&id=ecc2dc2a& */ "./resources/js/components/KidControlComponent.vue?vue&type=template&id=ecc2dc2a&");
-/* harmony import */ var _KidControlComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./KidControlComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/KidControlComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
-
-
+var script = {}
 
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _KidControlComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
+  script,
   _KidControlComponent_vue_vue_type_template_id_ecc2dc2a___WEBPACK_IMPORTED_MODULE_0__["render"],
   _KidControlComponent_vue_vue_type_template_id_ecc2dc2a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
@@ -39167,20 +40412,6 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 if (false) { var api; }
 component.options.__file = "resources/js/components/KidControlComponent.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/js/components/KidControlComponent.vue?vue&type=script&lang=js&":
-/*!**********************************************************************************!*\
-  !*** ./resources/js/components/KidControlComponent.vue?vue&type=script&lang=js& ***!
-  \**********************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_KidControlComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./KidControlComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/KidControlComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_KidControlComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -39397,14 +40628,15 @@ __webpack_require__.r(__webpack_exports__);
 /*!*****************************************************!*\
   !*** ./resources/js/components/NavBarComponent.vue ***!
   \*****************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _NavBarComponent_vue_vue_type_template_id_1614d4d2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./NavBarComponent.vue?vue&type=template&id=1614d4d2& */ "./resources/js/components/NavBarComponent.vue?vue&type=template&id=1614d4d2&");
 /* harmony import */ var _NavBarComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./NavBarComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/NavBarComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _NavBarComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _NavBarComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -39434,7 +40666,7 @@ component.options.__file = "resources/js/components/NavBarComponent.vue"
 /*!******************************************************************************!*\
   !*** ./resources/js/components/NavBarComponent.vue?vue&type=script&lang=js& ***!
   \******************************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -39579,6 +40811,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PrehledComponent_vue_vue_type_template_id_2535ce7c___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PrehledComponent_vue_vue_type_template_id_2535ce7c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/SettingsComponent.vue":
+/*!*******************************************************!*\
+  !*** ./resources/js/components/SettingsComponent.vue ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _SettingsComponent_vue_vue_type_template_id_67fba83f___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SettingsComponent.vue?vue&type=template&id=67fba83f& */ "./resources/js/components/SettingsComponent.vue?vue&type=template&id=67fba83f&");
+/* harmony import */ var _SettingsComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SettingsComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/SettingsComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _SettingsComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _SettingsComponent_vue_vue_type_template_id_67fba83f___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _SettingsComponent_vue_vue_type_template_id_67fba83f___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/SettingsComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/SettingsComponent.vue?vue&type=script&lang=js&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/SettingsComponent.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SettingsComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./SettingsComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SettingsComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SettingsComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/SettingsComponent.vue?vue&type=template&id=67fba83f&":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/components/SettingsComponent.vue?vue&type=template&id=67fba83f& ***!
+  \**************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SettingsComponent_vue_vue_type_template_id_67fba83f___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./SettingsComponent.vue?vue&type=template&id=67fba83f& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SettingsComponent.vue?vue&type=template&id=67fba83f&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SettingsComponent_vue_vue_type_template_id_67fba83f___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SettingsComponent_vue_vue_type_template_id_67fba83f___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -40016,8 +41317,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Applications/MAMP/htdocs/HomeWifi/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Applications/MAMP/htdocs/HomeWifi/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Applications/MAMP/htdocs/wifi/HomeWifi/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Applications/MAMP/htdocs/wifi/HomeWifi/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
