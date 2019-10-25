@@ -2,7 +2,7 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
-// axios => nahrada jquery, lepsi knihovna pro vue
+// axios => nahrada jquery
 window.axios = require('axios');
 
 // Import componentu
