@@ -10,9 +10,6 @@ class DeviceCheck
 {
 
     var $mktPort = 8728;
-    var $address = "172.28.12.25";  // $_SERVER["REMOTE_ADDR"];
-
-
 
      /**
      * funkce na načtení ROUTEROS API
@@ -37,7 +34,7 @@ class DeviceCheck
     public function handle($request, Closure $next)
     {
 
-        $overeni = @fsockopen($this->address, $this->mktPort, $errorNo, $errorStr, 3); //zjistuje zda je zarizeni MirkoTik
+        $overeni = @fsockopen($_SERVER["REMOTE_ADDR"], $this->mktPort, $errorNo, $errorStr, 3); //zjistuje zda je zarizeni MirkoTik
         if ($errorNo == 0) {
             $logins = DeviceLoginController::getLogin();
             foreach($logins as $login) {
@@ -45,7 +42,7 @@ class DeviceCheck
                 $password = $login["password"];
             }
             $api = $this->api();
-            $api->connect($this->address, $user, $password, $this->mktPort);  //pokus o pripojeni do MkT
+            $api->connect($_SERVER["REMOTE_ADDR"], $user, $password, $this->mktPort);  //pokus o pripojeni do MkT
             if ($api->connected == true) {
                 // podarilo se pripojit
                 return $next($request);
