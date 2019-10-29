@@ -123,14 +123,15 @@ class MikrotikController extends Controller
     }
 
     /**
-     * funkce na ziskani wireless interfaců
+     * funkce na ziskani wireless interfaců, pouze pro wlans v modu ap-bridge (zahodi se v modu station nebo bridge)
      *
      * @param [api] $api
      * @return array
      */
     public static function getWireless($api)
     {
-        $api->write('/interface/wireless/print');
+        $api->write('/interface/wireless/print', false);
+        $api->write('?=mode='."ap-bridge", true);
         $READ = $api->read(false);
         $data = $api->parseResponse($READ);
 
