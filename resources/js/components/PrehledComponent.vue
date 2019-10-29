@@ -33,7 +33,7 @@
                 <div>
                     <p class="heading">Čas od posledního restartování</p>
                     <Uptime></Uptime>
-                </div>  
+                </div>
             </div>
         </nav>
         <br>
@@ -45,7 +45,7 @@
                     <!-- Tabulka s přehledem o zařízení -->
                     <table id="prehled" class="table" style="width: 30rem;">
                         <tbody>
-                            <tr>
+                            <!-- <tr>
                                 <th>
                                     <b>
                                         Wi-Fi status 2,4GHz
@@ -55,18 +55,18 @@
                                     <a v-if="wireless2Band.disabled === 'false'"> Aktivní</a>
                                     <a v-else>Neaktivní</a>
                                 </td>
-                            </tr>
+                            </tr> -->
                             <tr>
                                 <th>
                                     <b>
-                                        Wi-Fi SSID
+                                        Wi-Fi 2GHz SSID
                                     </b>
                                 </th>
                                 <td v-for="wireless2Ssid in summary.wireless" v-bind:key="wireless2Ssid.id" v-if="wireless2Ssid.band.slice(0,4) === '2ghz'">
                                     {{wireless2Ssid.ssid}}
                                 </td>
                             </tr>
-                            <tr>
+                            <!-- <tr>
                                 <th>
                                     <b>
                                         Wi-Fi status 5GHz
@@ -76,11 +76,11 @@
                                     <a v-if="wireless5Band.disabled === 'false'"> Aktivní</a>
                                     <a v-else>Neaktivní</a>
                                 </td>
-                            </tr>
+                            </tr> -->
                             <tr>
                                 <th>
                                     <b>
-                                        Wi-Fi SSID
+                                        Wi-Fi 5GHz SSID
                                     </b>
                                 </th>
                                 <td v-for="wireless5Ssid in summary.wireless" v-bind:key="wireless5Ssid.id" v-if="wireless5Ssid.band.slice(0,4) === '5ghz'">
@@ -88,7 +88,7 @@
                                 </td>
                             </tr>
                         </tbody>
-                    </table>    
+                    </table>
                 </div>
                 <!-- Zobrazení IP adresess -->
                 <div class="column column_default is-4">
@@ -101,8 +101,18 @@
                                         IPv4
                                     </b>
                                 </th>
-                                <td v-for="ipv4 in summary.uplink" v-bind:key="ipv4.id">
-                                    {{ipv4.address}}
+                                <td>
+                                    {{summary.ipv4}}
+                                </td>
+                            </tr>
+                            <tr v-if="pppoe !== false">
+                                <th>
+                                    <b>
+                                        Veřejná adresa
+                                    </b>
+                                </th>
+                                <td v-for="verejna in pppoe" v-bind:key="verejna.id">
+                                    {{verejna.address}}
                                 </td>
                             </tr>
                             <tr>
@@ -111,14 +121,17 @@
                                         IPv6
                                     </b>
                                 </th>
-                                <td v-for="ipv6 in summary.ipv6" v-bind:key="ipv6.id">
-                                    {{ipv6.prefix}}
+                                <td v-if="summary.ipv6 === 'false'">
+                                    IPv6 není podporována!
+                                </td>
+                                <td v-else-if="summary.ipv6 != 'false'">
+                                    {{summary.ipv6}}
                                 </td>
                             </tr>
                             <tr>
                                 <th>
                                     <b>
-                                        Vnitřní rozsah IPv4
+                                        LAN IPv4
                                     </b>
                                 </th>
                                 <td v-for="dhcpNetwork in summary.dhcpNetwork" v-bind:key="dhcpNetwork.id">
@@ -145,12 +158,15 @@ export default {
     data() {
         return {
             summary: false,
+            pppoe: false,
             // interval: false,
         }
     },
     created(){
         axios.get('/api/device/summary')
                 .then( response => this.summary = response.data);
+        axios.get('/api/device/pppoe')
+                .then( response => this.pppoe = response.data);
     },
     components: {
         'Ipv4-Firewall' : Ipv4Firewall,

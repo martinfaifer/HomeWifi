@@ -1,6 +1,9 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+var VueResource = require('vue-resource');
+
+Vue.use(VueResource);
 
 // axios => nahrada jquery
 window.axios = require('axios');
@@ -21,7 +24,7 @@ import PageNotFound from  './components/PageNotFound.vue';
 import PrehledComponent from './components/PrehledComponent.vue'; //Prehled
 import WifiComponent from './components/WifiComponent.vue';
 import SettingsComponent from './components/SettingsComponent.vue';
-
+import SpeedTestComponent from './components/SpeedTestComponent.vue';
 
 Vue.use(VueRouter);
 // Definice rout pro vue
@@ -73,6 +76,10 @@ let routes = [
             {
                 path: 'nat_dmz',
                 component: DmzComponent
+            },
+            {
+                path: '/speedTest',
+                component: SpeedTestComponent,
             },
             {
                 path: '/settings',

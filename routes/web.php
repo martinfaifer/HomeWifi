@@ -37,7 +37,8 @@ Route::get('/api/device/dhcp/ports', 'MikrotikController@getDhcpPorts')->middlew
 Route::get('/api/devices/info', 'MikrotikController@getSysData');
 
 Route::post('/api/device/firewall/create', 'MikrotikController@createFirewall')->middleware('deviceCheck');
-
+Route::get('/api/device/speedTest', 'MikrotikController@speedTest');
+Route::get('/api/device/pppoe', 'MikrotikController@getPPOEClientAndAddress');
 
 // Posty
 Route::post('/api/device/wlan/getEditData', 'MikrotikController@getEditData')->middleware('deviceCheck');

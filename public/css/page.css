@@ -2,6 +2,9 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+.navMenu:hover {
+    text-decoration: none;
+}
 .material-icons {
     font-size: 120px;
 }
@@ -47,6 +50,11 @@ body {
 .center {
     padding-top: 10%;
     padding-left: 10%;
+    position: absolute;
+}
+.center_btn {
+    margin-top: 10%;
+    margin-left: 40%;
     position: absolute;
 }
 .centerPage {

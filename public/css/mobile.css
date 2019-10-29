@@ -3,17 +3,32 @@
     .mobileFont {
         font-size: 12px;
     }
-
+    #burger {
+        position: fixed;
+        top: -5px;
+    }
     .logo {
         display: none;
     }
 
+    .center_btn {
+        margin-top: 10%;
+        margin-left: 30%;
+        position: absolute;
+    }
+
+    .center {
+        position: sticky;
+    }
+
     .mobileMenu {
+        margin-top: -100px;
         width: 53vh;
         height: 40vh;
         background-color: hsl(0, 0%, 21%);
         color: whitesmoke;
         z-index: 1;
+        position: relative;
     }
 
     .mobile_table {
@@ -26,8 +41,8 @@
 
     .data {
         position: relative;
-        top: 20%;
         display: table;
+        top: 20%;
     }
 
     .right {
@@ -69,12 +84,29 @@
         font-size: 12px;
     }
 
+    #burger {
+        position: fixed;
+        top: -5px;
+    }
+
     .logo {
         display: none;
     }
 
-    .mobileMenu {
-        width: 53vh;
+    .center_btn {
+        margin-top: 10%;
+        margin-left: 30%;
+        position: absolute;
+    }
+    .center {
+        position: sticky;
+    }
+
+      .mobileMenu {
+        position: fixed;
+        left:-10px;
+        top: 50px;
+        width: 60vh;
         height: 40vh;
         background-color: hsl(0, 0%, 21%);
         color: whitesmoke;
@@ -134,12 +166,30 @@
         font-size: 12px;
     }
 
+    #burger {
+        position: fixed;
+        top: -5px;
+    }
+
     .logo {
         display: none;
     }
 
-    .mobileMenu {
-        width: 53vh;
+    .center_btn {
+        margin-top: 10%;
+        margin-left: 30%;
+        position: absolute;
+    }
+
+    .center {
+        position: sticky;
+    }
+
+      .mobileMenu {
+        position: fixed;
+        left:-10px;
+        top: 50px;
+        width: 60vh;
         height: 40vh;
         background-color: hsl(0, 0%, 21%);
         color: whitesmoke;
@@ -203,12 +253,29 @@
         font-size: 12px;
     }
 
+    #burger {
+        position: fixed;
+        top: -5px;
+    }
+
     .logo {
         display: none;
     }
 
-    .mobileMenu {
-        width: 53vh;
+    .center_btn {
+        margin-top: 10%;
+        margin-left: 30%;
+        position: absolute;
+    }
+    .center {
+        position: sticky;
+    }
+
+     .mobileMenu {
+        position: fixed;
+        left:-10px;
+        top: 50px;
+        width: 60vh;
         height: 40vh;
         background-color: hsl(0, 0%, 21%);
         color: whitesmoke;
@@ -268,12 +335,29 @@
         font-size: 12px;
     }
 
+    #burger {
+        position: fixed;
+        top: -5px;
+    }
+
     .logo {
         display: none;
     }
+    .center_btn {
+        margin-top: 10%;
+        margin-left: 30%;
+        position: absolute;
+    }
 
-    .mobileMenu {
-        width: 53vh;
+    .center {
+        position: sticky;
+    }
+
+      .mobileMenu {
+        position: fixed;
+        left:-10px;
+        top: 50px;
+        width: 60vh;
         height: 40vh;
         background-color: hsl(0, 0%, 21%);
         color: whitesmoke;

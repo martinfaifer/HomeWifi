@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\AddressList;
 use App\CustomerWithExtender;
 use App\ExtenderVendor;
+use App\SpeedTest;
 use App\povoleni;
 use Illuminate\Http\Request;
 use Routerboard\Arjeapi\RouterOs;
@@ -41,7 +42,8 @@ class MikrotikController extends Controller
                 $password = $login["password"];
             }
 
-        if ($api->connect($_SERVER["REMOTE_ADDR"], $user, $password, $port)) { //nutno zmenit na dynamiku
+        // $_SERVER["REMOTE_ADDR"]
+        if ($api->connect("172.28.12.25", $user, $password, $port)) { //nutno zmenit na dynamiku
             return $api;
         } else {
             return false;
@@ -61,7 +63,7 @@ class MikrotikController extends Controller
                 $password = $login["password"];
             }
 
-        if ($api->connect($_SERVER["REMOTE_ADDR"], $user, $password, $port)) { //nutno zmenit na dynamiku
+        if ($api->connect("172.28.12.25", $user, $password, $port)) { //nutno zmenit na dynamiku
             return $api;
         } else {
             return false;
@@ -72,6 +74,17 @@ class MikrotikController extends Controller
     public static function getUplink($api)
     {
         $api->write('/ip/dhcp-client/print');
+        $READ = $api->read(false);
+        $data = $api->parseResponse($READ);
+
+        return $data;
+    }
+
+
+    public static function pppoeAddress($api, $pppoeInterface)
+    {
+        $api->write('/ip/address/print', false);
+        $api->write('?=interface='. $pppoeInterface, true);
         $READ = $api->read(false);
         $data = $api->parseResponse($READ);
 
@@ -94,6 +107,23 @@ class MikrotikController extends Controller
     public static function getMacBridge($api, $interface){
         $api->write('/interface/bridge/print', false);
         $api->write('?=name='.$interface, true);
+        $READ = $api->read(false);
+        $data = $api->parseResponse($READ);
+
+        return $data;
+    }
+
+
+    /**
+     * funkce na vyhledani zda existuje PPPOE-client
+     *
+     * @param [type] $api
+     * @return void
+     */
+    public static function getPPPOEClient($api)
+    {
+        $api->write('/interface/pppoe-client/print', false);
+        $api->write('?=disabled='. "false", true);
         $READ = $api->read(false);
         $data = $api->parseResponse($READ);
 
@@ -694,6 +724,7 @@ class MikrotikController extends Controller
         $wireless = "false"; //promnenna nesouci informaci o wireless interfacech v mkt
         $ipv6 = "false"; //promnenna nesouci informace o ipv6
         $dhcpNetwork = "false"; //promnenna nesouci informaci o dhcp networkach
+        $prefix = "false";
 
         $api = $this->api();
         $login = $this->deviceLogin($api, $this->port);
@@ -709,6 +740,13 @@ class MikrotikController extends Controller
                 if(ValidationController::checkIfIsEmpty($this->getIPv6Info($login)))
                 {
                     $ipv6 = $this->getIPv6Info($login);
+                    if($ipv6[0]["status"] == "stopped") {
+
+                    } else {
+                        $prefixWithUptime = $ipv6[0]["prefix"];
+                        $prefixToExplode = explode(',', $prefixWithUptime);
+                        $prefix = $prefixToExplode[0];
+                    }
                 }
 
                 $dhcpNetwork = $this->getDhcpNetwork($login);
@@ -720,7 +758,8 @@ class MikrotikController extends Controller
 
         return array(
             'uplink' => $uplink,
-            'ipv6' => $ipv6,
+            'ipv4' => $uplinkAddress[0],
+            'ipv6' => $prefix,
             'dhcpNetwork' => $dhcpNetwork,
             'wireless' => $wireless,
         );
@@ -1402,6 +1441,56 @@ class MikrotikController extends Controller
     }
 
 
+    public function getPPOEClientAndAddress()
+    {
+        $pppoeAddress = "false";
+        $api = $this->api();
+        $login = $this->deviceLogin($api,$this->port);
+        if($login !== "false") {
+           if(ValidationController::checkIfIsEmpty($this->getPPPOEClient($login))) {
+                // získání interfacu
+                $pppoe = $this->getPPPOEClient($login);
+                $pppoeInterface = $pppoe[0]["name"];
+                $pppoeAddress = $this->pppoeAddress($login, $pppoeInterface);
+            }
+            return $pppoeAddress;
+        }
+    }
+
+    /**
+     * funkce na speed - Test
+     *
+     * @return void
+     */
+    public function speedTest()
+    {
+
+        $api = $this->api();
+        $login = $this->deviceLogin($api,$this->port);
+        if($login !== "false") {
+            foreach(SpeedTest::all() as $speedData) {
+                $user = $speedData->user;
+                $pass = $speedData->password;
+                $serverIp = $speedData->serverIp;
+            }
+
+            $api->write('/tool/speed-test', false);
+            $api->write('=address='. $serverIp, false);
+            $api->write('=user='. $user, false);
+            $api->write('=password='. $pass, false);
+            $api->write('=test-duration='. "5s", true);
+            $READ = $api->read(false);
+            $data = $api->parseResponse($READ);
+        }
+        $downloadData = explode(" ",$data[30]["udp-download"]);
+        $uploadData = explode(" ",$data[30]["udp-upload"]);
+        $pingData = explode("/" , $data[30]["jitter-min-avg-max"]);
+        return array(
+            'ping' => $pingData[2],
+            'download' => $downloadData[0],
+            'upload' => $uploadData[0]
+        );
+    }
 
 
    /**
