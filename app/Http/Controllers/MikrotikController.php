@@ -43,7 +43,7 @@ class MikrotikController extends Controller
             }
 
         // $_SERVER["REMOTE_ADDR"]
-        if ($api->connect("172.28.12.25", $user, $password, $port)) { //nutno zmenit na dynamiku
+        if ($api->connect($_SERVER["REMOTE_ADDR"], $user, $password, $port)) { //nutno zmenit na dynamiku
             return $api;
         } else {
             return false;
@@ -63,7 +63,7 @@ class MikrotikController extends Controller
                 $password = $login["password"];
             }
 
-        if ($api->connect("172.28.12.25", $user, $password, $port)) { //nutno zmenit na dynamiku
+        if ($api->connect($_SERVER["REMOTE_ADDR"], $user, $password, $port)) { //nutno zmenit na dynamiku
             return $api;
         } else {
             return false;
