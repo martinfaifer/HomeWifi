@@ -99,6 +99,9 @@ export default {
                 });
 
         },
+    },
+    beforeDestroy: function(){
+        clearInterval(this.interval);
     }
 }
 </script>

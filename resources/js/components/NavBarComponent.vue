@@ -12,6 +12,7 @@
                         <span aria-hidden="true"></span>
                         <span aria-hidden="true"></span>
                         <!-- mobile Nav -->
+                        <transition name="fade" mode="out-in">
                         <div class="mobileMenu" v-show="hamburgerMenu === true" >
                             <div>
                                 <router-link to="/" class="navbar-item navMenu">
@@ -43,6 +44,7 @@
                                 </router-link>
                             </div>
                         </div>
+                        </transition>
                         <!-- end mobile Nav -->
                     </span>
                 </div>
@@ -79,7 +81,9 @@
                 </div>
             </nav>
         </div>
-        <router-view></router-view>
+        <transition name="fade" mode="out-in">
+            <router-view/>
+        </transition>
     </div>
 </template>
 <script>

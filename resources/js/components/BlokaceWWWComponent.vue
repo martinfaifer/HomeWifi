@@ -31,6 +31,7 @@
             </table>
          </div>
          <!-- Modals -->
+         <transition name="fade" mode="out-in">
         <div v-show="AddModal">
             <div class="modal is-active">
                 <div class="modal-background" @click="AddModal=false"></div>
@@ -49,6 +50,7 @@
                 </div>
             </div>
         </div>
+         </transition>
     </div>
 </template>
 <script>

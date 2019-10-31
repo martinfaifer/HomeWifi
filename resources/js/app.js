@@ -1,14 +1,10 @@
 require('./bootstrap');
-
 window.Vue = require('vue');
-var VueResource = require('vue-resource');
+Vue.config.productionTip = true;
+Vue.config.devtools = true;
 
-Vue.use(VueResource);
+import axios from 'axios';
 
-// axios => nahrada jquery
-window.axios = require('axios');
-
-// Import componentu
 import VueRouter from 'vue-router';
 
 import BlokaceWWWComponent from './components/BlokaceWWWComponent.vue';
@@ -26,6 +22,12 @@ import WifiComponent from './components/WifiComponent.vue';
 import SettingsComponent from './components/SettingsComponent.vue';
 import SpeedTestComponent from './components/SpeedTestComponent.vue';
 
+window.axios = require('axios');
+
+window.axios.defaults.headers.common = {
+    'X-Requested-With': 'XMLHttpRequest',
+    'X-CSRF-TOKEN' : document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+};
 Vue.use(VueRouter);
 // Definice rout pro vue
 let routes = [
@@ -97,6 +99,7 @@ let routes = [
 const router = new VueRouter({
     routes
   })
+
 
 //   export
   const app = new Vue({

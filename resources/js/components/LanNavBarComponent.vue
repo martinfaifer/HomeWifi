@@ -12,7 +12,9 @@
                     </li>
                 </ul>
             </div>
-            <router-view></router-view>
+            <transition name="fade" mode="out-in">
+                <router-view/>
+            </transition>
          </div>
     </div>
 </template>

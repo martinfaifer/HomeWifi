@@ -1,6 +1,6 @@
 <template>
     <div>
-       <p class="title is-4">{{uptime}}</p> 
+       <p class="title is-4">{{uptime}}</p>
     </div>
 </template>
 <script>
@@ -35,5 +35,8 @@ export default {
                 });
         },
     },
+    beforeDestroy: function(){
+        clearInterval(this.interval);
+    }
 }
 </script>

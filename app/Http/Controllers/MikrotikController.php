@@ -434,7 +434,7 @@ class MikrotikController extends Controller
     {
         $isp = "Grape";
         $ipv6FirewallStatus = false;
-        $ipv6FirewallStatusIsDisabled = false;
+        $ipv6FirewallStatusIsDisabled = true;
         $povoleneIpv6 = ''; //promnenna pro vypis z db pro ipv6
         $povoleneIpv6 = povoleni::where('type', 'ipv6')->get();
 
@@ -447,8 +447,9 @@ class MikrotikController extends Controller
         {
             $ipv6FirewallStatus = "true";
             foreach($ipv6Data as $ipv6) {
-                $ipv6FirewallStatusIsDisabled = $ipv6["disabled"];
+
                 $ipv6Id = $ipv6[".id"];
+                // $ipv6FirewallStatusIsDisabled = $ipv6["disabled"];
             }
         } else {
             $ipv6FirewallStatus = "none";
@@ -459,8 +460,8 @@ class MikrotikController extends Controller
             $api->write('/ipv6/firewall/filter/set', false);
             $api->write('=.id='.$ipv6Id, false);
             $api->write('=disabled='."false", true);
-            $READIPv4 = $api->read(false);
-            $ipv4Data = $api->parseResponse($READIPv4);
+            $READIPv6 = $api->read(false);
+            $ipv6Data = $api->parseResponse($READIPv6);
         } elseif($ipv6FirewallStatus = "none") {
             foreach($povoleneIpv6 as $list6){
                 $api->write('/ipv6/firewall/address-list/add', false);
@@ -725,6 +726,10 @@ class MikrotikController extends Controller
         $ipv6 = "false"; //promnenna nesouci informace o ipv6
         $dhcpNetwork = "false"; //promnenna nesouci informaci o dhcp networkach
         $prefix = "false";
+        $wlan2Ghz = "2ghz";
+        $wlan5Ghz = "5ghz";
+        $wlan2gSsid = "false";
+        $wlan5gSsid = "false";
 
         $api = $this->api();
         $login = $this->deviceLogin($api, $this->port);
@@ -736,6 +741,14 @@ class MikrotikController extends Controller
                 if(ValidationController::checkIfIsEmpty($this->getWireless($login)))
                 {
                     $wireless = $this->getWireless($login);
+                    foreach($wireless as $wlan) {
+                        if(substr($wlan["band"], 0,4) == $wlan2Ghz) {
+                            $wlan2gSsid = $wlan["ssid"];
+                        }
+                        if(substr($wlan["band"], 0,4) == $wlan5Ghz) {
+                            $wlan5gSsid = $wlan["ssid"];
+                        }
+                    }
                 }
                 if(ValidationController::checkIfIsEmpty($this->getIPv6Info($login)))
                 {
@@ -750,6 +763,7 @@ class MikrotikController extends Controller
                 }
 
                 $dhcpNetwork = $this->getDhcpNetwork($login);
+                $networkAddress = $dhcpNetwork[0]["address"];
 
 
         } else {
@@ -757,11 +771,12 @@ class MikrotikController extends Controller
         }
 
         return array(
-            'uplink' => $uplink,
+            // 'uplink' => $uplink,
             'ipv4' => $uplinkAddress[0],
             'ipv6' => $prefix,
-            'dhcpNetwork' => $dhcpNetwork,
-            'wireless' => $wireless,
+            'dhcpNetwork' => $networkAddress,
+            'wlan2GHz' => $wlan2gSsid,
+            'wlan5GHz' => $wlan5gSsid,
         );
     }
 
@@ -877,7 +892,7 @@ class MikrotikController extends Controller
     {
         $api = "false";
         $login = "false";
-        $wifi = array();
+        $wifi = false;
         $wirelessPassword = array();
 
         $api = $this->api();
@@ -1040,7 +1055,7 @@ class MikrotikController extends Controller
                                         'vendor' => $vendor,
                                         'address' => $lease["address"],
                                         'mac-address' => $lease["mac-address"],
-                                        'comment' => $comment,
+                                        'comment' => iconv("cp1250", "utf-8", $comment),
                                         'last-seen' => $lease["last-seen"],
                                         'status' => $lease["status"],
                                         'dynamic' => $lease["dynamic"]
@@ -1107,7 +1122,7 @@ class MikrotikController extends Controller
         $login = $this->deviceLogin($api,$this->port);
         if($login !== false) {
             $uplink = $this->getUplink($login);
-            $overeniZdaJizExistuje = CustomerWithExtender::where('address', substr($uplink[0]["address"],0, -3))->get();
+            $overeniZdaJizExistuje = CustomerWithExtender::where('address', substr($uplink[0]["address"],0, -3))->get(); //vyheldání v Tabulce zda jiz existuje zaznam
             if(ValidationController::checkIfIsEmpty($overeniZdaJizExistuje)){
 
                 $extendersExist = "true"; //protoze jiz existuje
@@ -1152,7 +1167,7 @@ class MikrotikController extends Controller
                 }
 
             } else {
-                $soupisExtenderIp = AddressList::where('use', 'extender')->get();
+                $soupisExtenderIp = AddressList::where('use', 'extender')->get(); // vytazeni vsech disptupnych adress s porty, ktere maji status 'extender'
                 foreach($soupisExtenderIp as $ip)
                 {
                     $hledaniExtenderu = $this->getSingleLeaseInfoByAddress($login, $ip["address"]);
@@ -1170,9 +1185,14 @@ class MikrotikController extends Controller
                                         {
                                             // pokud se zalozi do db
                                             $extendersExist = "true";
+
+                                            // prikazy pro komunikaci s extenderem
+
                                         }
                                     } else {
                                         $extendersExist = "true"; //protoze jiz existuje
+                                        // prikazy pro komunikaci s extenderem
+
                                     }
                                 }
                             }
@@ -1468,28 +1488,54 @@ class MikrotikController extends Controller
         $api = $this->api();
         $login = $this->deviceLogin($api,$this->port);
         if($login !== "false") {
-            foreach(SpeedTest::all() as $speedData) {
-                $user = $speedData->user;
-                $pass = $speedData->password;
-                $serverIp = $speedData->serverIp;
-            }
+            foreach($this->getSysInfo($login) as $sysdata) {
+                // verze
+                $dataVersionWithString = explode(" ", $sysdata["version"]);
+                $dataVersion = explode(".",$dataVersionWithString[0]);
+                // overeni typu ROS + valiadace zda se ma pokouset jit dale
+                if($dataVersion[0] >= "6") {
+                    // je vetsi nebo rovno ROS verze 6, overeni main verze
+                    if($dataVersion[1] >= "44") {
+                        // OK verze je podporovana
 
-            $api->write('/tool/speed-test', false);
-            $api->write('=address='. $serverIp, false);
-            $api->write('=user='. $user, false);
-            $api->write('=password='. $pass, false);
-            $api->write('=test-duration='. "5s", true);
-            $READ = $api->read(false);
-            $data = $api->parseResponse($READ);
+                        foreach(SpeedTest::all() as $speedData) {
+                            $user = $speedData->user;
+                            $pass = $speedData->password;
+                            $serverIp = $speedData->serverIp;
+                        }
+
+                        $api->write('/tool/speed-test', false);
+                        $api->write('=address='. $serverIp, false);
+                        $api->write('=user='. $user, false);
+                        $api->write('=password='. $pass, false);
+                        $api->write('=test-duration='. "5s", true);
+                        $READ = $api->read(false);
+                        $data = $api->parseResponse($READ);
+
+                        $downloadData = explode(" ",$data[30]["udp-download"]);
+                        $uploadData = explode(" ",$data[30]["udp-upload"]);
+                        $pingData = explode("/" , $data[30]["jitter-min-avg-max"]);
+
+                        return array(
+                            'ping' => $pingData[2],
+                            'download' => $downloadData[0],
+                            'upload' => $uploadData[0]
+                        );
+
+                    } else {
+                        // verze neni podporovana, vyhodi se hlaska pro nedostupnost sluzby
+                        return array(
+                            'versionErr' => "false"
+                        );
+                    }
+                } else {
+                    // verze neni podporovana, vyhodi se hlaska pro nedostupnost sluzby
+                    return array(
+                        'versionErr' => "false"
+                    );
+                }
+            }
         }
-        $downloadData = explode(" ",$data[30]["udp-download"]);
-        $uploadData = explode(" ",$data[30]["udp-upload"]);
-        $pingData = explode("/" , $data[30]["jitter-min-avg-max"]);
-        return array(
-            'ping' => $pingData[2],
-            'download' => $downloadData[0],
-            'upload' => $uploadData[0]
-        );
     }
 
 

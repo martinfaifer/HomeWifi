@@ -14,6 +14,7 @@
                         <th class="mobileFont" scope="col">Akce</th>
                     </tr>
                 </thead>
+                <transition name="fade" mode="out-in">
                 <tbody>
                     <tr v-for="lease in leases" v-bind:key="lease.id">
                         <td class="mobileFont">{{lease.address}}</td>
@@ -40,10 +41,12 @@
                         </td>
                     </tr>
                 </tbody>
+                </transition>
             </table>
          </div>
 
          <!-- Modal -->
+         <transition name="fade" mode="out-in">
          <div v-show="EditModal">
             <div class="modal is-active">
                 <div class="modal-background" @click="EditModal=false"></div>
@@ -62,6 +65,7 @@
                 </div>
             </div>
         </div>
+         </transition>
     </div>
 </template>
 <script>
@@ -74,22 +78,16 @@ export default {
             leases: '',
             commnet: '',
             edit:'',
-            interval: false,
+            interval: null,
             editResponse:'',
             leaseId:'',
         }
     },
-    created(){
-        axios.get('api/device/leases')
-                .then( response => this.leases = response.data);
-    },
     mounted(){
-
         this.loadDataLeases();
         this.interval = setInterval(function () {
             this.loadDataLeases();
         }.bind(this), 1000);
-
     },
     methods: {
 
@@ -151,8 +149,12 @@ export default {
                 });
         }
     },
+    created(){
+        axios.get('api/device/leases')
+                .then( response => this.leases = response.data);
+    },
     beforeDestroy: function(){
         clearInterval(this.interval);
-    }
+    },
 }
 </script>

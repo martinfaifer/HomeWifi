@@ -19,7 +19,7 @@ export default {
         this.loadDataRegistrationsCount();
         this.interval = setInterval(function () {
             this.loadDataRegistrationsCount();
-        }.bind(this), 10000);
+        }.bind(this), 30000);
 
     },
     methods: {
@@ -35,5 +35,8 @@ export default {
                 });
         },
     },
+    beforeDestroy: function(){
+        clearInterval(this.interval);
+    }
 }
 </script>

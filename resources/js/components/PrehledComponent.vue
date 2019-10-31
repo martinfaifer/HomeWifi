@@ -4,7 +4,7 @@
         <br>
         <nav class="level">
             <div class="level-item has-text-centered">
-                <div v-for="uplink in summary.uplink" v-bind:key="uplink.id">
+                <div>
                     <p class="heading">Přívodní port</p>
                     <Uplink></Uplink>
                 </div>
@@ -45,46 +45,30 @@
                     <!-- Tabulka s přehledem o zařízení -->
                     <table id="prehled" class="table" style="width: 30rem;">
                         <tbody>
-                            <!-- <tr>
-                                <th>
-                                    <b>
-                                        Wi-Fi status 2,4GHz
-                                    </b>
-                                </th>
-                                <td v-for="wireless2Band in summary.wireless" v-bind:key="wireless2Band.id" v-if="wireless2Band.band.slice(0,4) === '2ghz'">
-                                    <a v-if="wireless2Band.disabled === 'false'"> Aktivní</a>
-                                    <a v-else>Neaktivní</a>
-                                </td>
-                            </tr> -->
                             <tr>
                                 <th>
                                     <b>
                                         Wi-Fi 2GHz SSID
                                     </b>
                                 </th>
-                                <td v-for="wireless2Ssid in summary.wireless" v-bind:key="wireless2Ssid.id" v-if="wireless2Ssid.band.slice(0,4) === '2ghz'">
-                                    {{wireless2Ssid.ssid}}
+                                <td v-if="summary.wlan2GHz === 'false'">
+                                    Není podporováno
+                                </td>
+                                <td v-else>
+                                    <a>{{summary.wlan2GHz}}</a>
                                 </td>
                             </tr>
-                            <!-- <tr>
-                                <th>
-                                    <b>
-                                        Wi-Fi status 5GHz
-                                    </b>
-                                </th>
-                                <td v-for="wireless5Band in summary.wireless" v-bind:key="wireless5Band.id" v-if="wireless5Band.band.slice(0,4) === '5ghz'">
-                                    <a v-if="wireless5Band.disabled === 'false'"> Aktivní</a>
-                                    <a v-else>Neaktivní</a>
-                                </td>
-                            </tr> -->
                             <tr>
                                 <th>
                                     <b>
                                         Wi-Fi 5GHz SSID
                                     </b>
                                 </th>
-                                <td v-for="wireless5Ssid in summary.wireless" v-bind:key="wireless5Ssid.id" v-if="wireless5Ssid.band.slice(0,4) === '5ghz'">
-                                    {{wireless5Ssid.ssid}}
+                                 <td v-if="summary.wlan5GHz === 'false'">
+                                    Není podporováno
+                                </td>
+                                <td v-else>
+                                    <a>{{summary.wlan5GHz}}</a>
                                 </td>
                             </tr>
                         </tbody>
@@ -134,8 +118,8 @@
                                         LAN IPv4
                                     </b>
                                 </th>
-                                <td v-for="dhcpNetwork in summary.dhcpNetwork" v-bind:key="dhcpNetwork.id">
-                                    {{dhcpNetwork.address}}
+                                <td>
+                                    {{summary.dhcpNetwork}}
                                 </td>
                             </tr>
                         </tbody>

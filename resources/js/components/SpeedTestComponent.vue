@@ -1,5 +1,8 @@
 <template>
     <div>
+         <div v-show="speedTest.versionErr" class="notification is-grape text-center textColor_default bold">
+            <strong>Vaše zařízení není podporováno!</strong>
+        </div>
         <div class="container is-fluid">
             <br>
             <nav v-if="SpeedTest != false" class="level">

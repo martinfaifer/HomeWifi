@@ -89,7 +89,7 @@ export default {
             dhcp:'',
             interfaces: '',
             ports:'',
-            interval: false,
+            interval: null,
         }
     },
     created(){

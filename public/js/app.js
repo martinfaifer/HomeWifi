@@ -1891,6 +1891,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2116,6 +2118,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+var _data$mounted$methods;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -2382,7 +2388,79 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = (_data$mounted$methods = {
   data: function data() {
     return {
       EditSecurityModal: false,
@@ -2403,44 +2481,25 @@ __webpack_require__.r(__webpack_exports__);
       port: false,
       wlanId: '',
       edit: '',
-      editSecurity: ''
+      editSecurity: '',
+      intervalExtender: null,
+      intervalWlan: null,
+      intervalComment: null
     };
-  },
-  created: function created() {
-    var _this = this;
-
-    // extendery
-    axios.get('/api/device/extender/wlans').then(function (response) {
-      return _this.extenderWireless = response.data;
-    });
-    axios.get('/api/device/extender/registrations').then(function (response) {
-      return _this.extenderRegistrations = response.data;
-    }); // router
-
-    axios.get('api/device/wireless').then(function (response) {
-      return _this.wireless = response.data;
-    });
-    axios.get('/api/device/wlan/registration').then(function (response) {
-      return _this.registrations = response.data;
-    }); // popisy extenderu
-
-    axios.get('/api/device/extender/name').then(function (response) {
-      return _this.popisy = response.data;
-    });
   },
   mounted: function mounted() {
     this.loadDataExtenderWireless();
-    this.interval = setInterval(function () {
+    this.intervalExtender = setInterval(function () {
       this.loadDataExtenderWireless();
-    }.bind(this), 2000);
+    }.bind(this), 30000);
     this.loadDataWireless();
-    this.interval = setInterval(function () {
+    this.intervalWlan = setInterval(function () {
       this.loadDataWireless();
-    }.bind(this), 2000);
+    }.bind(this), 10000);
     this.loadDataComment();
-    this.interval = setInterval(function () {
+    this.intervalComment = setInterval(function () {
       this.loadDataComment();
-    }.bind(this), 1000);
+    }.bind(this), 30000);
   },
   methods: {
     loadDataExtenderWireless: function loadDataExtenderWireless() {
@@ -2540,9 +2599,34 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   beforeDestroy: function beforeDestroy() {
-    clearInterval(this.interval);
+    clearInterval(this.intervalExtender);
   }
-});
+}, _defineProperty(_data$mounted$methods, "beforeDestroy", function beforeDestroy() {
+  clearInterval(this.intervalWlan);
+}), _defineProperty(_data$mounted$methods, "beforeDestroy", function beforeDestroy() {
+  clearInterval(this.intervalComment);
+}), _defineProperty(_data$mounted$methods, "created", function created() {
+  var _this = this;
+
+  // extendery
+  axios.get('/api/device/extender/wlans').then(function (response) {
+    return _this.extenderWireless = response.data;
+  });
+  axios.get('/api/device/extender/registrations').then(function (response) {
+    return _this.extenderRegistrations = response.data;
+  }); // router
+
+  axios.get('api/device/wireless').then(function (response) {
+    return _this.wireless = response.data;
+  });
+  axios.get('/api/device/wlan/registration').then(function (response) {
+    return _this.registrations = response.data;
+  }); // popisy extenderu
+
+  axios.get('/api/device/extender/name').then(function (response) {
+    return _this.popisy = response.data;
+  });
+}), _data$mounted$methods);
 
 /***/ }),
 
@@ -2644,7 +2728,7 @@ __webpack_require__.r(__webpack_exports__);
       dhcp: '',
       interfaces: '',
       ports: '',
-      interval: false
+      interval: null
     };
   },
   created: function created() {
@@ -2763,6 +2847,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2771,17 +2859,10 @@ __webpack_require__.r(__webpack_exports__);
       leases: '',
       commnet: '',
       edit: '',
-      interval: false,
+      interval: null,
       editResponse: '',
       leaseId: ''
     };
-  },
-  created: function created() {
-    var _this = this;
-
-    axios.get('api/device/leases').then(function (response) {
-      return _this.leases = response.data;
-    });
   },
   mounted: function mounted() {
     this.loadDataLeases();
@@ -2838,6 +2919,13 @@ __webpack_require__.r(__webpack_exports__);
       });
     }
   },
+  created: function created() {
+    var _this = this;
+
+    axios.get('api/device/leases').then(function (response) {
+      return _this.leases = response.data;
+    });
+  },
   beforeDestroy: function beforeDestroy() {
     clearInterval(this.interval);
   }
@@ -2854,6 +2942,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
 //
 //
 //
@@ -2965,22 +3057,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _dashboardComponents_UplinkCompoment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./dashboardComponents/UplinkCompoment */ "./resources/js/components/dashboardComponents/UplinkCompoment.vue");
 /* harmony import */ var _dashboardComponents_UptimeComponent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./dashboardComponents/UptimeComponent */ "./resources/js/components/dashboardComponents/UptimeComponent.vue");
 /* harmony import */ var _dashboardComponents_RegistrationsCountController__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./dashboardComponents/RegistrationsCountController */ "./resources/js/components/dashboardComponents/RegistrationsCountController.vue");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -3254,6 +3330,9 @@ __webpack_require__.r(__webpack_exports__);
         currentObj.port = '';
       });
     }
+  },
+  beforeDestroy: function beforeDestroy() {
+    clearInterval(this.interval);
   }
 });
 
@@ -3268,6 +3347,9 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
 //
 //
 //
@@ -3696,7 +3778,7 @@ __webpack_require__.r(__webpack_exports__);
     this.loadDataRegistrationsCount();
     this.interval = setInterval(function () {
       this.loadDataRegistrationsCount();
-    }.bind(this), 10000);
+    }.bind(this), 30000);
   },
   methods: {
     loadDataRegistrationsCount: function loadDataRegistrationsCount() {
@@ -3708,6 +3790,9 @@ __webpack_require__.r(__webpack_exports__);
         currentObj.interval = false;
       });
     }
+  },
+  beforeDestroy: function beforeDestroy() {
+    clearInterval(this.interval);
   }
 });
 
@@ -3789,6 +3874,9 @@ __webpack_require__.r(__webpack_exports__);
         currentObj.interval = false;
       });
     }
+  },
+  beforeDestroy: function beforeDestroy() {
+    clearInterval(this.interval);
   }
 });
 
@@ -21415,162 +21503,168 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("div", { staticClass: "container is-fluid" }, [
-      _c("table", { staticClass: "table table-sm table-hover" }, [
-        _c("thead", [
-          _c("tr", [
-            _c("th", { staticClass: "mobileFont", attrs: { scope: "col" } }, [
-              _vm._v("URL")
-            ]),
-            _vm._v(" "),
-            _c("th", { staticClass: "mobileFont", attrs: { scope: "col" } }, [
-              _vm._v("Akce\n                        "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-sm",
-                  on: {
-                    click: function($event) {
-                      _vm.AddModal = true
-                    }
-                  }
-                },
-                [_vm._m(0)]
-              )
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c(
-          "tbody",
-          _vm._l(_vm.blokovane, function(url) {
-            return _c("tr", { key: url.id }, [
-              _c("td", { staticClass: "mobileFont" }, [
-                _vm._v(_vm._s(url["tls-host"]))
+  return _c(
+    "div",
+    [
+      _c("div", { staticClass: "container is-fluid" }, [
+        _c("table", { staticClass: "table table-sm table-hover" }, [
+          _c("thead", [
+            _c("tr", [
+              _c("th", { staticClass: "mobileFont", attrs: { scope: "col" } }, [
+                _vm._v("URL")
               ]),
               _vm._v(" "),
-              _c("td", { staticClass: "mobileFont" }, [
+              _c("th", { staticClass: "mobileFont", attrs: { scope: "col" } }, [
+                _vm._v("Akce\n                        "),
                 _c(
-                  "form",
+                  "button",
                   {
-                    staticClass: "inline_block",
+                    staticClass: "btn btn-sm",
                     on: {
-                      submit: function($event) {
-                        return _vm.RemoveUrl((_vm.urlId = url.id))
+                      click: function($event) {
+                        _vm.AddModal = true
                       }
                     }
                   },
-                  [_vm._m(1, true)]
+                  [_vm._m(0)]
                 )
               ])
             ])
-          }),
-          0
-        )
-      ])
-    ]),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: _vm.AddModal,
-            expression: "AddModal"
-          }
-        ]
-      },
-      [
-        _c("div", { staticClass: "modal is-active" }, [
-          _c("div", {
-            staticClass: "modal-background",
-            on: {
-              click: function($event) {
-                _vm.AddModal = false
-              }
-            }
-          }),
+          ]),
           _vm._v(" "),
-          _c("div", { attrs: { id: "modal_grey_m" } }, [
-            _c(
-              "div",
-              {
-                staticClass: "container rounded",
-                attrs: { id: "modal_grey_m" }
-              },
-              [
-                _c("br"),
+          _c(
+            "tbody",
+            _vm._l(_vm.blokovane, function(url) {
+              return _c("tr", { key: url.id }, [
+                _c("td", { staticClass: "mobileFont" }, [
+                  _vm._v(_vm._s(url["tls-host"]))
+                ]),
                 _vm._v(" "),
-                _c(
-                  "form",
-                  {
-                    on: {
-                      submit: function($event) {
-                        return _vm.AddBlocked()
+                _c("td", { staticClass: "mobileFont" }, [
+                  _c(
+                    "form",
+                    {
+                      staticClass: "inline_block",
+                      on: {
+                        submit: function($event) {
+                          return _vm.RemoveUrl((_vm.urlId = url.id))
+                        }
                       }
-                    }
+                    },
+                    [_vm._m(1, true)]
+                  )
+                ])
+              ])
+            }),
+            0
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("transition", { attrs: { name: "fade", mode: "out-in" } }, [
+        _c(
+          "div",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.AddModal,
+                expression: "AddModal"
+              }
+            ]
+          },
+          [
+            _c("div", { staticClass: "modal is-active" }, [
+              _c("div", {
+                staticClass: "modal-background",
+                on: {
+                  click: function($event) {
+                    _vm.AddModal = false
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("div", { attrs: { id: "modal_grey_m" } }, [
+                _c(
+                  "div",
+                  {
+                    staticClass: "container rounded",
+                    attrs: { id: "modal_grey_m" }
                   },
                   [
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", { staticClass: "textColor_default" }, [
-                        _vm._v("WWW adresa, kterou chcete blokovat")
-                      ]),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.url,
-                            expression: "url"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "text",
-                          placeholder: "www.seznam.cz",
-                          pattern: "[www]{3}[.][a-zA-Z]{1,64}[.][a-z]{1,6}",
-                          required: ""
-                        },
-                        domProps: { value: _vm.url },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.url = $event.target.value
-                          }
-                        }
-                      })
-                    ]),
+                    _c("br"),
                     _vm._v(" "),
                     _c(
-                      "button",
+                      "form",
                       {
-                        staticClass: "btn btn-primary",
-                        attrs: { type: "submit" },
                         on: {
-                          click: function($event) {
-                            _vm.AddModal = false
+                          submit: function($event) {
+                            return _vm.AddBlocked()
                           }
                         }
                       },
-                      [_vm._v("Přidat")]
-                    )
+                      [
+                        _c("div", { staticClass: "form-group" }, [
+                          _c("label", { staticClass: "textColor_default" }, [
+                            _vm._v("WWW adresa, kterou chcete blokovat")
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.url,
+                                expression: "url"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "text",
+                              placeholder: "www.seznam.cz",
+                              pattern: "[www]{3}[.][a-zA-Z]{1,64}[.][a-z]{1,6}",
+                              required: ""
+                            },
+                            domProps: { value: _vm.url },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.url = $event.target.value
+                              }
+                            }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-primary",
+                            attrs: { type: "submit" },
+                            on: {
+                              click: function($event) {
+                                _vm.AddModal = false
+                              }
+                            }
+                          },
+                          [_vm._v("Přidat")]
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("br")
                   ]
-                ),
-                _vm._v(" "),
-                _c("br")
-              ]
-            )
-          ])
-        ])
-      ]
-    )
-  ])
+                )
+              ])
+            ])
+          ]
+        )
+      ])
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
@@ -21845,178 +21939,216 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
+    _vm.wireless.wireless === false
+      ? _c(
+          "div",
+          {
+            staticClass:
+              "notification is-warning text-center textColor_default bold"
+          },
+          [_c("strong", [_vm._v("Vaše zařízení není podporováno!")])]
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.extenderWireless.extenderStatus === "false"
+      ? _c(
+          "div",
+          {
+            staticClass:
+              "notification is-warning text-center textColor_default bold"
+          },
+          [_c("strong", [_vm._v("Nebyl nalezen žádný extender")])]
+        )
+      : _vm._e(),
+    _vm._v(" "),
     _c("div", { staticClass: "container is-fluid" }, [
       _c(
         "div",
         { staticClass: "data" },
         [
-          _c("div", { staticClass: "center inline_block dropdown is-active" }, [
-            _vm._m(0),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                directives: [
-                  {
-                    name: "show",
-                    rawName: "v-show",
-                    value: _vm.routerInfo,
-                    expression: "routerInfo"
-                  }
-                ],
-                staticClass: "custom_menu dropdown-menu",
-                attrs: { role: "menu" }
-              },
-              [
-                _c(
-                  "div",
-                  [
-                    _vm._l(_vm.wireless.wireless, function(routerWlan) {
-                      return _c(
-                        "div",
-                        { key: routerWlan.id, staticClass: "dropdown-item" },
-                        [
-                          _c("div", { staticClass: "container" }, [
-                            _c("div", { staticClass: "row" }, [
-                              _c("p", { staticClass: "mobileFont" }, [
-                                _vm._v("SSID:"),
-                                _c("strong", [_vm._v(_vm._s(routerWlan.ssid))]),
-                                _vm._v(" | Heslo: "),
-                                _c("strong", [
-                                  _vm._v(_vm._s(routerWlan.password))
-                                ])
-                              ]),
-                              _vm._v(" "),
-                              _c(
-                                "form",
-                                {
-                                  staticClass: "inline_form",
-                                  on: {
-                                    submit: function($event) {
-                                      return _vm.EditWlantModal(
-                                        (_vm.wlanId = routerWlan.id),
-                                        (_vm.port = false)
-                                      )
-                                    }
-                                  }
-                                },
-                                [_vm._m(1, true)]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "form",
-                                {
-                                  staticClass: "inline_form",
-                                  on: {
-                                    submit: function($event) {
-                                      return _vm.EditWlanSecuritytModal(
-                                        (_vm.wlanId = routerWlan.id),
-                                        (_vm.port = false)
-                                      )
-                                    }
-                                  }
-                                },
-                                [_vm._m(2, true)]
-                              )
-                            ])
-                          ])
-                        ]
-                      )
-                    }),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "dropdown-item" }, [
-                      _c(
-                        "table",
+          _vm.wireless.wireless != "false"
+            ? _c(
+                "div",
+                { staticClass: "center inline_block dropdown is-active" },
+                [
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      directives: [
                         {
-                          staticClass:
-                            "mobile_table lightBuleColor table table-sm table-hover"
-                        },
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.routerInfo,
+                          expression: "routerInfo"
+                        }
+                      ],
+                      staticClass:
+                        "custom_menu shadow-sm p-3 mb-5 bg-white rounded dropdown-menu",
+                      attrs: { role: "menu" }
+                    },
+                    [
+                      _c(
+                        "div",
                         [
-                          _vm._m(3),
+                          _vm._l(_vm.wireless.wireless, function(routerWlan) {
+                            return _c(
+                              "div",
+                              {
+                                key: routerWlan.id,
+                                staticClass: "dropdown-item"
+                              },
+                              [
+                                _c("div", { staticClass: "container" }, [
+                                  _c("div", { staticClass: "row" }, [
+                                    _c("p", { staticClass: "mobileFont" }, [
+                                      _vm._v("SSID:"),
+                                      _c("strong", [
+                                        _vm._v(_vm._s(routerWlan.ssid))
+                                      ]),
+                                      _vm._v(" | Heslo: "),
+                                      _c("strong", [
+                                        _vm._v(_vm._s(routerWlan.password))
+                                      ])
+                                    ]),
+                                    _vm._v(" "),
+                                    _c(
+                                      "form",
+                                      {
+                                        staticClass: "inline_form",
+                                        on: {
+                                          submit: function($event) {
+                                            return _vm.EditWlantModal(
+                                              (_vm.wlanId = routerWlan.id),
+                                              (_vm.port = false)
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [_vm._m(1, true)]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "form",
+                                      {
+                                        staticClass: "inline_form",
+                                        on: {
+                                          submit: function($event) {
+                                            return _vm.EditWlanSecuritytModal(
+                                              (_vm.wlanId = routerWlan.id),
+                                              (_vm.port = false)
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [_vm._m(2, true)]
+                                    )
+                                  ])
+                                ])
+                              ]
+                            )
+                          }),
                           _vm._v(" "),
-                          _c(
-                            "tbody",
-                            [
-                              !_vm.registrations.registrations.length
-                                ? _c("div", [_vm._m(4)])
-                                : _vm._l(
-                                    _vm.registrations.registrations,
-                                    function(registration) {
-                                      return _c(
-                                        "tr",
-                                        {
-                                          key: registration.id,
-                                          staticClass: "mobileFont"
-                                        },
-                                        [
-                                          registration.comment !== "false"
-                                            ? _c("td", [
-                                                _vm._v(
-                                                  "\n                                                " +
-                                                    _vm._s(
-                                                      registration.comment
-                                                    ) +
-                                                    "\n                                            "
+                          _c("div", { staticClass: "dropdown-item" }, [
+                            _c(
+                              "table",
+                              {
+                                staticClass:
+                                  "mobile_table table table-sm table-hover"
+                              },
+                              [
+                                _vm._m(3),
+                                _vm._v(" "),
+                                _c(
+                                  "tbody",
+                                  [
+                                    !_vm.registrations.registrations.length
+                                      ? _c("div", [_vm._m(4)])
+                                      : _vm._l(
+                                          _vm.registrations.registrations,
+                                          function(registration) {
+                                            return _c(
+                                              "tr",
+                                              {
+                                                key: registration.id,
+                                                staticClass: "mobileFont"
+                                              },
+                                              [
+                                                registration.comment !== "false"
+                                                  ? _c("td", [
+                                                      _vm._v(
+                                                        "\n                                                " +
+                                                          _vm._s(
+                                                            registration.comment
+                                                          ) +
+                                                          "\n                                            "
+                                                      )
+                                                    ])
+                                                  : _c("td", [
+                                                      _vm._v(
+                                                        "\n                                                Zařízení bez popisu\n                                            "
+                                                      )
+                                                    ]),
+                                                _vm._v(" "),
+                                                registration.vendor !== "false"
+                                                  ? _c("td", [
+                                                      _vm._v(
+                                                        "\n                                                " +
+                                                          _vm._s(
+                                                            registration.vendor
+                                                          ) +
+                                                          "\n                                            "
+                                                      )
+                                                    ])
+                                                  : _c("td", [
+                                                      _vm._v(
+                                                        "\n                                                Neznámí výrobce\n                                            "
+                                                      )
+                                                    ]),
+                                                _vm._v(" "),
+                                                _c(
+                                                  "td",
+                                                  {
+                                                    staticClass: "hide_isMobile"
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      "\n                                                " +
+                                                        _vm._s(
+                                                          registration.signal
+                                                        ) +
+                                                        "\n                                            "
+                                                    )
+                                                  ]
                                                 )
-                                              ])
-                                            : _c("td", [
-                                                _vm._v(
-                                                  "\n                                                Zařízení bez popisu\n                                            "
-                                                )
-                                              ]),
-                                          _vm._v(" "),
-                                          registration.vendor !== "false"
-                                            ? _c("td", [
-                                                _vm._v(
-                                                  "\n                                                " +
-                                                    _vm._s(
-                                                      registration.vendor
-                                                    ) +
-                                                    "\n                                            "
-                                                )
-                                              ])
-                                            : _c("td", [
-                                                _vm._v(
-                                                  "\n                                                Neznámí výrobce\n                                            "
-                                                )
-                                              ]),
-                                          _vm._v(" "),
-                                          _c(
-                                            "td",
-                                            { staticClass: "hide_isMobile" },
-                                            [
-                                              _vm._v(
-                                                "\n                                                " +
-                                                  _vm._s(registration.signal) +
-                                                  "\n                                            "
-                                              )
-                                            ]
-                                          )
-                                        ]
-                                      )
-                                    }
-                                  )
-                            ],
-                            2
-                          )
-                        ]
+                                              ]
+                                            )
+                                          }
+                                        )
+                                  ],
+                                  2
+                                )
+                              ]
+                            )
+                          ])
+                        ],
+                        2
                       )
-                    ])
-                  ],
-                  2
-                )
-              ]
-            )
-          ]),
+                    ]
+                  )
+                ]
+              )
+            : _vm._e(),
           _vm._v(" "),
           _vm._l(_vm.extenderWireless.pocet, function(extender) {
             return _c("div", { key: extender.id, staticClass: "extenders" }, [
-              _c(
-                "div",
-                { staticClass: "right inline_block dropdown is-active" },
-                [
-                  extender === "10810"
-                    ? _c("div", {}, [
+              extender === "10810"
+                ? _c(
+                    "div",
+                    { staticClass: "right inline_block dropdown is-active" },
+                    [
+                      _c("div", [
                         _c(
                           "div",
                           { staticClass: "dropdown-trigger" },
@@ -22042,7 +22174,8 @@ var render = function() {
                           ? _c(
                               "div",
                               {
-                                staticClass: "right-menu dropdown-menu",
+                                staticClass:
+                                  "right-menu shadow-sm p-3 mb-5 bg-white rounded dropdown-menu",
                                 attrs: { role: "menu" }
                               },
                               [
@@ -22142,8 +22275,7 @@ var render = function() {
                                   _c(
                                     "table",
                                     {
-                                      staticClass:
-                                        "lightBuleColor table table-sm table-hover"
+                                      staticClass: "table table-sm table-hover"
                                     },
                                     [
                                       _vm._m(7, true),
@@ -22251,16 +22383,16 @@ var render = function() {
                             )
                           : _vm._e()
                       ])
-                    : _vm._e()
-                ]
-              ),
+                    ]
+                  )
+                : _vm._e(),
               _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "middle inline_block dropdown is-active" },
-                [
-                  extender === "10809"
-                    ? _c("div", {}, [
+              extender === "10809"
+                ? _c(
+                    "div",
+                    { staticClass: "middle inline_block dropdown is-active" },
+                    [
+                      _c("div", [
                         _c(
                           "div",
                           { staticClass: "dropdown-trigger" },
@@ -22286,7 +22418,8 @@ var render = function() {
                           ? _c(
                               "div",
                               {
-                                staticClass: "middle-menu dropdown-menu",
+                                staticClass:
+                                  "middle-menu shadow-sm p-3 mb-5 bg-white rounded dropdown-menu",
                                 attrs: { role: "menu" }
                               },
                               [
@@ -22387,7 +22520,7 @@ var render = function() {
                                     "table",
                                     {
                                       staticClass:
-                                        "mobile_table lightBuleColor table table-sm table-hover"
+                                        "mobile_table table table-sm table-hover"
                                     },
                                     [
                                       _vm._m(10, true),
@@ -22495,9 +22628,254 @@ var render = function() {
                             )
                           : _vm._e()
                       ])
-                    : _vm._e()
-                ]
-              )
+                    ]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              extender === "10808"
+                ? _c(
+                    "div",
+                    { staticClass: "bottom inline_block dropdown is-active" },
+                    [
+                      _c("div", [
+                        _c(
+                          "div",
+                          { staticClass: "dropdown-trigger" },
+                          [
+                            _vm._l(_vm.popisy.result, function(popis) {
+                              return popis.port === "10808"
+                                ? _c("div", { key: popis.id }, [
+                                    _c("p", [_vm._v(_vm._s(popis.comment))])
+                                  ])
+                                : _vm._e()
+                            }),
+                            _vm._v(" "),
+                            _c("i", { staticClass: "material-icons" }, [
+                              _vm._v(
+                                "\n                                wifi\n                            "
+                              )
+                            ])
+                          ],
+                          2
+                        ),
+                        _vm._v(" "),
+                        _vm.extenderInfo2
+                          ? _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "bottom-menu shadow-sm p-3 mb-5 bg-white rounded dropdown-menu",
+                                attrs: { role: "menu" }
+                              },
+                              [
+                                _vm._l(_vm.extenderWireless.wifi, function(
+                                  extender2
+                                ) {
+                                  return extender2.extenderPort === "10808"
+                                    ? _c(
+                                        "div",
+                                        {
+                                          key: extender2.id,
+                                          staticClass: "dropdown-item"
+                                        },
+                                        [
+                                          _c(
+                                            "div",
+                                            { staticClass: "container" },
+                                            [
+                                              _c(
+                                                "div",
+                                                { staticClass: "row" },
+                                                [
+                                                  _c(
+                                                    "p",
+                                                    {
+                                                      staticClass: "mobileFont"
+                                                    },
+                                                    [
+                                                      _vm._v("SSID:"),
+                                                      _c("strong", [
+                                                        _vm._v(
+                                                          _vm._s(extender2.ssid)
+                                                        )
+                                                      ]),
+                                                      _vm._v(" | Heslo: "),
+                                                      _c("strong", [
+                                                        _vm._v(
+                                                          _vm._s(
+                                                            extender2.password
+                                                          )
+                                                        )
+                                                      ])
+                                                    ]
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "form",
+                                                    {
+                                                      staticClass:
+                                                        "inline_form",
+                                                      on: {
+                                                        submit: function(
+                                                          $event
+                                                        ) {
+                                                          return _vm.EditWlantModal(
+                                                            (_vm.wlanId =
+                                                              extender2.id),
+                                                            (_vm.port =
+                                                              extender2.extenderPort)
+                                                          )
+                                                        }
+                                                      }
+                                                    },
+                                                    [_vm._m(11, true)]
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "form",
+                                                    {
+                                                      staticClass:
+                                                        "inline_form",
+                                                      on: {
+                                                        submit: function(
+                                                          $event
+                                                        ) {
+                                                          return _vm.EditWlanSecuritytModal(
+                                                            (_vm.wlanId =
+                                                              extender2.id),
+                                                            (_vm.port =
+                                                              extender2.extenderPort)
+                                                          )
+                                                        }
+                                                      }
+                                                    },
+                                                    [_vm._m(12, true)]
+                                                  )
+                                                ]
+                                              )
+                                            ]
+                                          )
+                                        ]
+                                      )
+                                    : _vm._e()
+                                }),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "dropdown-item" }, [
+                                  _c(
+                                    "table",
+                                    {
+                                      staticClass:
+                                        "mobile_table table table-sm table-hover"
+                                    },
+                                    [
+                                      _vm._m(13, true),
+                                      _vm._v(" "),
+                                      _c(
+                                        "tbody",
+                                        [
+                                          !_vm.extenderRegistrations
+                                            .registrations &&
+                                          _vm.extenderRegistrations.registration
+                                            .extenderPort === "10808"
+                                            ? _c("div", [
+                                                _c(
+                                                  "p",
+                                                  {
+                                                    staticClass:
+                                                      "has-text-danger"
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      "Nic neni připojeno na bezdrátové síti"
+                                                    )
+                                                  ]
+                                                )
+                                              ])
+                                            : _vm._e(),
+                                          _vm._v(" "),
+                                          _vm._l(
+                                            _vm.extenderRegistrations
+                                              .registrations,
+                                            function(extenderRegistration2) {
+                                              return extenderRegistration2.extenderPort ===
+                                                "10808"
+                                                ? _c(
+                                                    "tr",
+                                                    {
+                                                      key:
+                                                        extenderRegistration2.id,
+                                                      staticClass: "mobileFont"
+                                                    },
+                                                    [
+                                                      extenderRegistration2.comment !==
+                                                      "false"
+                                                        ? _c("td", [
+                                                            _vm._v(
+                                                              "\n                                                " +
+                                                                _vm._s(
+                                                                  extenderRegistration2.comment
+                                                                ) +
+                                                                "\n                                            "
+                                                            )
+                                                          ])
+                                                        : _c("td", [
+                                                            _vm._v(
+                                                              "\n                                                Zařízení bez popisu\n                                            "
+                                                            )
+                                                          ]),
+                                                      _vm._v(" "),
+                                                      extenderRegistration2.vendor !==
+                                                      "false"
+                                                        ? _c("td", [
+                                                            _vm._v(
+                                                              "\n                                                " +
+                                                                _vm._s(
+                                                                  extenderRegistration2.vendor
+                                                                ) +
+                                                                "\n                                            "
+                                                            )
+                                                          ])
+                                                        : _c("td", [
+                                                            _vm._v(
+                                                              "\n                                                Neznámí výrobce\n                                            "
+                                                            )
+                                                          ]),
+                                                      _vm._v(" "),
+                                                      _c(
+                                                        "td",
+                                                        {
+                                                          staticClass:
+                                                            "hide_isMobile"
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            "\n                                                " +
+                                                              _vm._s(
+                                                                extenderRegistration2.signal
+                                                              ) +
+                                                              "\n                                            "
+                                                          )
+                                                        ]
+                                                      )
+                                                    ]
+                                                  )
+                                                : _vm._e()
+                                            }
+                                          )
+                                        ],
+                                        2
+                                      )
+                                    ]
+                                  )
+                                ])
+                              ],
+                              2
+                            )
+                          : _vm._e()
+                      ])
+                    ]
+                  )
+                : _vm._e()
             ])
           })
         ],
@@ -22785,6 +23163,54 @@ var staticRenderFns = [
     return _c("p", { staticClass: "mobileFont" }, [
       _c("strong", { staticClass: "has-text-danger" }, [
         _vm._v("Nic neni připojeno na bezdrátové síti")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      { staticClass: "btn btn-sm", attrs: { type: "submit" } },
+      [
+        _c("span", { staticClass: "icon has-text-info mobileFont" }, [
+          _c("i", { staticClass: "fas fa-edit" })
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      { staticClass: "btn btn-sm", attrs: { type: "submit" } },
+      [
+        _c("span", { staticClass: "icon has-text-danger mobileFont" }, [
+          _c("i", { staticClass: "fas fa-lock" })
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { staticClass: "mobileFont", attrs: { scope: "col" } }, [
+          _vm._v("Popis")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "mobileFont", attrs: { scope: "col" } }, [
+          _vm._v("Výrobce")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "hide_isMobile", attrs: { scope: "col" } }, [
+          _vm._v("síla signálu")
+        ])
       ])
     ])
   },
@@ -23190,7 +23616,12 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _c("router-view")
+        _c(
+          "transition",
+          { attrs: { name: "fade", mode: "out-in" } },
+          [_c("router-view")],
+          1
+        )
       ],
       1
     )
@@ -23218,213 +23649,247 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c(
-      "div",
-      { staticClass: "container is-fluid" },
-      [
-        _c("router-view"),
-        _vm._v(" "),
-        _c("table", { staticClass: "table table-sm table-hover" }, [
-          _vm._m(0),
+  return _c(
+    "div",
+    [
+      _c(
+        "div",
+        { staticClass: "container is-fluid" },
+        [
+          _c("router-view"),
           _vm._v(" "),
           _c(
-            "tbody",
-            _vm._l(_vm.leases, function(lease) {
-              return _c("tr", { key: lease.id }, [
-                _c("td", { staticClass: "mobileFont" }, [
-                  _vm._v(_vm._s(lease.address))
-                ]),
-                _vm._v(" "),
-                _c("td", { staticClass: "hide_isMobile" }, [
-                  _vm._v(_vm._s(lease["mac-address"]))
-                ]),
-                _vm._v(" "),
-                _c("td", { staticClass: "mobileFont" }, [
-                  _vm._v(_vm._s(lease.vendor))
-                ]),
-                _vm._v(" "),
-                _c("td", { staticClass: "mobileFont" }, [
-                  _vm._v(_vm._s(lease.comment))
-                ]),
-                _vm._v(" "),
-                _c("td", { staticClass: "hide_isMobile" }, [
-                  _vm._v(_vm._s(lease["last-seen"]))
-                ]),
-                _vm._v(" "),
-                _c("td", { staticClass: "mobileFont" }, [
-                  _vm._v(_vm._s(lease.status))
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _c(
-                    "form",
-                    {
-                      staticClass: "inline_block",
-                      on: {
-                        submit: function($event) {
-                          return _vm.EditCommentModal(
-                            (_vm.leaseId = lease.address)
-                          )
-                        }
-                      }
-                    },
-                    [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-sm",
-                          attrs: { type: "submit" },
-                          on: {
-                            click: function($event) {
-                              _vm.EditModal = true
-                            }
-                          }
-                        },
-                        [_vm._m(1, true)]
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "form",
-                    {
-                      directives: [
-                        {
-                          name: "show",
-                          rawName: "v-show",
-                          value: lease.status === "waiting",
-                          expression: "lease.status === 'waiting'"
-                        }
-                      ],
-                      staticClass: "inline_block",
-                      on: {
-                        submit: function($event) {
-                          return _vm.RemoteLeaseModal(
-                            (_vm.leaseId = lease.address)
-                          )
-                        }
-                      }
-                    },
-                    [_vm._m(2, true)]
-                  )
-                ])
-              ])
-            }),
-            0
-          )
-        ])
-      ],
-      1
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: _vm.EditModal,
-            expression: "EditModal"
-          }
-        ]
-      },
-      [
-        _c("div", { staticClass: "modal is-active" }, [
-          _c("div", {
-            staticClass: "modal-background",
-            on: {
-              click: function($event) {
-                _vm.EditModal = false
-              }
-            }
-          }),
-          _vm._v(" "),
-          _c(
-            "div",
-            { attrs: { id: "modal_grey_m" } },
-            _vm._l(_vm.edit, function(leaseEdit) {
-              return _c(
-                "div",
-                {
-                  key: leaseEdit.id,
-                  staticClass: "container rounded",
-                  attrs: { id: "modal_grey_m" }
-                },
-                [
-                  _c("br"),
-                  _vm._v(" "),
-                  _c(
-                    "form",
-                    {
-                      on: {
-                        submit: function($event) {
-                          return _vm.EditComment()
-                        }
-                      }
-                    },
-                    [
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { staticClass: "textColor_default" }, [
-                          _vm._v("Změnit popis")
-                        ]),
-                        _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: (_vm.commnet = leaseEdit.comment),
-                              expression: "commnet = leaseEdit.comment"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: { type: "text" },
-                          domProps: {
-                            value: (_vm.commnet = leaseEdit.comment)
-                          },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                (_vm.commnet = leaseEdit),
-                                "comment",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        })
+            "table",
+            { staticClass: "table table-sm table-hover" },
+            [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("transition", { attrs: { name: "fade", mode: "out-in" } }, [
+                _c(
+                  "tbody",
+                  _vm._l(_vm.leases, function(lease) {
+                    return _c("tr", { key: lease.id }, [
+                      _c("td", { staticClass: "mobileFont" }, [
+                        _vm._v(_vm._s(lease.address))
                       ]),
                       _vm._v(" "),
+                      _c("td", { staticClass: "hide_isMobile" }, [
+                        _vm._v(_vm._s(lease["mac-address"]))
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "mobileFont" }, [
+                        _vm._v(_vm._s(lease.vendor))
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "mobileFont" }, [
+                        _vm._v(_vm._s(lease.comment))
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "hide_isMobile" }, [
+                        _vm._v(_vm._s(lease["last-seen"]))
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "mobileFont" }, [
+                        _vm._v(_vm._s(lease.status))
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c(
+                          "form",
+                          {
+                            staticClass: "inline_block",
+                            on: {
+                              submit: function($event) {
+                                return _vm.EditCommentModal(
+                                  (_vm.leaseId = lease.address)
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-sm",
+                                attrs: { type: "submit" },
+                                on: {
+                                  click: function($event) {
+                                    _vm.EditModal = true
+                                  }
+                                }
+                              },
+                              [
+                                _c(
+                                  "span",
+                                  { staticClass: "icon has-text-info" },
+                                  [_c("i", { staticClass: "fas fa-edit" })]
+                                )
+                              ]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "form",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: lease.status === "waiting",
+                                expression: "lease.status === 'waiting'"
+                              }
+                            ],
+                            staticClass: "inline_block",
+                            on: {
+                              submit: function($event) {
+                                return _vm.RemoteLeaseModal(
+                                  (_vm.leaseId = lease.address)
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-sm",
+                                attrs: { type: "submit" }
+                              },
+                              [
+                                _c(
+                                  "span",
+                                  { staticClass: "icon has-text-danger" },
+                                  [_c("i", { staticClass: "fas fa-trash" })]
+                                )
+                              ]
+                            )
+                          ]
+                        )
+                      ])
+                    ])
+                  }),
+                  0
+                )
+              ])
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("transition", { attrs: { name: "fade", mode: "out-in" } }, [
+        _c(
+          "div",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.EditModal,
+                expression: "EditModal"
+              }
+            ]
+          },
+          [
+            _c("div", { staticClass: "modal is-active" }, [
+              _c("div", {
+                staticClass: "modal-background",
+                on: {
+                  click: function($event) {
+                    _vm.EditModal = false
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { attrs: { id: "modal_grey_m" } },
+                _vm._l(_vm.edit, function(leaseEdit) {
+                  return _c(
+                    "div",
+                    {
+                      key: leaseEdit.id,
+                      staticClass: "container rounded",
+                      attrs: { id: "modal_grey_m" }
+                    },
+                    [
+                      _c("br"),
+                      _vm._v(" "),
                       _c(
-                        "button",
+                        "form",
                         {
-                          staticClass: "btn btn-primary",
-                          attrs: { type: "submit" },
                           on: {
-                            click: function($event) {
-                              _vm.EditModal = false
+                            submit: function($event) {
+                              return _vm.EditComment()
                             }
                           }
                         },
-                        [_vm._v("Změnit")]
-                      )
+                        [
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { staticClass: "textColor_default" }, [
+                              _vm._v("Změnit popis")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: (_vm.commnet = leaseEdit.comment),
+                                  expression: "commnet = leaseEdit.comment"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: { type: "text" },
+                              domProps: {
+                                value: (_vm.commnet = leaseEdit.comment)
+                              },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    (_vm.commnet = leaseEdit),
+                                    "comment",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-primary",
+                              attrs: { type: "submit" },
+                              on: {
+                                click: function($event) {
+                                  _vm.EditModal = false
+                                }
+                              }
+                            },
+                            [_vm._v("Změnit")]
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("br")
                     ]
-                  ),
-                  _vm._v(" "),
-                  _c("br")
-                ]
+                  )
+                }),
+                0
               )
-            }),
-            0
-          )
-        ])
-      ]
-    )
-  ])
+            ])
+          ]
+        )
+      ])
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
@@ -23462,28 +23927,6 @@ var staticRenderFns = [
         ])
       ])
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "icon has-text-info" }, [
-      _c("i", { staticClass: "fas fa-edit" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      { staticClass: "btn btn-sm", attrs: { type: "submit" } },
-      [
-        _c("span", { staticClass: "icon has-text-danger" }, [
-          _c("i", { staticClass: "fas fa-trash" })
-        ])
-      ]
-    )
   }
 ]
 render._withStripped = true
@@ -23546,105 +23989,112 @@ var render = function() {
                   _c("span", { attrs: { "aria-hidden": "true" } }),
                   _vm._v(" "),
                   _c(
-                    "div",
-                    {
-                      directives: [
-                        {
-                          name: "show",
-                          rawName: "v-show",
-                          value: _vm.hamburgerMenu === true,
-                          expression: "hamburgerMenu === true"
-                        }
-                      ],
-                      staticClass: "mobileMenu"
-                    },
+                    "transition",
+                    { attrs: { name: "fade", mode: "out-in" } },
                     [
                       _c(
                         "div",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.hamburgerMenu === true,
+                              expression: "hamburgerMenu === true"
+                            }
+                          ],
+                          staticClass: "mobileMenu"
+                        },
                         [
                           _c(
-                            "router-link",
-                            {
-                              staticClass: "navbar-item navMenu",
-                              attrs: { to: "/" }
-                            },
+                            "div",
                             [
-                              _vm._v(
-                                "\n                                Přehled\n                            "
+                              _c(
+                                "router-link",
+                                {
+                                  staticClass: "navbar-item navMenu",
+                                  attrs: { to: "/" }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                Přehled\n                            "
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "router-link",
+                                {
+                                  staticClass: "navbar-item navMenu",
+                                  attrs: { to: "/extenderVisual" }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                Wi-Fi\n                            "
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "router-link",
+                                {
+                                  staticClass: "navbar-item navMenu",
+                                  attrs: { to: "/lan" }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                LAN\n                            "
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "router-link",
+                                {
+                                  staticClass: "navbar-item navMenu",
+                                  attrs: { to: "/kidConttrol/www" }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                Rodičovská kontrola\n                            "
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "router-link",
+                                {
+                                  staticClass: "navbar-item navMenu",
+                                  attrs: { to: "/speedTest" }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                Test rychlosti připojení\n                            "
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "router-link",
+                                {
+                                  staticClass: "navbar-item navMenu",
+                                  attrs: { to: "/settings" }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                Nastavení\n                            "
+                                  )
+                                ]
                               )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "router-link",
-                            {
-                              staticClass: "navbar-item navMenu",
-                              attrs: { to: "/extenderVisual" }
-                            },
-                            [
-                              _vm._v(
-                                "\n                                Wi-Fi\n                            "
-                              )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "router-link",
-                            {
-                              staticClass: "navbar-item navMenu",
-                              attrs: { to: "/lan" }
-                            },
-                            [
-                              _vm._v(
-                                "\n                                LAN\n                            "
-                              )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "router-link",
-                            {
-                              staticClass: "navbar-item navMenu",
-                              attrs: { to: "/kidConttrol/www" }
-                            },
-                            [
-                              _vm._v(
-                                "\n                                Rodičovská kontrola\n                            "
-                              )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "router-link",
-                            {
-                              staticClass: "navbar-item navMenu",
-                              attrs: { to: "/speedTest" }
-                            },
-                            [
-                              _vm._v(
-                                "\n                                Test rychlosti připojení\n                            "
-                              )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "router-link",
-                            {
-                              staticClass: "navbar-item navMenu",
-                              attrs: { to: "/settings" }
-                            },
-                            [
-                              _vm._v(
-                                "\n                                Nastavení\n                            "
-                              )
-                            ]
+                            ],
+                            1
                           )
-                        ],
-                        1
+                        ]
                       )
                     ]
                   )
-                ]
+                ],
+                1
               )
             ]),
             _vm._v(" "),
@@ -23742,7 +24192,12 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
-      _c("router-view")
+      _c(
+        "transition",
+        { attrs: { name: "fade", mode: "out-in" } },
+        [_c("router-view")],
+        1
+      )
     ],
     1
   )
@@ -23837,25 +24292,17 @@ var render = function() {
         _c("br"),
         _vm._v(" "),
         _c("nav", { staticClass: "level" }, [
-          _c(
-            "div",
-            { staticClass: "level-item has-text-centered" },
-            _vm._l(_vm.summary.uplink, function(uplink) {
-              return _c(
-                "div",
-                { key: uplink.id },
-                [
-                  _c("p", { staticClass: "heading" }, [
-                    _vm._v("Přívodní port")
-                  ]),
-                  _vm._v(" "),
-                  _c("Uplink")
-                ],
-                1
-              )
-            }),
-            0
-          ),
+          _c("div", { staticClass: "level-item has-text-centered" }, [
+            _c(
+              "div",
+              [
+                _c("p", { staticClass: "heading" }, [_vm._v("Přívodní port")]),
+                _vm._v(" "),
+                _c("Uplink")
+              ],
+              1
+            )
+          ]),
           _vm._v(" "),
           _c("div", { staticClass: "level-item has-text-centered" }, [
             _c(
@@ -23926,45 +24373,33 @@ var render = function() {
                 },
                 [
                   _c("tbody", [
-                    _c(
-                      "tr",
-                      [
-                        _vm._m(0),
-                        _vm._v(" "),
-                        _vm._l(_vm.summary.wireless, function(wireless2Ssid) {
-                          return wireless2Ssid.band.slice(0, 4) === "2ghz"
-                            ? _c("td", { key: wireless2Ssid.id }, [
-                                _vm._v(
-                                  "\n                                " +
-                                    _vm._s(wireless2Ssid.ssid) +
-                                    "\n                            "
-                                )
-                              ])
-                            : _vm._e()
-                        })
-                      ],
-                      2
-                    ),
+                    _c("tr", [
+                      _vm._m(0),
+                      _vm._v(" "),
+                      _vm.summary.wlan2GHz === "false"
+                        ? _c("td", [
+                            _vm._v(
+                              "\n                                Není podporováno\n                            "
+                            )
+                          ])
+                        : _c("td", [
+                            _c("a", [_vm._v(_vm._s(_vm.summary.wlan2GHz))])
+                          ])
+                    ]),
                     _vm._v(" "),
-                    _c(
-                      "tr",
-                      [
-                        _vm._m(1),
-                        _vm._v(" "),
-                        _vm._l(_vm.summary.wireless, function(wireless5Ssid) {
-                          return wireless5Ssid.band.slice(0, 4) === "5ghz"
-                            ? _c("td", { key: wireless5Ssid.id }, [
-                                _vm._v(
-                                  "\n                                " +
-                                    _vm._s(wireless5Ssid.ssid) +
-                                    "\n                            "
-                                )
-                              ])
-                            : _vm._e()
-                        })
-                      ],
-                      2
-                    )
+                    _c("tr", [
+                      _vm._m(1),
+                      _vm._v(" "),
+                      _vm.summary.wlan5GHz === "false"
+                        ? _c("td", [
+                            _vm._v(
+                              "\n                                Není podporováno\n                            "
+                            )
+                          ])
+                        : _c("td", [
+                            _c("a", [_vm._v(_vm._s(_vm.summary.wlan5GHz))])
+                          ])
+                    ])
                   ])
                 ]
               )
@@ -24032,23 +24467,17 @@ var render = function() {
                         : _vm._e()
                     ]),
                     _vm._v(" "),
-                    _c(
-                      "tr",
-                      [
-                        _vm._m(5),
-                        _vm._v(" "),
-                        _vm._l(_vm.summary.dhcpNetwork, function(dhcpNetwork) {
-                          return _c("td", { key: dhcpNetwork.id }, [
-                            _vm._v(
-                              "\n                                " +
-                                _vm._s(dhcpNetwork.address) +
-                                "\n                            "
-                            )
-                          ])
-                        })
-                      ],
-                      2
-                    )
+                    _c("tr", [
+                      _vm._m(5),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(
+                          "\n                                " +
+                            _vm._s(_vm.summary.dhcpNetwork) +
+                            "\n                            "
+                        )
+                      ])
+                    ])
                   ])
                 ]
               )
@@ -24335,6 +24764,22 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
+    _c(
+      "div",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.speedTest.versionErr,
+            expression: "speedTest.versionErr"
+          }
+        ],
+        staticClass: "notification is-grape text-center textColor_default bold"
+      },
+      [_c("strong", [_vm._v("Vaše zařízení není podporováno!")])]
+    ),
+    _vm._v(" "),
     _c("div", { staticClass: "container is-fluid" }, [
       _c("br"),
       _vm._v(" "),
@@ -25194,1578 +25639,6 @@ function normalizeComponent (
     options: options
   }
 }
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-resource/dist/vue-resource.esm.js":
-/*!************************************************************!*\
-  !*** ./node_modules/vue-resource/dist/vue-resource.esm.js ***!
-  \************************************************************/
-/*! exports provided: default, Url, Http, Resource */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Url", function() { return Url; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Http", function() { return Http; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Resource", function() { return Resource; });
-/*!
- * vue-resource v1.5.1
- * https://github.com/pagekit/vue-resource
- * Released under the MIT License.
- */
-
-/**
- * Promises/A+ polyfill v1.1.4 (https://github.com/bramstein/promis)
- */
-
-var RESOLVED = 0;
-var REJECTED = 1;
-var PENDING = 2;
-
-function Promise$1(executor) {
-
-    this.state = PENDING;
-    this.value = undefined;
-    this.deferred = [];
-
-    var promise = this;
-
-    try {
-        executor(function (x) {
-            promise.resolve(x);
-        }, function (r) {
-            promise.reject(r);
-        });
-    } catch (e) {
-        promise.reject(e);
-    }
-}
-
-Promise$1.reject = function (r) {
-    return new Promise$1(function (resolve, reject) {
-        reject(r);
-    });
-};
-
-Promise$1.resolve = function (x) {
-    return new Promise$1(function (resolve, reject) {
-        resolve(x);
-    });
-};
-
-Promise$1.all = function all(iterable) {
-    return new Promise$1(function (resolve, reject) {
-        var count = 0, result = [];
-
-        if (iterable.length === 0) {
-            resolve(result);
-        }
-
-        function resolver(i) {
-            return function (x) {
-                result[i] = x;
-                count += 1;
-
-                if (count === iterable.length) {
-                    resolve(result);
-                }
-            };
-        }
-
-        for (var i = 0; i < iterable.length; i += 1) {
-            Promise$1.resolve(iterable[i]).then(resolver(i), reject);
-        }
-    });
-};
-
-Promise$1.race = function race(iterable) {
-    return new Promise$1(function (resolve, reject) {
-        for (var i = 0; i < iterable.length; i += 1) {
-            Promise$1.resolve(iterable[i]).then(resolve, reject);
-        }
-    });
-};
-
-var p = Promise$1.prototype;
-
-p.resolve = function resolve(x) {
-    var promise = this;
-
-    if (promise.state === PENDING) {
-        if (x === promise) {
-            throw new TypeError('Promise settled with itself.');
-        }
-
-        var called = false;
-
-        try {
-            var then = x && x['then'];
-
-            if (x !== null && typeof x === 'object' && typeof then === 'function') {
-                then.call(x, function (x) {
-                    if (!called) {
-                        promise.resolve(x);
-                    }
-                    called = true;
-
-                }, function (r) {
-                    if (!called) {
-                        promise.reject(r);
-                    }
-                    called = true;
-                });
-                return;
-            }
-        } catch (e) {
-            if (!called) {
-                promise.reject(e);
-            }
-            return;
-        }
-
-        promise.state = RESOLVED;
-        promise.value = x;
-        promise.notify();
-    }
-};
-
-p.reject = function reject(reason) {
-    var promise = this;
-
-    if (promise.state === PENDING) {
-        if (reason === promise) {
-            throw new TypeError('Promise settled with itself.');
-        }
-
-        promise.state = REJECTED;
-        promise.value = reason;
-        promise.notify();
-    }
-};
-
-p.notify = function notify() {
-    var promise = this;
-
-    nextTick(function () {
-        if (promise.state !== PENDING) {
-            while (promise.deferred.length) {
-                var deferred = promise.deferred.shift(),
-                    onResolved = deferred[0],
-                    onRejected = deferred[1],
-                    resolve = deferred[2],
-                    reject = deferred[3];
-
-                try {
-                    if (promise.state === RESOLVED) {
-                        if (typeof onResolved === 'function') {
-                            resolve(onResolved.call(undefined, promise.value));
-                        } else {
-                            resolve(promise.value);
-                        }
-                    } else if (promise.state === REJECTED) {
-                        if (typeof onRejected === 'function') {
-                            resolve(onRejected.call(undefined, promise.value));
-                        } else {
-                            reject(promise.value);
-                        }
-                    }
-                } catch (e) {
-                    reject(e);
-                }
-            }
-        }
-    });
-};
-
-p.then = function then(onResolved, onRejected) {
-    var promise = this;
-
-    return new Promise$1(function (resolve, reject) {
-        promise.deferred.push([onResolved, onRejected, resolve, reject]);
-        promise.notify();
-    });
-};
-
-p.catch = function (onRejected) {
-    return this.then(undefined, onRejected);
-};
-
-/**
- * Promise adapter.
- */
-
-if (typeof Promise === 'undefined') {
-    window.Promise = Promise$1;
-}
-
-function PromiseObj(executor, context) {
-
-    if (executor instanceof Promise) {
-        this.promise = executor;
-    } else {
-        this.promise = new Promise(executor.bind(context));
-    }
-
-    this.context = context;
-}
-
-PromiseObj.all = function (iterable, context) {
-    return new PromiseObj(Promise.all(iterable), context);
-};
-
-PromiseObj.resolve = function (value, context) {
-    return new PromiseObj(Promise.resolve(value), context);
-};
-
-PromiseObj.reject = function (reason, context) {
-    return new PromiseObj(Promise.reject(reason), context);
-};
-
-PromiseObj.race = function (iterable, context) {
-    return new PromiseObj(Promise.race(iterable), context);
-};
-
-var p$1 = PromiseObj.prototype;
-
-p$1.bind = function (context) {
-    this.context = context;
-    return this;
-};
-
-p$1.then = function (fulfilled, rejected) {
-
-    if (fulfilled && fulfilled.bind && this.context) {
-        fulfilled = fulfilled.bind(this.context);
-    }
-
-    if (rejected && rejected.bind && this.context) {
-        rejected = rejected.bind(this.context);
-    }
-
-    return new PromiseObj(this.promise.then(fulfilled, rejected), this.context);
-};
-
-p$1.catch = function (rejected) {
-
-    if (rejected && rejected.bind && this.context) {
-        rejected = rejected.bind(this.context);
-    }
-
-    return new PromiseObj(this.promise.catch(rejected), this.context);
-};
-
-p$1.finally = function (callback) {
-
-    return this.then(function (value) {
-        callback.call(this);
-        return value;
-    }, function (reason) {
-        callback.call(this);
-        return Promise.reject(reason);
-    }
-    );
-};
-
-/**
- * Utility functions.
- */
-
-var ref = {};
-var hasOwnProperty = ref.hasOwnProperty;
-var ref$1 = [];
-var slice = ref$1.slice;
-var debug = false, ntick;
-
-var inBrowser = typeof window !== 'undefined';
-
-function Util (ref) {
-    var config = ref.config;
-    var nextTick = ref.nextTick;
-
-    ntick = nextTick;
-    debug = config.debug || !config.silent;
-}
-
-function warn(msg) {
-    if (typeof console !== 'undefined' && debug) {
-        console.warn('[VueResource warn]: ' + msg);
-    }
-}
-
-function error(msg) {
-    if (typeof console !== 'undefined') {
-        console.error(msg);
-    }
-}
-
-function nextTick(cb, ctx) {
-    return ntick(cb, ctx);
-}
-
-function trim(str) {
-    return str ? str.replace(/^\s*|\s*$/g, '') : '';
-}
-
-function trimEnd(str, chars) {
-
-    if (str && chars === undefined) {
-        return str.replace(/\s+$/, '');
-    }
-
-    if (!str || !chars) {
-        return str;
-    }
-
-    return str.replace(new RegExp(("[" + chars + "]+$")), '');
-}
-
-function toLower(str) {
-    return str ? str.toLowerCase() : '';
-}
-
-function toUpper(str) {
-    return str ? str.toUpperCase() : '';
-}
-
-var isArray = Array.isArray;
-
-function isString(val) {
-    return typeof val === 'string';
-}
-
-function isFunction(val) {
-    return typeof val === 'function';
-}
-
-function isObject(obj) {
-    return obj !== null && typeof obj === 'object';
-}
-
-function isPlainObject(obj) {
-    return isObject(obj) && Object.getPrototypeOf(obj) == Object.prototype;
-}
-
-function isBlob(obj) {
-    return typeof Blob !== 'undefined' && obj instanceof Blob;
-}
-
-function isFormData(obj) {
-    return typeof FormData !== 'undefined' && obj instanceof FormData;
-}
-
-function when(value, fulfilled, rejected) {
-
-    var promise = PromiseObj.resolve(value);
-
-    if (arguments.length < 2) {
-        return promise;
-    }
-
-    return promise.then(fulfilled, rejected);
-}
-
-function options(fn, obj, opts) {
-
-    opts = opts || {};
-
-    if (isFunction(opts)) {
-        opts = opts.call(obj);
-    }
-
-    return merge(fn.bind({$vm: obj, $options: opts}), fn, {$options: opts});
-}
-
-function each(obj, iterator) {
-
-    var i, key;
-
-    if (isArray(obj)) {
-        for (i = 0; i < obj.length; i++) {
-            iterator.call(obj[i], obj[i], i);
-        }
-    } else if (isObject(obj)) {
-        for (key in obj) {
-            if (hasOwnProperty.call(obj, key)) {
-                iterator.call(obj[key], obj[key], key);
-            }
-        }
-    }
-
-    return obj;
-}
-
-var assign = Object.assign || _assign;
-
-function merge(target) {
-
-    var args = slice.call(arguments, 1);
-
-    args.forEach(function (source) {
-        _merge(target, source, true);
-    });
-
-    return target;
-}
-
-function defaults(target) {
-
-    var args = slice.call(arguments, 1);
-
-    args.forEach(function (source) {
-
-        for (var key in source) {
-            if (target[key] === undefined) {
-                target[key] = source[key];
-            }
-        }
-
-    });
-
-    return target;
-}
-
-function _assign(target) {
-
-    var args = slice.call(arguments, 1);
-
-    args.forEach(function (source) {
-        _merge(target, source);
-    });
-
-    return target;
-}
-
-function _merge(target, source, deep) {
-    for (var key in source) {
-        if (deep && (isPlainObject(source[key]) || isArray(source[key]))) {
-            if (isPlainObject(source[key]) && !isPlainObject(target[key])) {
-                target[key] = {};
-            }
-            if (isArray(source[key]) && !isArray(target[key])) {
-                target[key] = [];
-            }
-            _merge(target[key], source[key], deep);
-        } else if (source[key] !== undefined) {
-            target[key] = source[key];
-        }
-    }
-}
-
-/**
- * Root Prefix Transform.
- */
-
-function root (options$$1, next) {
-
-    var url = next(options$$1);
-
-    if (isString(options$$1.root) && !/^(https?:)?\//.test(url)) {
-        url = trimEnd(options$$1.root, '/') + '/' + url;
-    }
-
-    return url;
-}
-
-/**
- * Query Parameter Transform.
- */
-
-function query (options$$1, next) {
-
-    var urlParams = Object.keys(Url.options.params), query = {}, url = next(options$$1);
-
-    each(options$$1.params, function (value, key) {
-        if (urlParams.indexOf(key) === -1) {
-            query[key] = value;
-        }
-    });
-
-    query = Url.params(query);
-
-    if (query) {
-        url += (url.indexOf('?') == -1 ? '?' : '&') + query;
-    }
-
-    return url;
-}
-
-/**
- * URL Template v2.0.6 (https://github.com/bramstein/url-template)
- */
-
-function expand(url, params, variables) {
-
-    var tmpl = parse(url), expanded = tmpl.expand(params);
-
-    if (variables) {
-        variables.push.apply(variables, tmpl.vars);
-    }
-
-    return expanded;
-}
-
-function parse(template) {
-
-    var operators = ['+', '#', '.', '/', ';', '?', '&'], variables = [];
-
-    return {
-        vars: variables,
-        expand: function expand(context) {
-            return template.replace(/\{([^{}]+)\}|([^{}]+)/g, function (_, expression, literal) {
-                if (expression) {
-
-                    var operator = null, values = [];
-
-                    if (operators.indexOf(expression.charAt(0)) !== -1) {
-                        operator = expression.charAt(0);
-                        expression = expression.substr(1);
-                    }
-
-                    expression.split(/,/g).forEach(function (variable) {
-                        var tmp = /([^:*]*)(?::(\d+)|(\*))?/.exec(variable);
-                        values.push.apply(values, getValues(context, operator, tmp[1], tmp[2] || tmp[3]));
-                        variables.push(tmp[1]);
-                    });
-
-                    if (operator && operator !== '+') {
-
-                        var separator = ',';
-
-                        if (operator === '?') {
-                            separator = '&';
-                        } else if (operator !== '#') {
-                            separator = operator;
-                        }
-
-                        return (values.length !== 0 ? operator : '') + values.join(separator);
-                    } else {
-                        return values.join(',');
-                    }
-
-                } else {
-                    return encodeReserved(literal);
-                }
-            });
-        }
-    };
-}
-
-function getValues(context, operator, key, modifier) {
-
-    var value = context[key], result = [];
-
-    if (isDefined(value) && value !== '') {
-        if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
-            value = value.toString();
-
-            if (modifier && modifier !== '*') {
-                value = value.substring(0, parseInt(modifier, 10));
-            }
-
-            result.push(encodeValue(operator, value, isKeyOperator(operator) ? key : null));
-        } else {
-            if (modifier === '*') {
-                if (Array.isArray(value)) {
-                    value.filter(isDefined).forEach(function (value) {
-                        result.push(encodeValue(operator, value, isKeyOperator(operator) ? key : null));
-                    });
-                } else {
-                    Object.keys(value).forEach(function (k) {
-                        if (isDefined(value[k])) {
-                            result.push(encodeValue(operator, value[k], k));
-                        }
-                    });
-                }
-            } else {
-                var tmp = [];
-
-                if (Array.isArray(value)) {
-                    value.filter(isDefined).forEach(function (value) {
-                        tmp.push(encodeValue(operator, value));
-                    });
-                } else {
-                    Object.keys(value).forEach(function (k) {
-                        if (isDefined(value[k])) {
-                            tmp.push(encodeURIComponent(k));
-                            tmp.push(encodeValue(operator, value[k].toString()));
-                        }
-                    });
-                }
-
-                if (isKeyOperator(operator)) {
-                    result.push(encodeURIComponent(key) + '=' + tmp.join(','));
-                } else if (tmp.length !== 0) {
-                    result.push(tmp.join(','));
-                }
-            }
-        }
-    } else {
-        if (operator === ';') {
-            result.push(encodeURIComponent(key));
-        } else if (value === '' && (operator === '&' || operator === '?')) {
-            result.push(encodeURIComponent(key) + '=');
-        } else if (value === '') {
-            result.push('');
-        }
-    }
-
-    return result;
-}
-
-function isDefined(value) {
-    return value !== undefined && value !== null;
-}
-
-function isKeyOperator(operator) {
-    return operator === ';' || operator === '&' || operator === '?';
-}
-
-function encodeValue(operator, value, key) {
-
-    value = (operator === '+' || operator === '#') ? encodeReserved(value) : encodeURIComponent(value);
-
-    if (key) {
-        return encodeURIComponent(key) + '=' + value;
-    } else {
-        return value;
-    }
-}
-
-function encodeReserved(str) {
-    return str.split(/(%[0-9A-Fa-f]{2})/g).map(function (part) {
-        if (!/%[0-9A-Fa-f]/.test(part)) {
-            part = encodeURI(part);
-        }
-        return part;
-    }).join('');
-}
-
-/**
- * URL Template (RFC 6570) Transform.
- */
-
-function template (options) {
-
-    var variables = [], url = expand(options.url, options.params, variables);
-
-    variables.forEach(function (key) {
-        delete options.params[key];
-    });
-
-    return url;
-}
-
-/**
- * Service for URL templating.
- */
-
-function Url(url, params) {
-
-    var self = this || {}, options$$1 = url, transform;
-
-    if (isString(url)) {
-        options$$1 = {url: url, params: params};
-    }
-
-    options$$1 = merge({}, Url.options, self.$options, options$$1);
-
-    Url.transforms.forEach(function (handler) {
-
-        if (isString(handler)) {
-            handler = Url.transform[handler];
-        }
-
-        if (isFunction(handler)) {
-            transform = factory(handler, transform, self.$vm);
-        }
-
-    });
-
-    return transform(options$$1);
-}
-
-/**
- * Url options.
- */
-
-Url.options = {
-    url: '',
-    root: null,
-    params: {}
-};
-
-/**
- * Url transforms.
- */
-
-Url.transform = {template: template, query: query, root: root};
-Url.transforms = ['template', 'query', 'root'];
-
-/**
- * Encodes a Url parameter string.
- *
- * @param {Object} obj
- */
-
-Url.params = function (obj) {
-
-    var params = [], escape = encodeURIComponent;
-
-    params.add = function (key, value) {
-
-        if (isFunction(value)) {
-            value = value();
-        }
-
-        if (value === null) {
-            value = '';
-        }
-
-        this.push(escape(key) + '=' + escape(value));
-    };
-
-    serialize(params, obj);
-
-    return params.join('&').replace(/%20/g, '+');
-};
-
-/**
- * Parse a URL and return its components.
- *
- * @param {String} url
- */
-
-Url.parse = function (url) {
-
-    var el = document.createElement('a');
-
-    if (document.documentMode) {
-        el.href = url;
-        url = el.href;
-    }
-
-    el.href = url;
-
-    return {
-        href: el.href,
-        protocol: el.protocol ? el.protocol.replace(/:$/, '') : '',
-        port: el.port,
-        host: el.host,
-        hostname: el.hostname,
-        pathname: el.pathname.charAt(0) === '/' ? el.pathname : '/' + el.pathname,
-        search: el.search ? el.search.replace(/^\?/, '') : '',
-        hash: el.hash ? el.hash.replace(/^#/, '') : ''
-    };
-};
-
-function factory(handler, next, vm) {
-    return function (options$$1) {
-        return handler.call(vm, options$$1, next);
-    };
-}
-
-function serialize(params, obj, scope) {
-
-    var array = isArray(obj), plain = isPlainObject(obj), hash;
-
-    each(obj, function (value, key) {
-
-        hash = isObject(value) || isArray(value);
-
-        if (scope) {
-            key = scope + '[' + (plain || hash ? key : '') + ']';
-        }
-
-        if (!scope && array) {
-            params.add(value.name, value.value);
-        } else if (hash) {
-            serialize(params, value, key);
-        } else {
-            params.add(key, value);
-        }
-    });
-}
-
-/**
- * XDomain client (Internet Explorer).
- */
-
-function xdrClient (request) {
-    return new PromiseObj(function (resolve) {
-
-        var xdr = new XDomainRequest(), handler = function (ref) {
-                var type = ref.type;
-
-
-                var status = 0;
-
-                if (type === 'load') {
-                    status = 200;
-                } else if (type === 'error') {
-                    status = 500;
-                }
-
-                resolve(request.respondWith(xdr.responseText, {status: status}));
-            };
-
-        request.abort = function () { return xdr.abort(); };
-
-        xdr.open(request.method, request.getUrl());
-
-        if (request.timeout) {
-            xdr.timeout = request.timeout;
-        }
-
-        xdr.onload = handler;
-        xdr.onabort = handler;
-        xdr.onerror = handler;
-        xdr.ontimeout = handler;
-        xdr.onprogress = function () {};
-        xdr.send(request.getBody());
-    });
-}
-
-/**
- * CORS Interceptor.
- */
-
-var SUPPORTS_CORS = inBrowser && 'withCredentials' in new XMLHttpRequest();
-
-function cors (request) {
-
-    if (inBrowser) {
-
-        var orgUrl = Url.parse(location.href);
-        var reqUrl = Url.parse(request.getUrl());
-
-        if (reqUrl.protocol !== orgUrl.protocol || reqUrl.host !== orgUrl.host) {
-
-            request.crossOrigin = true;
-            request.emulateHTTP = false;
-
-            if (!SUPPORTS_CORS) {
-                request.client = xdrClient;
-            }
-        }
-    }
-
-}
-
-/**
- * Form data Interceptor.
- */
-
-function form (request) {
-
-    if (isFormData(request.body)) {
-        request.headers.delete('Content-Type');
-    } else if (isObject(request.body) && request.emulateJSON) {
-        request.body = Url.params(request.body);
-        request.headers.set('Content-Type', 'application/x-www-form-urlencoded');
-    }
-
-}
-
-/**
- * JSON Interceptor.
- */
-
-function json (request) {
-
-    var type = request.headers.get('Content-Type') || '';
-
-    if (isObject(request.body) && type.indexOf('application/json') === 0) {
-        request.body = JSON.stringify(request.body);
-    }
-
-    return function (response) {
-
-        return response.bodyText ? when(response.text(), function (text) {
-
-            var type = response.headers.get('Content-Type') || '';
-
-            if (type.indexOf('application/json') === 0 || isJson(text)) {
-
-                try {
-                    response.body = JSON.parse(text);
-                } catch (e) {
-                    response.body = null;
-                }
-
-            } else {
-                response.body = text;
-            }
-
-            return response;
-
-        }) : response;
-
-    };
-}
-
-function isJson(str) {
-
-    var start = str.match(/^\s*(\[|\{)/);
-    var end = {'[': /]\s*$/, '{': /}\s*$/};
-
-    return start && end[start[1]].test(str);
-}
-
-/**
- * JSONP client (Browser).
- */
-
-function jsonpClient (request) {
-    return new PromiseObj(function (resolve) {
-
-        var name = request.jsonp || 'callback', callback = request.jsonpCallback || '_jsonp' + Math.random().toString(36).substr(2), body = null, handler, script;
-
-        handler = function (ref) {
-            var type = ref.type;
-
-
-            var status = 0;
-
-            if (type === 'load' && body !== null) {
-                status = 200;
-            } else if (type === 'error') {
-                status = 500;
-            }
-
-            if (status && window[callback]) {
-                delete window[callback];
-                document.body.removeChild(script);
-            }
-
-            resolve(request.respondWith(body, {status: status}));
-        };
-
-        window[callback] = function (result) {
-            body = JSON.stringify(result);
-        };
-
-        request.abort = function () {
-            handler({type: 'abort'});
-        };
-
-        request.params[name] = callback;
-
-        if (request.timeout) {
-            setTimeout(request.abort, request.timeout);
-        }
-
-        script = document.createElement('script');
-        script.src = request.getUrl();
-        script.type = 'text/javascript';
-        script.async = true;
-        script.onload = handler;
-        script.onerror = handler;
-
-        document.body.appendChild(script);
-    });
-}
-
-/**
- * JSONP Interceptor.
- */
-
-function jsonp (request) {
-
-    if (request.method == 'JSONP') {
-        request.client = jsonpClient;
-    }
-
-}
-
-/**
- * Before Interceptor.
- */
-
-function before (request) {
-
-    if (isFunction(request.before)) {
-        request.before.call(this, request);
-    }
-
-}
-
-/**
- * HTTP method override Interceptor.
- */
-
-function method (request) {
-
-    if (request.emulateHTTP && /^(PUT|PATCH|DELETE)$/i.test(request.method)) {
-        request.headers.set('X-HTTP-Method-Override', request.method);
-        request.method = 'POST';
-    }
-
-}
-
-/**
- * Header Interceptor.
- */
-
-function header (request) {
-
-    var headers = assign({}, Http.headers.common,
-        !request.crossOrigin ? Http.headers.custom : {},
-        Http.headers[toLower(request.method)]
-    );
-
-    each(headers, function (value, name) {
-        if (!request.headers.has(name)) {
-            request.headers.set(name, value);
-        }
-    });
-
-}
-
-/**
- * XMLHttp client (Browser).
- */
-
-function xhrClient (request) {
-    return new PromiseObj(function (resolve) {
-
-        var xhr = new XMLHttpRequest(), handler = function (event) {
-
-                var response = request.respondWith(
-                'response' in xhr ? xhr.response : xhr.responseText, {
-                    status: xhr.status === 1223 ? 204 : xhr.status, // IE9 status bug
-                    statusText: xhr.status === 1223 ? 'No Content' : trim(xhr.statusText)
-                });
-
-                each(trim(xhr.getAllResponseHeaders()).split('\n'), function (row) {
-                    response.headers.append(row.slice(0, row.indexOf(':')), row.slice(row.indexOf(':') + 1));
-                });
-
-                resolve(response);
-            };
-
-        request.abort = function () { return xhr.abort(); };
-
-        xhr.open(request.method, request.getUrl(), true);
-
-        if (request.timeout) {
-            xhr.timeout = request.timeout;
-        }
-
-        if (request.responseType && 'responseType' in xhr) {
-            xhr.responseType = request.responseType;
-        }
-
-        if (request.withCredentials || request.credentials) {
-            xhr.withCredentials = true;
-        }
-
-        if (!request.crossOrigin) {
-            request.headers.set('X-Requested-With', 'XMLHttpRequest');
-        }
-
-        // deprecated use downloadProgress
-        if (isFunction(request.progress) && request.method === 'GET') {
-            xhr.addEventListener('progress', request.progress);
-        }
-
-        if (isFunction(request.downloadProgress)) {
-            xhr.addEventListener('progress', request.downloadProgress);
-        }
-
-        // deprecated use uploadProgress
-        if (isFunction(request.progress) && /^(POST|PUT)$/i.test(request.method)) {
-            xhr.upload.addEventListener('progress', request.progress);
-        }
-
-        if (isFunction(request.uploadProgress) && xhr.upload) {
-            xhr.upload.addEventListener('progress', request.uploadProgress);
-        }
-
-        request.headers.forEach(function (value, name) {
-            xhr.setRequestHeader(name, value);
-        });
-
-        xhr.onload = handler;
-        xhr.onabort = handler;
-        xhr.onerror = handler;
-        xhr.ontimeout = handler;
-        xhr.send(request.getBody());
-    });
-}
-
-/**
- * Http client (Node).
- */
-
-function nodeClient (request) {
-
-    var client = __webpack_require__(/*! got */ 1);
-
-    return new PromiseObj(function (resolve) {
-
-        var url = request.getUrl();
-        var body = request.getBody();
-        var method = request.method;
-        var headers = {}, handler;
-
-        request.headers.forEach(function (value, name) {
-            headers[name] = value;
-        });
-
-        client(url, {body: body, method: method, headers: headers}).then(handler = function (resp) {
-
-            var response = request.respondWith(resp.body, {
-                status: resp.statusCode,
-                statusText: trim(resp.statusMessage)
-            });
-
-            each(resp.headers, function (value, name) {
-                response.headers.set(name, value);
-            });
-
-            resolve(response);
-
-        }, function (error$$1) { return handler(error$$1.response); });
-    });
-}
-
-/**
- * Base client.
- */
-
-function Client (context) {
-
-    var reqHandlers = [sendRequest], resHandlers = [];
-
-    if (!isObject(context)) {
-        context = null;
-    }
-
-    function Client(request) {
-        while (reqHandlers.length) {
-
-            var handler = reqHandlers.pop();
-
-            if (isFunction(handler)) {
-
-                var response = (void 0), next = (void 0);
-
-                response = handler.call(context, request, function (val) { return next = val; }) || next;
-
-                if (isObject(response)) {
-                    return new PromiseObj(function (resolve, reject) {
-
-                        resHandlers.forEach(function (handler) {
-                            response = when(response, function (response) {
-                                return handler.call(context, response) || response;
-                            }, reject);
-                        });
-
-                        when(response, resolve, reject);
-
-                    }, context);
-                }
-
-                if (isFunction(response)) {
-                    resHandlers.unshift(response);
-                }
-
-            } else {
-                warn(("Invalid interceptor of type " + (typeof handler) + ", must be a function"));
-            }
-        }
-    }
-
-    Client.use = function (handler) {
-        reqHandlers.push(handler);
-    };
-
-    return Client;
-}
-
-function sendRequest(request) {
-
-    var client = request.client || (inBrowser ? xhrClient : nodeClient);
-
-    return client(request);
-}
-
-/**
- * HTTP Headers.
- */
-
-var Headers = function Headers(headers) {
-    var this$1 = this;
-
-
-    this.map = {};
-
-    each(headers, function (value, name) { return this$1.append(name, value); });
-};
-
-Headers.prototype.has = function has (name) {
-    return getName(this.map, name) !== null;
-};
-
-Headers.prototype.get = function get (name) {
-
-    var list = this.map[getName(this.map, name)];
-
-    return list ? list.join() : null;
-};
-
-Headers.prototype.getAll = function getAll (name) {
-    return this.map[getName(this.map, name)] || [];
-};
-
-Headers.prototype.set = function set (name, value) {
-    this.map[normalizeName(getName(this.map, name) || name)] = [trim(value)];
-};
-
-Headers.prototype.append = function append (name, value) {
-
-    var list = this.map[getName(this.map, name)];
-
-    if (list) {
-        list.push(trim(value));
-    } else {
-        this.set(name, value);
-    }
-};
-
-Headers.prototype.delete = function delete$1 (name) {
-    delete this.map[getName(this.map, name)];
-};
-
-Headers.prototype.deleteAll = function deleteAll () {
-    this.map = {};
-};
-
-Headers.prototype.forEach = function forEach (callback, thisArg) {
-        var this$1 = this;
-
-    each(this.map, function (list, name) {
-        each(list, function (value) { return callback.call(thisArg, value, name, this$1); });
-    });
-};
-
-function getName(map, name) {
-    return Object.keys(map).reduce(function (prev, curr) {
-        return toLower(name) === toLower(curr) ? curr : prev;
-    }, null);
-}
-
-function normalizeName(name) {
-
-    if (/[^a-z0-9\-#$%&'*+.^_`|~]/i.test(name)) {
-        throw new TypeError('Invalid character in header field name');
-    }
-
-    return trim(name);
-}
-
-/**
- * HTTP Response.
- */
-
-var Response = function Response(body, ref) {
-    var url = ref.url;
-    var headers = ref.headers;
-    var status = ref.status;
-    var statusText = ref.statusText;
-
-
-    this.url = url;
-    this.ok = status >= 200 && status < 300;
-    this.status = status || 0;
-    this.statusText = statusText || '';
-    this.headers = new Headers(headers);
-    this.body = body;
-
-    if (isString(body)) {
-
-        this.bodyText = body;
-
-    } else if (isBlob(body)) {
-
-        this.bodyBlob = body;
-
-        if (isBlobText(body)) {
-            this.bodyText = blobText(body);
-        }
-    }
-};
-
-Response.prototype.blob = function blob () {
-    return when(this.bodyBlob);
-};
-
-Response.prototype.text = function text () {
-    return when(this.bodyText);
-};
-
-Response.prototype.json = function json () {
-    return when(this.text(), function (text) { return JSON.parse(text); });
-};
-
-Object.defineProperty(Response.prototype, 'data', {
-
-    get: function get() {
-        return this.body;
-    },
-
-    set: function set(body) {
-        this.body = body;
-    }
-
-});
-
-function blobText(body) {
-    return new PromiseObj(function (resolve) {
-
-        var reader = new FileReader();
-
-        reader.readAsText(body);
-        reader.onload = function () {
-            resolve(reader.result);
-        };
-
-    });
-}
-
-function isBlobText(body) {
-    return body.type.indexOf('text') === 0 || body.type.indexOf('json') !== -1;
-}
-
-/**
- * HTTP Request.
- */
-
-var Request = function Request(options$$1) {
-
-    this.body = null;
-    this.params = {};
-
-    assign(this, options$$1, {
-        method: toUpper(options$$1.method || 'GET')
-    });
-
-    if (!(this.headers instanceof Headers)) {
-        this.headers = new Headers(this.headers);
-    }
-};
-
-Request.prototype.getUrl = function getUrl () {
-    return Url(this);
-};
-
-Request.prototype.getBody = function getBody () {
-    return this.body;
-};
-
-Request.prototype.respondWith = function respondWith (body, options$$1) {
-    return new Response(body, assign(options$$1 || {}, {url: this.getUrl()}));
-};
-
-/**
- * Service for sending network requests.
- */
-
-var COMMON_HEADERS = {'Accept': 'application/json, text/plain, */*'};
-var JSON_CONTENT_TYPE = {'Content-Type': 'application/json;charset=utf-8'};
-
-function Http(options$$1) {
-
-    var self = this || {}, client = Client(self.$vm);
-
-    defaults(options$$1 || {}, self.$options, Http.options);
-
-    Http.interceptors.forEach(function (handler) {
-
-        if (isString(handler)) {
-            handler = Http.interceptor[handler];
-        }
-
-        if (isFunction(handler)) {
-            client.use(handler);
-        }
-
-    });
-
-    return client(new Request(options$$1)).then(function (response) {
-
-        return response.ok ? response : PromiseObj.reject(response);
-
-    }, function (response) {
-
-        if (response instanceof Error) {
-            error(response);
-        }
-
-        return PromiseObj.reject(response);
-    });
-}
-
-Http.options = {};
-
-Http.headers = {
-    put: JSON_CONTENT_TYPE,
-    post: JSON_CONTENT_TYPE,
-    patch: JSON_CONTENT_TYPE,
-    delete: JSON_CONTENT_TYPE,
-    common: COMMON_HEADERS,
-    custom: {}
-};
-
-Http.interceptor = {before: before, method: method, jsonp: jsonp, json: json, form: form, header: header, cors: cors};
-Http.interceptors = ['before', 'method', 'jsonp', 'json', 'form', 'header', 'cors'];
-
-['get', 'delete', 'head', 'jsonp'].forEach(function (method$$1) {
-
-    Http[method$$1] = function (url, options$$1) {
-        return this(assign(options$$1 || {}, {url: url, method: method$$1}));
-    };
-
-});
-
-['post', 'put', 'patch'].forEach(function (method$$1) {
-
-    Http[method$$1] = function (url, body, options$$1) {
-        return this(assign(options$$1 || {}, {url: url, method: method$$1, body: body}));
-    };
-
-});
-
-/**
- * Service for interacting with RESTful services.
- */
-
-function Resource(url, params, actions, options$$1) {
-
-    var self = this || {}, resource = {};
-
-    actions = assign({},
-        Resource.actions,
-        actions
-    );
-
-    each(actions, function (action, name) {
-
-        action = merge({url: url, params: assign({}, params)}, options$$1, action);
-
-        resource[name] = function () {
-            return (self.$http || Http)(opts(action, arguments));
-        };
-    });
-
-    return resource;
-}
-
-function opts(action, args) {
-
-    var options$$1 = assign({}, action), params = {}, body;
-
-    switch (args.length) {
-
-        case 2:
-
-            params = args[0];
-            body = args[1];
-
-            break;
-
-        case 1:
-
-            if (/^(POST|PUT|PATCH)$/i.test(options$$1.method)) {
-                body = args[0];
-            } else {
-                params = args[0];
-            }
-
-            break;
-
-        case 0:
-
-            break;
-
-        default:
-
-            throw 'Expected up to 2 arguments [params, body], got ' + args.length + ' arguments';
-    }
-
-    options$$1.body = body;
-    options$$1.params = assign({}, options$$1.params, params);
-
-    return options$$1;
-}
-
-Resource.actions = {
-
-    get: {method: 'GET'},
-    save: {method: 'POST'},
-    query: {method: 'GET'},
-    update: {method: 'PUT'},
-    remove: {method: 'DELETE'},
-    delete: {method: 'DELETE'}
-
-};
-
-/**
- * Install plugin.
- */
-
-function plugin(Vue) {
-
-    if (plugin.installed) {
-        return;
-    }
-
-    Util(Vue);
-
-    Vue.url = Url;
-    Vue.http = Http;
-    Vue.resource = Resource;
-    Vue.Promise = PromiseObj;
-
-    Object.defineProperties(Vue.prototype, {
-
-        $url: {
-            get: function get() {
-                return options(Vue.url, this, this.$options.url);
-            }
-        },
-
-        $http: {
-            get: function get() {
-                return options(Vue.http, this, this.$options.http);
-            }
-        },
-
-        $resource: {
-            get: function get() {
-                return Vue.resource.bind(this);
-            }
-        },
-
-        $promise: {
-            get: function get() {
-                var this$1 = this;
-
-                return function (executor) { return new Vue.Promise(executor, this$1); };
-            }
-        }
-
-    });
-}
-
-if (typeof window !== 'undefined' && window.Vue) {
-    window.Vue.use(plugin);
-}
-
-/* harmony default export */ __webpack_exports__["default"] = (plugin);
-
 
 
 /***/ }),
@@ -41703,30 +40576,28 @@ module.exports = function(module) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
-/* harmony import */ var _components_BlokaceWWWComponent_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/BlokaceWWWComponent.vue */ "./resources/js/components/BlokaceWWWComponent.vue");
-/* harmony import */ var _components_DhcpComponent_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/DhcpComponent.vue */ "./resources/js/components/DhcpComponent.vue");
-/* harmony import */ var _components_DmzComponent_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/DmzComponent.vue */ "./resources/js/components/DmzComponent.vue");
-/* harmony import */ var _components_ExtenderVisualComponent_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/ExtenderVisualComponent.vue */ "./resources/js/components/ExtenderVisualComponent.vue");
-/* harmony import */ var _components_KidControlComponent_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/KidControlComponent.vue */ "./resources/js/components/KidControlComponent.vue");
-/* harmony import */ var _components_LanComponent_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/LanComponent.vue */ "./resources/js/components/LanComponent.vue");
-/* harmony import */ var _components_LanNavBarComponent_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/LanNavBarComponent.vue */ "./resources/js/components/LanNavBarComponent.vue");
-/* harmony import */ var _components_LeaseComponent_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/LeaseComponent.vue */ "./resources/js/components/LeaseComponent.vue");
-/* harmony import */ var _components_NavBarComponent_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/NavBarComponent.vue */ "./resources/js/components/NavBarComponent.vue");
-/* harmony import */ var _components_PageNotFound_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/PageNotFound.vue */ "./resources/js/components/PageNotFound.vue");
-/* harmony import */ var _components_PrehledComponent_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/PrehledComponent.vue */ "./resources/js/components/PrehledComponent.vue");
-/* harmony import */ var _components_WifiComponent_vue__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/WifiComponent.vue */ "./resources/js/components/WifiComponent.vue");
-/* harmony import */ var _components_SettingsComponent_vue__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/SettingsComponent.vue */ "./resources/js/components/SettingsComponent.vue");
-/* harmony import */ var _components_SpeedTestComponent_vue__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/SpeedTestComponent.vue */ "./resources/js/components/SpeedTestComponent.vue");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
+/* harmony import */ var _components_BlokaceWWWComponent_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/BlokaceWWWComponent.vue */ "./resources/js/components/BlokaceWWWComponent.vue");
+/* harmony import */ var _components_DhcpComponent_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/DhcpComponent.vue */ "./resources/js/components/DhcpComponent.vue");
+/* harmony import */ var _components_DmzComponent_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/DmzComponent.vue */ "./resources/js/components/DmzComponent.vue");
+/* harmony import */ var _components_ExtenderVisualComponent_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/ExtenderVisualComponent.vue */ "./resources/js/components/ExtenderVisualComponent.vue");
+/* harmony import */ var _components_KidControlComponent_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/KidControlComponent.vue */ "./resources/js/components/KidControlComponent.vue");
+/* harmony import */ var _components_LanComponent_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/LanComponent.vue */ "./resources/js/components/LanComponent.vue");
+/* harmony import */ var _components_LanNavBarComponent_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/LanNavBarComponent.vue */ "./resources/js/components/LanNavBarComponent.vue");
+/* harmony import */ var _components_LeaseComponent_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/LeaseComponent.vue */ "./resources/js/components/LeaseComponent.vue");
+/* harmony import */ var _components_NavBarComponent_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/NavBarComponent.vue */ "./resources/js/components/NavBarComponent.vue");
+/* harmony import */ var _components_PageNotFound_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/PageNotFound.vue */ "./resources/js/components/PageNotFound.vue");
+/* harmony import */ var _components_PrehledComponent_vue__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/PrehledComponent.vue */ "./resources/js/components/PrehledComponent.vue");
+/* harmony import */ var _components_WifiComponent_vue__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/WifiComponent.vue */ "./resources/js/components/WifiComponent.vue");
+/* harmony import */ var _components_SettingsComponent_vue__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/SettingsComponent.vue */ "./resources/js/components/SettingsComponent.vue");
+/* harmony import */ var _components_SpeedTestComponent_vue__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/SpeedTestComponent.vue */ "./resources/js/components/SpeedTestComponent.vue");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-
-var VueResource = __webpack_require__(/*! vue-resource */ "./node_modules/vue-resource/dist/vue-resource.esm.js");
-
-Vue.use(VueResource); // axios => nahrada jquery
-
-window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js"); // Import componentu
+Vue.config.productionTip = true;
+Vue.config.devtools = true;
 
 
 
@@ -41744,55 +40615,60 @@ window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js")
 
 
 
-Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]); // Definice rout pro vue
+window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+window.axios.defaults.headers.common = {
+  'X-Requested-With': 'XMLHttpRequest',
+  'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+};
+Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]); // Definice rout pro vue
 
 var routes = [{
   path: '/',
-  component: _components_NavBarComponent_vue__WEBPACK_IMPORTED_MODULE_9__["default"],
+  component: _components_NavBarComponent_vue__WEBPACK_IMPORTED_MODULE_10__["default"],
   children: [{
     path: '',
-    component: _components_PrehledComponent_vue__WEBPACK_IMPORTED_MODULE_11__["default"]
+    component: _components_PrehledComponent_vue__WEBPACK_IMPORTED_MODULE_12__["default"]
   }, {
     path: 'wifi',
-    component: _components_WifiComponent_vue__WEBPACK_IMPORTED_MODULE_12__["default"]
+    component: _components_WifiComponent_vue__WEBPACK_IMPORTED_MODULE_13__["default"]
   }, {
     path: 'extenderVisual',
-    component: _components_ExtenderVisualComponent_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
+    component: _components_ExtenderVisualComponent_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
   }, {
     path: 'kidConttrol/www',
-    component: _components_KidControlComponent_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
+    component: _components_KidControlComponent_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
     children: [{
       path: '',
-      component: _components_BlokaceWWWComponent_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+      component: _components_BlokaceWWWComponent_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
     }]
   }, {
     path: 'lan',
-    component: _components_LanNavBarComponent_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
+    component: _components_LanNavBarComponent_vue__WEBPACK_IMPORTED_MODULE_8__["default"],
     children: [{
       path: '',
-      component: _components_LanComponent_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
+      component: _components_LanComponent_vue__WEBPACK_IMPORTED_MODULE_7__["default"]
     }, {
       path: '/lease',
-      component: _components_LeaseComponent_vue__WEBPACK_IMPORTED_MODULE_8__["default"]
+      component: _components_LeaseComponent_vue__WEBPACK_IMPORTED_MODULE_9__["default"]
     }, {
       path: '/dhcp',
-      component: _components_DhcpComponent_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+      component: _components_DhcpComponent_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
     }]
   }, {
     path: 'nat_dmz',
-    component: _components_DmzComponent_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
+    component: _components_DmzComponent_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
   }, {
     path: '/speedTest',
-    component: _components_SpeedTestComponent_vue__WEBPACK_IMPORTED_MODULE_14__["default"]
+    component: _components_SpeedTestComponent_vue__WEBPACK_IMPORTED_MODULE_15__["default"]
   }, {
     path: '/settings',
-    component: _components_SettingsComponent_vue__WEBPACK_IMPORTED_MODULE_13__["default"]
+    component: _components_SettingsComponent_vue__WEBPACK_IMPORTED_MODULE_14__["default"]
   }]
 }, {
   path: '*',
-  component: _components_PageNotFound_vue__WEBPACK_IMPORTED_MODULE_10__["default"]
+  component: _components_PageNotFound_vue__WEBPACK_IMPORTED_MODULE_11__["default"]
 }];
-var router = new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
+var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   routes: routes
 }); //   export
 
@@ -43119,17 +41995,6 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__(/*! /Applications/MAMP/htdocs/wifi/HomeWifi/resources/js/app.js */"./resources/js/app.js");
 module.exports = __webpack_require__(/*! /Applications/MAMP/htdocs/wifi/HomeWifi/resources/sass/app.scss */"./resources/sass/app.scss");
 
-
-/***/ }),
-
-/***/ 1:
-/*!*********************!*\
-  !*** got (ignored) ***!
-  \*********************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/* (ignored) */
 
 /***/ })
 
