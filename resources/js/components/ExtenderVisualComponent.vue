@@ -22,7 +22,7 @@
                                         <p class="hide_isMobile col-md-1"><strong> | </strong></p>
                                         <p class="hide_isMobile"> Heslo: <strong>{{routerWlan.password}}</strong></p> -->
                                         <!-- form na edit ssid -->
-                                        <form @submit="EditWlantModal(wlanId = routerWlan.id, port = false)" class="inline_form">
+                                        <form @submit.prevent="EditWlantModal(wlanId = routerWlan.id, port = false)" class="inline_form">
                                             <button type="submit"  class="btn btn-sm">
                                                 <span class="icon has-text-info mobileFont">
                                                     <i class="fas fa-edit"></i>
@@ -30,7 +30,7 @@
                                             </button>
                                         </form>
                                         <!-- form na edit hesla k wlaně -->
-                                        <form @submit="EditWlanSecuritytModal(wlanId = routerWlan.id, port = false)" class="inline_form">
+                                        <form @submit.prevent="EditWlanSecuritytModal(wlanId = routerWlan.id, port = false)" class="inline_form">
                                             <button type="submit"  class="btn btn-sm">
                                                 <span class="icon has-text-danger mobileFont">
                                                     <i class="fas fa-lock"></i>
@@ -94,7 +94,7 @@
                                             <div class="row">
                                                 <p class="mobileFont">SSID:<strong>{{extender.ssid}}</strong> | Heslo: <strong>{{extender.password}}</strong></p>
                                                 <!-- form na edit ssid -->
-                                                <form @submit="EditWlantModal(wlanId = extender.id, port = extender.extenderPort)" class="inline_form">
+                                                <form @submit.prevent="EditWlantModal(wlanId = extender.id, port = extender.extenderPort)" class="inline_form">
                                                     <button type="submit" class="btn btn-sm">
                                                         <span class="icon has-text-info mobileFont">
                                                             <i class="fas fa-edit"></i>
@@ -102,7 +102,7 @@
                                                     </button>
                                                 </form>
                                                 <!-- form na edit hesla k wlaně -->
-                                                <form @submit="EditWlanSecuritytModal(wlanId = extender.id, port = extender.extenderPort)" class="inline_form">
+                                                <form @submit.prevent="EditWlanSecuritytModal(wlanId = extender.id, port = extender.extenderPort)" class="inline_form">
                                                     <button type="submit" class="btn btn-sm">
                                                         <span class="icon has-text-danger mobileFont">
                                                             <i class="fas fa-lock"></i>
@@ -166,7 +166,7 @@
                                             <div class="row">
                                                 <p class="mobileFont">SSID:<strong>{{extender2.ssid}}</strong> | Heslo: <strong>{{extender2.password}}</strong></p>
                                                 <!-- form na edit ssid -->
-                                                <form @submit="EditWlantModal(wlanId = extender2.id, port = extender2.extenderPort)" class="inline_form">
+                                                <form @submit.prevent="EditWlantModal(wlanId = extender2.id, port = extender2.extenderPort)" class="inline_form">
                                                     <button type="submit"  class="btn btn-sm">
                                                         <span class="icon has-text-info mobileFont">
                                                             <i class="fas fa-edit"></i>
@@ -174,7 +174,7 @@
                                                     </button>
                                                 </form>
                                                 <!-- form na edit hesla k wlaně -->
-                                                <form @submit="EditWlanSecuritytModal(wlanId = extender2.id, port = extender2.extenderPort)" class="inline_form">
+                                                <form @submit.prevent="EditWlanSecuritytModal(wlanId = extender2.id, port = extender2.extenderPort)" class="inline_form">
                                                     <button type="submit"  class="btn btn-sm">
                                                         <span class="icon has-text-danger mobileFont">
                                                             <i class="fas fa-lock"></i>
@@ -232,13 +232,13 @@
                                     wifi
                                 </i>
                             </div>
-                            <div v-if="extenderInfo2" class="bottom-menu shadow-sm p-3 mb-5 bg-white rounded dropdown-menu" role="menu">
-                                    <div v-for="extender2 in extenderWireless.wifi" v-bind:key="extender2.id" v-if="extender2.extenderPort === '10808'" class="dropdown-item">
+                            <div v-if="extenderInfo3" class="bottom-menu shadow-sm p-3 mb-5 bg-white rounded dropdown-menu" role="menu">
+                                    <div v-for="extender3 in extenderWireless.wifi" v-bind:key="extender3.id" v-if="extender3.extenderPort === '10808'" class="dropdown-item">
                                         <div class="container">
                                             <div class="row">
-                                                <p class="mobileFont">SSID:<strong>{{extender2.ssid}}</strong> | Heslo: <strong>{{extender2.password}}</strong></p>
+                                                <p class="mobileFont">SSID:<strong>{{extender3.ssid}}</strong> | Heslo: <strong>{{extender3.password}}</strong></p>
                                                 <!-- form na edit ssid -->
-                                                <form @submit="EditWlantModal(wlanId = extender2.id, port = extender2.extenderPort)" class="inline_form">
+                                                <form @submit.prevent="EditWlantModal(wlanId = extender3.id, port = extender3.extenderPort)" class="inline_form">
                                                     <button type="submit"  class="btn btn-sm">
                                                         <span class="icon has-text-info mobileFont">
                                                             <i class="fas fa-edit"></i>
@@ -246,7 +246,7 @@
                                                     </button>
                                                 </form>
                                                 <!-- form na edit hesla k wlaně -->
-                                                <form @submit="EditWlanSecuritytModal(wlanId = extender2.id, port = extender2.extenderPort)" class="inline_form">
+                                                <form @submit.prevent="EditWlanSecuritytModal(wlanId = extender3.id, port = extender3.extenderPort)" class="inline_form">
                                                     <button type="submit"  class="btn btn-sm">
                                                         <span class="icon has-text-danger mobileFont">
                                                             <i class="fas fa-lock"></i>
@@ -269,21 +269,21 @@
                                         <div v-if="!extenderRegistrations.registrations && extenderRegistrations.registration.extenderPort === '10808'">
                                             <p class="has-text-danger">Nic neni připojeno na bezdrátové síti</p>
                                         </div>
-                                            <tr class="mobileFont" v-for="extenderRegistration2 in extenderRegistrations.registrations" v-bind:key="extenderRegistration2.id" v-if="extenderRegistration2.extenderPort === '10808'">
-                                                <td v-if="extenderRegistration2.comment !== 'false'">
-                                                    {{extenderRegistration2.comment}}
+                                            <tr class="mobileFont" v-for="extenderRegistration3 in extenderRegistrations.registrations" v-bind:key="extenderRegistration3.id" v-if="extenderRegistration3.extenderPort === '10808'">
+                                                <td v-if="extenderRegistration3.comment !== 'false'">
+                                                    {{extenderRegistration3.comment}}
                                                 </td>
                                                 <td v-else>
                                                     Zařízení bez popisu
                                                 </td>
-                                                <td v-if="extenderRegistration2.vendor !== 'false'">
-                                                    {{extenderRegistration2.vendor}}
+                                                <td v-if="extenderRegistration3.vendor !== 'false'">
+                                                    {{extenderRegistration3.vendor}}
                                                 </td>
                                                 <td v-else>
                                                     Neznámí výrobce
                                                 </td>
                                                 <td class="hide_isMobile">
-                                                    {{extenderRegistration2.signal}}
+                                                    {{extenderRegistration3.signal}}
                                                 </td>
                                             </tr>
                                     </tbody>
@@ -302,7 +302,7 @@
                         <div id="modal_grey_m">
                             <div id="modal_grey_m" class="container rounded" v-for="wlanEdit in edit" v-bind:key="wlanEdit.id">
                                 <br>
-                                <form @submit="EditWlan()">
+                                <form @submit.prevent="EditWlan()">
                                     <div class="form-group">
                                         <label class="textColor_default">SSID</label>
                                         <input type="text" class="form-control" v-model="ssid = wlanEdit.ssid">
@@ -320,7 +320,7 @@
                         <div id="modal_grey_m">
                             <div id="modal_grey_m" class="container rounded" v-for="securityEdit in editSecurity" v-bind:key="securityEdit.id">
                                 <br>
-                                <form @submit="EditSecurityWlan()">
+                                <form @submit.prevent="EditSecurityWlan()">
                                     <div class="form-group">
                                         <label class="textColor_default">Heslo</label>
                                         <input type="text" class="form-control" v-model="security = securityEdit['wpa2-pre-shared-key']">

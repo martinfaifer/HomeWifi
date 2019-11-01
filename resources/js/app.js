@@ -1,33 +1,89 @@
 require('./bootstrap');
 window.Vue = require('vue');
-Vue.config.productionTip = true;
-Vue.config.devtools = true;
+// Vue.config.productionTip = true;
+// Vue.config.devtools = true;
 
 import axios from 'axios';
 
 import VueRouter from 'vue-router';
 
-import BlokaceWWWComponent from './components/BlokaceWWWComponent.vue';
-import DhcpComponent from './components/DhcpComponent.vue';
-import DmzComponent from './components/DmzComponent.vue';
-import ExtenderVisualComponent from './components/ExtenderVisualComponent.vue';
-import KidControlComponent from './components/KidControlComponent.vue';
-import LanComponent from './components/LanComponent.vue';
-import LanNavBarComponent from './components/LanNavBarComponent.vue';
-import LeaseComponent from './components/LeaseComponent.vue';
 import NavBarComponent from  './components/NavBarComponent.vue';
-import PageNotFound from  './components/PageNotFound.vue';
-import PrehledComponent from './components/PrehledComponent.vue'; //Prehled
-import WifiComponent from './components/WifiComponent.vue';
-import SettingsComponent from './components/SettingsComponent.vue';
-import SpeedTestComponent from './components/SpeedTestComponent.vue';
 
-window.axios = require('axios');
-
-window.axios.defaults.headers.common = {
-    'X-Requested-With': 'XMLHttpRequest',
-    'X-CSRF-TOKEN' : document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+// async router
+const PrehledComponent = resolve => {
+    require.ensure(['./components/PrehledComponent.vue'], () => {
+        resolve(require('./components/PrehledComponent.vue'));
+    });
 };
+
+const ExtenderVisualComponent = resolve => {
+    require.ensure(['./components/ExtenderVisualComponent.vue'], () => {
+        resolve(require('./components/ExtenderVisualComponent.vue'));
+    });
+};
+
+const KidControlComponent = resolve => {
+    require.ensure(['./components/KidControlComponent.vue'], () => {
+        resolve(require('./components/KidControlComponent.vue'));
+    });
+};
+
+const BlokaceWWWComponent = resolve => {
+    require.ensure(['./components/BlokaceWWWComponent.vue'], () => {
+        resolve(require('./components/BlokaceWWWComponent.vue'));
+    });
+};
+
+const LanNavBarComponent = resolve => {
+    require.ensure(['./components/LanNavBarComponent.vue'], () => {
+        resolve(require('./components/LanNavBarComponent.vue'));
+    });
+};
+
+const LanComponent = resolve => {
+    require.ensure(['./components/LanComponent.vue'], () => {
+        resolve(require('./components/LanComponent.vue'));
+    });
+};
+
+const LeaseComponent = resolve => {
+    require.ensure(['./components/LeaseComponent.vue'], () => {
+        resolve(require('./components/LeaseComponent.vue'));
+    });
+};
+
+const DhcpComponent = resolve => {
+    require.ensure(['./components/DhcpComponent.vue'], () => {
+        resolve(require('./components/DhcpComponent.vue'));
+    });
+};
+
+const SpeedTestComponent = resolve => {
+    require.ensure(['./components/SpeedTestComponent.vue'], () => {
+        resolve(require('./components/SpeedTestComponent.vue'));
+    });
+};
+
+const SettingsComponent = resolve => {
+    require.ensure(['./components/SettingsComponent.vue'], () => {
+        resolve(require('./components/SettingsComponent.vue'));
+    });
+};
+
+const PageNotFound = resolve => {
+    require.ensure(['./components/PageNotFound.vue'], () => {
+        resolve(require('./components/PageNotFound.vue'));
+    });
+};
+
+
+axios.defaults.baseURL = '';
+// window.axios.defaults.headers.common = {
+//     'X-Requested-With': 'XMLHttpRequest',
+//     'X-CSRF-TOKEN' : document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+// };
+
+// window.axios = require('axios').default;
 Vue.use(VueRouter);
 // Definice rout pro vue
 let routes = [
@@ -39,10 +95,10 @@ let routes = [
                 path: '',
                 component: PrehledComponent,
             },
-            {
-                path: 'wifi',
-                component:WifiComponent,
-            },
+            // {
+            //     path: 'wifi',
+            //     component:WifiComponent,
+            // },
             {
                 path: 'extenderVisual',
                 component: ExtenderVisualComponent
@@ -75,10 +131,10 @@ let routes = [
                     }
                 ]
             },
-            {
-                path: 'nat_dmz',
-                component: DmzComponent
-            },
+            // {
+            //     path: 'nat_dmz',
+            //     component: DmzComponent
+            // },
             {
                 path: '/speedTest',
                 component: SpeedTestComponent,

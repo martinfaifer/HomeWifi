@@ -24,14 +24,14 @@
                         <td class="hide_isMobile">{{lease["last-seen"]}}</td>
                         <td class="mobileFont">{{lease.status}}</td>
                         <td>
-                            <form @submit="EditCommentModal(leaseId = lease.address)" class="inline_block">
+                            <form @submit.prevent="EditCommentModal(leaseId = lease.address)" class="inline_block">
                                 <button @click="EditModal = true" type="submit"  class="btn btn-sm">
                                     <span class="icon has-text-info">
                                         <i class="fas fa-edit"></i>
                                     </span>
                                 </button>
                             </form>
-                            <form @submit="RemoteLeaseModal(leaseId = lease.address)" class="inline_block" v-show="lease.status === 'waiting'">
+                            <form @submit.prevent="RemoteLeaseModal(leaseId = lease.address)" class="inline_block" v-show="lease.status === 'waiting'">
                                 <button type="submit"  class="btn btn-sm">
                                     <span class="icon has-text-danger">
                                         <i class="fas fa-trash"></i>
@@ -53,7 +53,7 @@
                     <div id="modal_grey_m">
                         <div id="modal_grey_m" class="container rounded" v-for="leaseEdit in edit" v-bind:key="leaseEdit.id">
                             <br>
-                            <form @submit="EditComment()">
+                            <form @submit.prevent="EditComment()">
                                 <div class="form-group">
                                     <label class="textColor_default">Změnit popis</label>
                                     <input type="text" class="form-control" v-model="commnet = leaseEdit.comment">
@@ -94,10 +94,10 @@ export default {
         loadDataLeases: function () {
             let currentObj = this;
             axios.get('api/device/leases')
-                .then(function (response) {
+                .then(response => {
                     currentObj.leases = response.data;
                 })
-                .catch(function (error) {
+                .catch(error => {
                     currentObj.globalError = error;
                     currentObj.leases = '';
                     currentObj.interval = false;
@@ -108,11 +108,11 @@ export default {
             axios.post('/api/device/lease/getEditData', {
                     leaseId: this.leaseId,
                 })
-                .then(function (response) {
+                .then(response => {
                     currentObj.edit = response.data;
                     currentObj.EditModal = true;
                 })
-                .catch(function (error) {
+                .catch(error => {
                     currentObj.leaseId = '';
                     currentObj.EditModal = false;
                 });
@@ -122,11 +122,11 @@ export default {
             axios.post('/api/device/lease/remove', {
                     leaseId: this.leaseId,
                 })
-                .then(function (response) {
+                .then(response => {
                     currentObj.editResponse = response.data;
                     currentObj.EditModal = false;
                 })
-                .catch(function (error) {
+                .catch(error => {
                     currentObj.leaseId = '';
                     currentObj.EditModal = false;
                 });
@@ -138,11 +138,11 @@ export default {
                     leaseId: this.leaseId,
                     commnet: this.commnet,
                 })
-                .then(function (response) {
+                .then(response => {
                     currentObj.editResponse = response.data;
                     currentObj.EditModal = false;
                 })
-                .catch(function (error) {
+                .catch(error => {
                     currentObj.leaseId = '';
                     currentObj.commnet = '',
                     currentObj.EditModal = false;

@@ -91,9 +91,9 @@ export default {
     data() {
         return {
             hamburgerMenu: false,
+            check:'',
         }
     },
-
     beforeDestroy: function(){
         clearInterval(this.interval);
     }

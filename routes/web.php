@@ -55,3 +55,8 @@ Route::post('/api/device/kidControll/www', 'MikrotikController@blokaceWwwAdd')->
 Route::post('/api/device/kidControll/www/remove', 'MikrotikController@removeBlokovane')->middleware('deviceCheck');
 
 Route::post('/api/device/reboot', 'MikrotikController@reboot');
+
+
+
+// post check pro vlozeni /?#/
+Route::get('/api/device/post/check', 'ValidationController@deviceCheckPost');

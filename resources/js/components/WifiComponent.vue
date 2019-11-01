@@ -19,17 +19,17 @@
                         </td>
                         <td>{{wirelessData.band.substring(0,4)}}</td>
                         <td>
-                            <form @submit="EditWlantModal(wlanId = wirelessData.id)" class="inline_block">
+                            <form @submit.prevent="EditWlantModal(wlanId = wirelessData.id)" class="inline_block">
                                 <button @click="EditModal = true" type="submit"  class="btn btn-sm">
                                     <span class="icon has-text-info">
-                                        <i class="fas fa-edit"></i> 
+                                        <i class="fas fa-edit"></i>
                                     </span>
                                 </button>
                             </form>
-                            <form @submit="EditWlanSecuritytModal(wlanId = wirelessData.id)" class="inline_block">
+                            <form @submit.prevent="EditWlanSecuritytModal(wlanId = wirelessData.id)" class="inline_block">
                                 <button @click="EditSecurityModal = true" type="submit"  class="btn btn-sm">
                                     <span class="icon has-text-danger">
-                                        <i class="fas fa-lock"></i> 
+                                        <i class="fas fa-lock"></i>
                                     </span>
                                 </button>
                             </form>
@@ -64,7 +64,7 @@
                             <td v-else>
                                 Zařízení bez popisu
                             </td>
-                            <td v-if="registration.vendor !== 'false'"> 
+                            <td v-if="registration.vendor !== 'false'">
                                 {{registration.vendor}}
                             </td>
                             <td v-else>
@@ -90,7 +90,7 @@
                     <div id="modal_grey_m">
                         <div id="modal_grey_m" class="container rounded" v-for="wlanEdit in edit" v-bind:key="wlanEdit.id">
                             <br>
-                            <form @submit="EditWlan()">
+                            <form @submit.prevent="EditWlan()">
                                 <div class="form-group">
                                     <label class="textColor_default">SSID</label>
                                     <input type="text" class="form-control" v-model="ssid = wlanEdit.ssid">
@@ -115,7 +115,7 @@
                     <div id="modal_grey_m">
                         <div id="modal_grey_m" class="container rounded" v-for="securityEdit in editSecurity" v-bind:key="securityEdit.id">
                             <br>
-                            <form @submit="EditSecurityWlan()">
+                            <form @submit.prevent="EditSecurityWlan()">
                                 <div class="form-group">
                                     <label class="textColor_default">Heslo</label>
                                     <input type="text" class="form-control" v-model="security = securityEdit['wpa2-pre-shared-key']">

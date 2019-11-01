@@ -23,7 +23,7 @@
                                     <td class="mobileFont">{{device["board-name"]}}</td>
                                     <td class="mobileFont">{{device.uptime}}</td>
                                     <td class="mobileFont">
-                                        <form @submit="RebootDevice(port = device.port)" class="inline_block">
+                                        <form @submit.prevent="RebootDevice(port = device.port)" class="inline_block">
                                             <button type="submit"  class="btn btn-sm">
                                                <button class="button is-small is-success is-outlined">Restart</button>
                                             </button>
@@ -36,7 +36,7 @@
                                     <td class="mobileFont">{{extenderDevice["board-name"]}}</td>
                                     <td class="mobileFont">{{extenderDevice.uptime}}</td>
                                     <td class="mobileFont">
-                                        <form @submit="RebootDevice(port = extenderDevice.port)" class="inline_block">
+                                        <form @submit.prevent="RebootDevice(port = extenderDevice.port)" class="inline_block">
                                             <button type="submit"  class="btn btn-sm">
                                                <button class="button is-small is-success is-outlined">Restart</button>
                                             </button>

@@ -38,7 +38,7 @@
                 <div id="modal_grey_m">
                     <div id="modal_grey_m" class="container rounded">
                         <br>
-                        <form @submit="AddBlocked()">
+                        <form @submit.prevent="AddBlocked()">
                             <div class="form-group">
                                 <label class="textColor_default">WWW adresa, kterou chcete blokovat</label>
                                 <input type="text" class="form-control" v-model="url" placeholder="www.seznam.cz" pattern="[www]{3}[.][a-zA-Z]{1,64}[.][a-z]{1,6}" required>
