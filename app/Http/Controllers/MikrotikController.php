@@ -43,7 +43,7 @@ class MikrotikController extends Controller
             }
 
         // $_SERVER["REMOTE_ADDR"]
-        if ($api->connect($_SERVER["REMOTE_ADDR"], $user, $password, $port)) { //nutno zmenit na dynamiku
+        if ($api->connect("172.28.12.25", $user, $password, $port)) { //nutno zmenit na dynamiku
             return $api;
         } else {
             return false;
@@ -63,7 +63,7 @@ class MikrotikController extends Controller
                 $password = $login["password"];
             }
 
-        if ($api->connect($_SERVER["REMOTE_ADDR"], $user, $password, $port)) { //nutno zmenit na dynamiku
+        if ($api->connect("172.28.12.25", $user, $password, $port)) { //nutno zmenit na dynamiku
             return $api;
         } else {
             return false;
@@ -73,9 +73,9 @@ class MikrotikController extends Controller
 
     public static function getUplink($api)
     {
-        $api->write('/ip/dhcp-client/print');
-        $READ = $api->read(false);
-        $data = $api->parseResponse($READ);
+        $data = $api->comm('/ip/dhcp-client/print');
+        // $READ = $api->read(false);
+        // $data = $api->parseResponse($READ);
 
         return $data;
     }
@@ -83,10 +83,10 @@ class MikrotikController extends Controller
 
     public static function pppoeAddress($api, $pppoeInterface)
     {
-        $api->write('/ip/address/print', false);
-        $api->write('?=interface='. $pppoeInterface, true);
-        $READ = $api->read(false);
-        $data = $api->parseResponse($READ);
+        $data = $api->comm('/ip/address/print', array('?=interface' => $pppoeInterface));
+        // $api->write('?=interface='. $pppoeInterface, true);
+        // $READ = $api->read(false);
+        // $data = $api->parseResponse($READ);
 
         return $data;
     }
@@ -105,10 +105,10 @@ class MikrotikController extends Controller
       * @return void
       */
     public static function getMacBridge($api, $interface){
-        $api->write('/interface/bridge/print', false);
-        $api->write('?=name='.$interface, true);
-        $READ = $api->read(false);
-        $data = $api->parseResponse($READ);
+        $data = $api->comm('/interface/bridge/print', array('?=name' => $interface));
+        // $api->write('?=name='.$interface, true);
+        // $READ = $api->read(false);
+        // $data = $api->parseResponse($READ);
 
         return $data;
     }
@@ -122,10 +122,10 @@ class MikrotikController extends Controller
      */
     public static function getPPPOEClient($api)
     {
-        $api->write('/interface/pppoe-client/print', false);
-        $api->write('?=disabled='. "false", true);
-        $READ = $api->read(false);
-        $data = $api->parseResponse($READ);
+        $data = $api->comm('/interface/pppoe-client/print',array('?=disabled' => "false"));
+        // $api->write('?=disabled='. "false", true);
+        // $READ = $api->read(false);
+        // $data = $api->parseResponse($READ);
 
         return $data;
     }
@@ -160,19 +160,19 @@ class MikrotikController extends Controller
      */
     public static function getWireless($api)
     {
-        $api->write('/interface/wireless/print', false);
-        $api->write('?=mode='."ap-bridge", true);
-        $READ = $api->read(false);
-        $data = $api->parseResponse($READ);
+        $data = $api->comm('/interface/wireless/print', array('?=mode' => "ap-bridge"));
+        // $api->write('?=mode='."ap-bridge", true);
+        // $READ = $api->read(false);
+        // $data = $api->parseResponse($READ);
 
         return $data;
     }
 
     public static function getWirellesRegistrations($api)
     {
-        $api->write('/interface/wireless/registration-table/print');
-        $READ = $api->read(false);
-        $data = $api->parseResponse($READ);
+        $data = $api->comm('/interface/wireless/registration-table/print');
+        // $READ = $api->read(false);
+        // $data = $api->parseResponse($READ);
 
         return $data;
     }
@@ -186,10 +186,10 @@ class MikrotikController extends Controller
      */
     public static function getWirelessPassword($api, $securityProfile)
     {
-        $api->write('/interface/wireless/security-profiles/print', false);
-        $api->write('?=name='.$securityProfile, true);
-        $READ = $api->read(false);
-        $data = $api->parseResponse($READ);
+        $data = $api->comm('/interface/wireless/security-profiles/print', array('?=name' => $securityProfile));
+        // $api->write('?=name='.$securityProfile, true);
+        // $READ = $api->read(false);
+        // $data = $api->parseResponse($READ);
 
         return $data;
     }
@@ -232,10 +232,10 @@ class MikrotikController extends Controller
      */
     public static function getSingleWlan($api, $wlanId)
     {
-        $api->write('/interface/wireless/print', false);
-        $api->write('?=.id='.$wlanId, true);
-        $READ = $api->read(false);
-        $data = $api->parseResponse($READ);
+        $data = $api->comm('/interface/wireless/print', array('?=.id' => $wlanId));
+        // $api->write('?=.id='.$wlanId, true);
+        // $READ = $api->read(false);
+        // $data = $api->parseResponse($READ);
 
         return $data;
     }
@@ -268,9 +268,9 @@ class MikrotikController extends Controller
     public static function getAllDhcpLease($api)
     {
 
-        $api->write('/ip/dhcp-server/lease/print');
-        $READ = $api->read(false);
-        $data = $api->parseResponse($READ);
+        $data = $api->comm('/ip/dhcp-server/lease/print');
+        // $READ = $api->read(false);
+        // $data = $api->parseResponse($READ);
 
         return $data;
     }
@@ -284,10 +284,10 @@ class MikrotikController extends Controller
      */
     public static function getSingleLeaseInfo($api, $mac)
     {
-        $api->write('/ip/dhcp-server/lease/print', false);
-        $api->write('?=mac-address='.$mac, true);
-        $READ = $api->read(false);
-        $data = $api->parseResponse($READ);
+        $data = $api->comm('/ip/dhcp-server/lease/print', array('?=mac-address' => $mac));
+        // $api->write('?=mac-address='.$mac, true);
+        // $READ = $api->read(false);
+        // $data = $api->parseResponse($READ);
 
         return $data;
     }
@@ -301,10 +301,10 @@ class MikrotikController extends Controller
      */
     public static function getSingleLeaseInfoByAddress($api, $address)
     {
-        $api->write('/ip/dhcp-server/lease/print', false);
-        $api->write('?=address='.$address, true);
-        $READ = $api->read(false);
-        $data = $api->parseResponse($READ);
+        $data = $api->comm('/ip/dhcp-server/lease/print', array('?=address' => $address));
+        // $api->write('?=address='.$address, true);
+        // $READ = $api->read(false);
+        // $data = $api->parseResponse($READ);
 
         return $data;
     }
@@ -322,10 +322,10 @@ class MikrotikController extends Controller
 
     public static function remoteLease($api, $id)
     {
-        $api->write('/ip/dhcp-server/lease/remove', false);
-        $api->write('=.id='.$id, true);
-        $READ = $api->read(false);
-        $data = $api->parseResponse($READ);
+        $data = $api->comm('/ip/dhcp-server/lease/remove', array('.id' => $id));
+        // $api->write('=.id='.$id, true);
+        // $READ = $api->read(false);
+        // $data = $api->parseResponse($READ);
 
         return $data;
     }
@@ -338,18 +338,18 @@ class MikrotikController extends Controller
      */
     public static function getDhcpNetwork($api)
     {
-        $api->write('/ip/dhcp-server/network/print');
-        $READ = $api->read(false);
-        $data = $api->parseResponse($READ);
+        $data = $api->comm('/ip/dhcp-server/network/print');
+        // $READ = $api->read(false);
+        // $data = $api->parseResponse($READ);
 
         return $data;
     }
 
     public static function getDhcpData($api)
     {
-        $api->write('/ip/dhcp-server/print');
-        $READ = $api->read(false);
-        $data = $api->parseResponse($READ);
+        $data = $api->comm('/ip/dhcp-server/print');
+        // $READ = $api->read(false);
+        // $data = $api->parseResponse($READ);
 
         return $data;
     }
@@ -611,9 +611,9 @@ class MikrotikController extends Controller
      */
     public static function getInterfaceList($api)
     {
-        $api->write('/interface/ethernet/print');
-        $READ = $api->read(false);
-        $data = $api->parseResponse($READ);
+        $data = $api->comm('/interface/ethernet/print');
+        // $READ = $api->read(false);
+        // $data = $api->parseResponse($READ);
 
         return $data;
     }
@@ -621,10 +621,10 @@ class MikrotikController extends Controller
 
     public static function getPortsFromBridge($api, $bridge)
     {
-        $api->write('/interface/bridge/port/print', false);
-        $api->write('?=bridge='. $bridge, true);
-        $READ = $api->read(false);
-        $data = $api->parseResponse($READ);
+        $data = $api->comm('/interface/bridge/port/print', array('?=bridge' => $bridge));
+        // $api->write('?=bridge='. $bridge, true);
+        // $READ = $api->read(false);
+        // $data = $api->parseResponse($READ);
 
         return $data;
     }
@@ -643,9 +643,9 @@ class MikrotikController extends Controller
      */
     public static function getIPv6Info($api)
     {
-        $api->write('/ipv6/dhcp-client/print');
-        $READ = $api->read(false);
-        $data = $api->parseResponse($READ);
+        $data = $api->comm('/ipv6/dhcp-client/print');
+        // $READ = $api->read(false);
+        // $data = $api->parseResponse($READ);
 
         return $data;
     }
@@ -664,9 +664,9 @@ class MikrotikController extends Controller
      */
     public static function getSysInfo($api)
     {
-        $api->write('/system/resource/print');
-        $READ = $api->read(false);
-        $data = $api->parseResponse($READ);
+        $data = $api->comm('/system/resource/print');
+        // $READ = $api->read(false);
+        // $data = $api->parseResponse($READ);
 
         return $data;
     }
@@ -1009,11 +1009,11 @@ class MikrotikController extends Controller
             $interfaces = $this->getInterfaceList($login);
             foreach($interfaces as $interfaceData)
             {
-                $api->write('/interface/ethernet/monitor', false);
-                $api->write('=numbers='.$interfaceData["name"], false);
-                $api->write('=once='."yes",true);
-                $READ = $api->read(false);
-                $data = $api->parseResponse($READ);
+                $data = $api->comm('/interface/ethernet/monitor', array('numbers'=> $interfaceData["name"], 'once' => "yes"));
+                // $api->write('=numbers='.$interfaceData["name"], false);
+                // $api->write('=once='."yes",true);
+                // $READ = $api->read(false);
+                // $data = $api->parseResponse($READ);
 
                 $interface[] = array(
                     'interface' => $interfaceData,

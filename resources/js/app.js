@@ -1,7 +1,5 @@
 require('./bootstrap');
 window.Vue = require('vue');
-// Vue.config.productionTip = true;
-// Vue.config.devtools = true;
 
 import axios from 'axios';
 
@@ -78,10 +76,6 @@ const PageNotFound = resolve => {
 
 
 axios.defaults.baseURL = '';
-// window.axios.defaults.headers.common = {
-//     'X-Requested-With': 'XMLHttpRequest',
-//     'X-CSRF-TOKEN' : document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-// };
 
 // window.axios = require('axios').default;
 Vue.use(VueRouter);
@@ -95,10 +89,6 @@ let routes = [
                 path: '',
                 component: PrehledComponent,
             },
-            // {
-            //     path: 'wifi',
-            //     component:WifiComponent,
-            // },
             {
                 path: 'extenderVisual',
                 component: ExtenderVisualComponent
@@ -131,10 +121,6 @@ let routes = [
                     }
                 ]
             },
-            // {
-            //     path: 'nat_dmz',
-            //     component: DmzComponent
-            // },
             {
                 path: '/speedTest',
                 component: SpeedTestComponent,
